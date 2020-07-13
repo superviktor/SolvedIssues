@@ -4,4 +4,9 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\ThreadSafeNumericIdGenerator.DataContract\ThreadSafeNumericIdGenerator.DataContract.csproj" />
+    <ProjectReference Include="..\ThreadSafeNumericIdGenerator.Domain\ThreadSafeNumericIdGenerator.Domain.csproj" />
+  </ItemGroup>
+
 </Project>

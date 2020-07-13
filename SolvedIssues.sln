@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ThreadSafeNumericIdGenerato
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ThreadSafeNumericIdGenerator.Api.Tests", "ThreadSafeNumericIdGenerator.Api.Tests\ThreadSafeNumericIdGenerator.Api.Tests.csproj", "{9650F246-411F-4048-8AA5-45C177A1E06D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ThreadSafeNumericIdGenerator.DataContract", "ThreadSafeNumericIdGenerator.DataContract\ThreadSafeNumericIdGenerator.DataContract.csproj", "{180659F0-CD2A-4CE6-A7F6-DF1799039610}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,6 +49,10 @@ Global
 		{9650F246-411F-4048-8AA5-45C177A1E06D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9650F246-411F-4048-8AA5-45C177A1E06D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9650F246-411F-4048-8AA5-45C177A1E06D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{180659F0-CD2A-4CE6-A7F6-DF1799039610}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{180659F0-CD2A-4CE6-A7F6-DF1799039610}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{180659F0-CD2A-4CE6-A7F6-DF1799039610}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{180659F0-CD2A-4CE6-A7F6-DF1799039610}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -58,6 +64,7 @@ Global
 		{942F1B2D-48E8-41A1-95E3-EEA8FB1ECBD5} = {DC64140F-6AAC-43CE-AB8D-08AA1370208E}
 		{B62CAAFB-7617-4801-A7C0-42A07143FC4C} = {DC64140F-6AAC-43CE-AB8D-08AA1370208E}
 		{9650F246-411F-4048-8AA5-45C177A1E06D} = {DC64140F-6AAC-43CE-AB8D-08AA1370208E}
+		{180659F0-CD2A-4CE6-A7F6-DF1799039610} = {DC64140F-6AAC-43CE-AB8D-08AA1370208E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E96BC937-8A79-47ED-9E9A-7BF856BD0C27}

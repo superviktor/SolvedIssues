@@ -33,7 +33,7 @@ namespace ThreadSafeNumericIdGenerator.Api.Tests
             var expectedResults = Enumerable.Range(1, 100);
 
             //Act
-            var tasks = from n in Enumerable.Range(0, 100) select client.GetAsync("/api/id-holers/viktor/next");
+            var tasks = from n in Enumerable.Range(0, 100) select client.GetAsync("/api/id-holders/viktor/next");
             var startedTasks = tasks.ToList();
             await Task.WhenAll(startedTasks);
 
@@ -41,8 +41,8 @@ namespace ThreadSafeNumericIdGenerator.Api.Tests
             var readContentTasks = from t in startedTasks select t.Result.Content.ReadAsStringAsync();
             var startedReadContentTasks = readContentTasks.ToList();
             await Task.WhenAll(startedReadContentTasks);
-
             var ids = startedReadContentTasks.Select(r => long.Parse(r.Result)).OrderBy(r => r);
+
             ids.Count().Should().Be(100);
             ids.Should().BeEquivalentTo(expectedResults);
         }
