@@ -31,5 +31,15 @@ namespace ThreadSafeNumericIdGenerator.Domain.Model.ValueObjects
         {
             return Value.GetHashCode();
         }
+
+        public static explicit operator IdHolderCurrentId(long startFrom)
+        {
+            return Create(startFrom).Value;
+        }
+
+        public static implicit operator long(IdHolderCurrentId idHolderCurrentId)
+        {
+            return idHolderCurrentId.Value;
+        }
     }
 }

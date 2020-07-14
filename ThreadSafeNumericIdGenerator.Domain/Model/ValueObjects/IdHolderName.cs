@@ -28,5 +28,15 @@ namespace ThreadSafeNumericIdGenerator.Domain.Model.ValueObjects
         {
             return Value.GetHashCode();
         }
+
+        public static explicit operator IdHolderName(string name)
+        {
+            return Create(name).Value;
+        }
+
+        public static implicit operator string(IdHolderName idHolderName)
+        {
+            return idHolderName.Value;
+        }
     }
 }

@@ -21,6 +21,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ThreadSafeNumericIdGenerato
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ThreadSafeNumericIdGenerator.Domain.Base", "ThreadSafeNumericIdGenerator.Domain.Base\ThreadSafeNumericIdGenerator.Domain.Base.csproj", "{BBA8CCC5-ECD0-43EB-9DD6-387470001EA3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ThreadSafeNumericIdGenerator.Repository.Base", "ThreadSafeNumericIdGenerator.Repository.Base\ThreadSafeNumericIdGenerator.Repository.Base.csproj", "{49C716B7-7F8A-42BA-9BF4-E103379C5D24}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -59,6 +61,10 @@ Global
 		{BBA8CCC5-ECD0-43EB-9DD6-387470001EA3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BBA8CCC5-ECD0-43EB-9DD6-387470001EA3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BBA8CCC5-ECD0-43EB-9DD6-387470001EA3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{49C716B7-7F8A-42BA-9BF4-E103379C5D24}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{49C716B7-7F8A-42BA-9BF4-E103379C5D24}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{49C716B7-7F8A-42BA-9BF4-E103379C5D24}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{49C716B7-7F8A-42BA-9BF4-E103379C5D24}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -72,6 +78,7 @@ Global
 		{9650F246-411F-4048-8AA5-45C177A1E06D} = {DC64140F-6AAC-43CE-AB8D-08AA1370208E}
 		{180659F0-CD2A-4CE6-A7F6-DF1799039610} = {DC64140F-6AAC-43CE-AB8D-08AA1370208E}
 		{BBA8CCC5-ECD0-43EB-9DD6-387470001EA3} = {DC64140F-6AAC-43CE-AB8D-08AA1370208E}
+		{49C716B7-7F8A-42BA-9BF4-E103379C5D24} = {DC64140F-6AAC-43CE-AB8D-08AA1370208E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E96BC937-8A79-47ED-9E9A-7BF856BD0C27}
