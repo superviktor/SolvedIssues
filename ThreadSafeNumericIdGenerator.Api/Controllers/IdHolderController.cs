@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 using ThreadSafeNumericIdGenerator.Application.Base;
 using ThreadSafeNumericIdGenerator.DataContract;
-using ThreadSafeNumericIdGenerator.Domain.Model;
 
 namespace ThreadSafeNumericIdGenerator.Api.Controllers
 {
@@ -33,9 +32,11 @@ namespace ThreadSafeNumericIdGenerator.Api.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
+            // make private in service
             if (await idHolderService.ExistsAsync(createIdHolderDto.Name))
                 return BadRequest($"Name {createIdHolderDto.Name} is in use");
 
+            //try catch ?
             await idHolderService.CreateAsync(createIdHolderDto);
 
             return Created("", createIdHolderDto);

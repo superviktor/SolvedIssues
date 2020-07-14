@@ -5,19 +5,21 @@ VisualStudioVersion = 16.0.30225.117
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ThreadSafeNumericIdGenerator", "ThreadSafeNumericIdGenerator", "{DC64140F-6AAC-43CE-AB8D-08AA1370208E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ThreadSafeNumericIdGenerator.Domain", "ThreadSafeNumericIdGenerator.Domain\ThreadSafeNumericIdGenerator.Domain.csproj", "{23352690-04AA-4ABE-9DB1-6927CAE58E21}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ThreadSafeNumericIdGenerator.Domain", "ThreadSafeNumericIdGenerator.Domain\ThreadSafeNumericIdGenerator.Domain.csproj", "{23352690-04AA-4ABE-9DB1-6927CAE58E21}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ThreadSafeNumericIdGenerator.Api", "ThreadSafeNumericIdGenerator.Api\ThreadSafeNumericIdGenerator.Api.csproj", "{3254632D-99D6-4815-8473-B8A7B28BDBD7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ThreadSafeNumericIdGenerator.Api", "ThreadSafeNumericIdGenerator.Api\ThreadSafeNumericIdGenerator.Api.csproj", "{3254632D-99D6-4815-8473-B8A7B28BDBD7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ThreadSafeNumericIdGenerator.Application", "ThreadSafeNumericIdGenerator.Application\ThreadSafeNumericIdGenerator.Application.csproj", "{3C1D6ABD-0653-4A18-B2FD-CA8A79C1E16F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ThreadSafeNumericIdGenerator.Application", "ThreadSafeNumericIdGenerator.Application\ThreadSafeNumericIdGenerator.Application.csproj", "{3C1D6ABD-0653-4A18-B2FD-CA8A79C1E16F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ThreadSafeNumericIdGenerator.Domain.Tests", "ThreadSafeNumericIdGenerator.Domain.Tests\ThreadSafeNumericIdGenerator.Domain.Tests.csproj", "{942F1B2D-48E8-41A1-95E3-EEA8FB1ECBD5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ThreadSafeNumericIdGenerator.Domain.Tests", "ThreadSafeNumericIdGenerator.Domain.Tests\ThreadSafeNumericIdGenerator.Domain.Tests.csproj", "{942F1B2D-48E8-41A1-95E3-EEA8FB1ECBD5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ThreadSafeNumericIdGenerator.Repository", "ThreadSafeNumericIdGenerator.Repository\ThreadSafeNumericIdGenerator.Repository.csproj", "{B62CAAFB-7617-4801-A7C0-42A07143FC4C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ThreadSafeNumericIdGenerator.Repository", "ThreadSafeNumericIdGenerator.Repository\ThreadSafeNumericIdGenerator.Repository.csproj", "{B62CAAFB-7617-4801-A7C0-42A07143FC4C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ThreadSafeNumericIdGenerator.Api.Tests", "ThreadSafeNumericIdGenerator.Api.Tests\ThreadSafeNumericIdGenerator.Api.Tests.csproj", "{9650F246-411F-4048-8AA5-45C177A1E06D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ThreadSafeNumericIdGenerator.Api.Tests", "ThreadSafeNumericIdGenerator.Api.Tests\ThreadSafeNumericIdGenerator.Api.Tests.csproj", "{9650F246-411F-4048-8AA5-45C177A1E06D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ThreadSafeNumericIdGenerator.DataContract", "ThreadSafeNumericIdGenerator.DataContract\ThreadSafeNumericIdGenerator.DataContract.csproj", "{180659F0-CD2A-4CE6-A7F6-DF1799039610}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ThreadSafeNumericIdGenerator.DataContract", "ThreadSafeNumericIdGenerator.DataContract\ThreadSafeNumericIdGenerator.DataContract.csproj", "{180659F0-CD2A-4CE6-A7F6-DF1799039610}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ThreadSafeNumericIdGenerator.Domain.Base", "ThreadSafeNumericIdGenerator.Domain.Base\ThreadSafeNumericIdGenerator.Domain.Base.csproj", "{BBA8CCC5-ECD0-43EB-9DD6-387470001EA3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -53,6 +55,10 @@ Global
 		{180659F0-CD2A-4CE6-A7F6-DF1799039610}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{180659F0-CD2A-4CE6-A7F6-DF1799039610}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{180659F0-CD2A-4CE6-A7F6-DF1799039610}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BBA8CCC5-ECD0-43EB-9DD6-387470001EA3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BBA8CCC5-ECD0-43EB-9DD6-387470001EA3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BBA8CCC5-ECD0-43EB-9DD6-387470001EA3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BBA8CCC5-ECD0-43EB-9DD6-387470001EA3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -65,6 +71,7 @@ Global
 		{B62CAAFB-7617-4801-A7C0-42A07143FC4C} = {DC64140F-6AAC-43CE-AB8D-08AA1370208E}
 		{9650F246-411F-4048-8AA5-45C177A1E06D} = {DC64140F-6AAC-43CE-AB8D-08AA1370208E}
 		{180659F0-CD2A-4CE6-A7F6-DF1799039610} = {DC64140F-6AAC-43CE-AB8D-08AA1370208E}
+		{BBA8CCC5-ECD0-43EB-9DD6-387470001EA3} = {DC64140F-6AAC-43CE-AB8D-08AA1370208E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E96BC937-8A79-47ED-9E9A-7BF856BD0C27}
