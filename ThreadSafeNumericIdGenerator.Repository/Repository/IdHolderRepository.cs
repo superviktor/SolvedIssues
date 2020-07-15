@@ -9,9 +9,9 @@ namespace ThreadSafeNumericIdGenerator.Repository.Repository
     {
         private const string IdHolderTableName = "IdHolders";
         private const string IdHolcerPartitionKey = "IdHolder";
-        private readonly AzureTableRepository<IdHolder> repository;
+        private readonly IAzureTableRepository<IdHolder> repository;
 
-        public IdHolderRepository(AzureTableRepository<IdHolder> repository)
+        public IdHolderRepository(IAzureTableRepository<IdHolder> repository)
         {
             this.repository = repository;
         }
@@ -27,6 +27,13 @@ namespace ThreadSafeNumericIdGenerator.Repository.Repository
             };
 
             await repository.AddAsync(IdHolderTableName, entity);
+        }
+
+        public async Task<bool> ExistsAsync(string name)
+        {
+            var idHolder = await repository.GetAsync(IdHolderTableName, IdHolcerPartitionKey, name);
+
+            return idHolder != null;
         }
     }
 }

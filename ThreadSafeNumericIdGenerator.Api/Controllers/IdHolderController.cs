@@ -32,10 +32,6 @@ namespace ThreadSafeNumericIdGenerator.Api.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            // make private in service
-            if (await idHolderService.ExistsAsync(createIdHolderDto.Name))
-                return BadRequest($"Name {createIdHolderDto.Name} is in use");
-
             //try catch ?
             await idHolderService.CreateAsync(createIdHolderDto);
 

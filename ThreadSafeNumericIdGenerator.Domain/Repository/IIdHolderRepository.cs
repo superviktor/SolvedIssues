@@ -7,5 +7,6 @@ namespace ThreadSafeNumericIdGenerator.Domain.Repository
     {
         // shoud here be entity not domain model
         Task CreateAsync(IdHolder idHolder);
+        Task<bool> ExistsAsync(string name);
     }
 }

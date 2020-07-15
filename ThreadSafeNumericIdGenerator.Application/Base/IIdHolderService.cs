@@ -7,6 +7,5 @@ namespace ThreadSafeNumericIdGenerator.Application.Base
     {
         Task<long> NextAsync(string name);
         Task CreateAsync(CreateIdHolderDto createIdHolderDto);
-        Task<bool> ExistsAsync(string name);
     }
 }

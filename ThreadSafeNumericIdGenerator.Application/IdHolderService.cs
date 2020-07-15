@@ -18,6 +18,9 @@ namespace ThreadSafeNumericIdGenerator.Application
 
         public async Task CreateAsync(CreateIdHolderDto createIdHolderDto)
         {
+            if (await idHolderRepository.ExistsAsync(createIdHolderDto.Name))
+                throw new Exception($"IdHolder Name { createIdHolderDto.Name } is in use");
+
             var idHolderCreateResult = IdHolder.Create(createIdHolderDto.Name, createIdHolderDto.StartFrom);
             if (idHolderCreateResult.IsSuccess)
             {

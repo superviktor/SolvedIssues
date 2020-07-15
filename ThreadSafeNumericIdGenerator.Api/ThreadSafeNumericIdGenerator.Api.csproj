@@ -5,9 +5,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="5.5.1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\ThreadSafeNumericIdGenerator.Application\ThreadSafeNumericIdGenerator.Application.csproj" />
     <ProjectReference Include="..\ThreadSafeNumericIdGenerator.DataContract\ThreadSafeNumericIdGenerator.DataContract.csproj" />
     <ProjectReference Include="..\ThreadSafeNumericIdGenerator.Domain\ThreadSafeNumericIdGenerator.Domain.csproj" />
+    <ProjectReference Include="..\ThreadSafeNumericIdGenerator.Repository\ThreadSafeNumericIdGenerator.Repository.csproj" />
   </ItemGroup>
 
 
