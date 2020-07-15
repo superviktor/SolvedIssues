@@ -1,8 +1,8 @@
 ﻿using Microsoft.Azure.Cosmos.Table;
 
-namespace ThreadSafeNumericIdGenerator.Repository.Model
+namespace ThreadSafeNumericIdGenerator.Repository.DataContract
 {
-    public class IdHolder : TableEntity
+    public class IdHolderTableEntity : TableEntity
     {
         public string Name { get; set; }
         public long CurrentId { get; set; }

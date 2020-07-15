@@ -1,4 +1,4 @@
-﻿using ThreadSafeNumericIdGenerator.Domain.Base;
+﻿using ThreadSafeNumericIdGenerator.Common;
 using ThreadSafeNumericIdGenerator.Domain.Model.ValueObjects;
 
 namespace ThreadSafeNumericIdGenerator.Domain.Model.Entities
@@ -14,7 +14,7 @@ namespace ThreadSafeNumericIdGenerator.Domain.Model.Entities
             CurrentId = idHolderCurrentId;
         }
 
-        public static Result<IdHolder> Create(string name, long? startFrom = null)  
+        public static Result<IdHolder> Create(string name, long? startFrom = null)
         {
             var idHolderName = IdHolderName.Create(name);
             var idHolderCurrentId = IdHolderCurrentId.Create(startFrom);
@@ -24,5 +24,10 @@ namespace ThreadSafeNumericIdGenerator.Domain.Model.Entities
                 ? Result.Success(new IdHolder(idHolderName.Value, idHolderCurrentId.Value))
                 : Result.Fail<IdHolder>(result.Error);
         }
+
+        public long Next()
+        {
+            return CurrentId.Next();
+        } 
     }
 }

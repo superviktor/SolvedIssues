@@ -20,9 +20,9 @@ namespace ThreadSafeNumericIdGenerator.Api.Controllers
         [Route("/api/id-holders/{name}/next")]
         public async Task<IActionResult> Next([FromRoute] string name)
         {
-            var nextId = await idHolderService.NextAsync(name);
-
-            return Ok(nextId);
+            var result = await idHolderService.NextAsync(name);
+           
+            return result.IsSuccess ? Ok(result.Value) : StatusCode(500, result.Error);
         }
 
         [HttpPost]
@@ -32,10 +32,9 @@ namespace ThreadSafeNumericIdGenerator.Api.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            //try catch ?
-            await idHolderService.CreateAsync(createIdHolderDto);
+            var result = await idHolderService.CreateAsync(createIdHolderDto);
 
-            return Created("", createIdHolderDto);
+            return result.IsSuccess ? Created("", createIdHolderDto) : StatusCode(500, result.Error);
         }
     }
 }

@@ -6,7 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using CloudStorageAccount = Microsoft.Azure.Cosmos.Table.CloudStorageAccount;
 
-namespace ThreadSafeNumericIdGenerator.Repository.Base
+namespace ThreadSafeNumericIdGenerator.AzureTablesRepository
 {
     public class AzureTableRepository<T> : IAzureTableRepository<T> where T : class, ITableEntity, new()
     {

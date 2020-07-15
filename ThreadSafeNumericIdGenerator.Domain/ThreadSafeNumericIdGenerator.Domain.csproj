@@ -5,7 +5,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ThreadSafeNumericIdGenerator.Common\ThreadSafeNumericIdGenerator.Common.csproj" />
     <ProjectReference Include="..\ThreadSafeNumericIdGenerator.Domain.Base\ThreadSafeNumericIdGenerator.Domain.Base.csproj" />
+    <ProjectReference Include="..\ThreadSafeNumericIdGenerator.Repository.DataContract\ThreadSafeNumericIdGenerator.Repository.DataContract.csproj" />
   </ItemGroup>
 
 </Project>

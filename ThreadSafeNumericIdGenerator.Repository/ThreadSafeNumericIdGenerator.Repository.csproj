@@ -9,8 +9,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ThreadSafeNumericIdGenerator.AzureTablesRepository\ThreadSafeNumericIdGenerator.AzureTablesRepository.csproj" />
     <ProjectReference Include="..\ThreadSafeNumericIdGenerator.Domain\ThreadSafeNumericIdGenerator.Domain.csproj" />
-    <ProjectReference Include="..\ThreadSafeNumericIdGenerator.Repository.Base\ThreadSafeNumericIdGenerator.Repository.Base.csproj" />
+    <ProjectReference Include="..\ThreadSafeNumericIdGenerator.Repository.DataContract\ThreadSafeNumericIdGenerator.Repository.DataContract.csproj" />
   </ItemGroup>
 
 </Project>

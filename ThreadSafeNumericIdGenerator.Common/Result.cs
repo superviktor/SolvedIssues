@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ThreadSafeNumericIdGenerator.Domain.Base
+namespace ThreadSafeNumericIdGenerator.Common
 {
     public class Result
     {
@@ -12,7 +12,7 @@ namespace ThreadSafeNumericIdGenerator.Domain.Base
         {
             if (isSuccess && !string.IsNullOrEmpty(error))
                 throw new InvalidOperationException();
-            if(!isSuccess && string.IsNullOrEmpty(error))
+            if (!isSuccess && string.IsNullOrEmpty(error))
                 throw new InvalidOperationException();
 
             IsSuccess = isSuccess;

@@ -1,20 +1,13 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using ThreadSafeNumericIdGenerator.Application;
 using ThreadSafeNumericIdGenerator.Application.Base;
+using ThreadSafeNumericIdGenerator.AzureTablesRepository;
 using ThreadSafeNumericIdGenerator.Domain.Repository;
-using ThreadSafeNumericIdGenerator.Repository.Base;
-using ThreadSafeNumericIdGenerator.Repository.Model;
+using ThreadSafeNumericIdGenerator.Repository.DataContract;
 using ThreadSafeNumericIdGenerator.Repository.Repository;
 
 namespace ThreadSafeNumericIdGenerator.Api
@@ -32,7 +25,7 @@ namespace ThreadSafeNumericIdGenerator.Api
         {
             services.AddControllers();
 
-            services.AddScoped<IAzureTableRepository<IdHolder>>(s=> new AzureTableRepository<IdHolder>(Configuration.GetConnectionString("AzureTables")));
+            services.AddScoped<IAzureTableRepository<IdHolderTableEntity>>(s=> new AzureTableRepository<IdHolderTableEntity>(Configuration.GetConnectionString("AzureTables")));
             services.AddScoped<IIdHolderRepository, IdHolderRepository>();
             services.AddScoped<IIdHolderService, IdHolderService>();
 

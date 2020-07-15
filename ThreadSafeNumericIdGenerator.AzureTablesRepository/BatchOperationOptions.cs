@@ -1,4 +1,4 @@
-﻿namespace ThreadSafeNumericIdGenerator.Repository.Base
+﻿namespace ThreadSafeNumericIdGenerator.AzureTablesRepository
 {
     public class BatchOperationOptions
     {

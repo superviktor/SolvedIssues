@@ -1,4 +1,5 @@
-﻿using ThreadSafeNumericIdGenerator.Domain.Base;
+﻿using ThreadSafeNumericIdGenerator.Common;
+using ThreadSafeNumericIdGenerator.Domain.Base;
 
 namespace ThreadSafeNumericIdGenerator.Domain.Model.ValueObjects
 {
@@ -20,7 +21,7 @@ namespace ThreadSafeNumericIdGenerator.Domain.Model.ValueObjects
             return Result.Success(new IdHolderCurrentId(value.Value));
         }
 
-        public long Value { get; }
+        public long Value { get; private set; }
 
         protected override bool EqualsCore(IdHolderCurrentId other)
         {
@@ -40,6 +41,13 @@ namespace ThreadSafeNumericIdGenerator.Domain.Model.ValueObjects
         public static implicit operator long(IdHolderCurrentId idHolderCurrentId)
         {
             return idHolderCurrentId.Value;
+        }
+
+        public long Next()
+        {
+            Value += 1;
+
+            return Value;
         }
     }
 }

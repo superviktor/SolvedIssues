@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Threading.Tasks;
 using ThreadSafeNumericIdGenerator.Application.Base;
+using ThreadSafeNumericIdGenerator.Common;
 using ThreadSafeNumericIdGenerator.DataContract;
 using ThreadSafeNumericIdGenerator.Domain.Model.Entities;
 using ThreadSafeNumericIdGenerator.Domain.Repository;
+using ThreadSafeNumericIdGenerator.Repository.DataContract;
 
 namespace ThreadSafeNumericIdGenerator.Application
 {
@@ -16,32 +18,47 @@ namespace ThreadSafeNumericIdGenerator.Application
             this.idHolderRepository = idHolderRepository;
         }
 
-        public async Task CreateAsync(CreateIdHolderDto createIdHolderDto)
+        public async Task<Result> CreateAsync(CreateIdHolderDto createIdHolderDto)
         {
             if (await idHolderRepository.ExistsAsync(createIdHolderDto.Name))
-                throw new Exception($"IdHolder Name { createIdHolderDto.Name } is in use");
+                return Result.Fail($"IdHolder Name { createIdHolderDto.Name } is in use");
 
             var idHolderCreateResult = IdHolder.Create(createIdHolderDto.Name, createIdHolderDto.StartFrom);
             if (idHolderCreateResult.IsSuccess)
             {
-                await idHolderRepository.CreateAsync(idHolderCreateResult.Value);
+                var entity = new IdHolderTableEntity
+                {
+                    Name = idHolderCreateResult.Value.Name,
+                    CurrentId = idHolderCreateResult.Value.CurrentId
+                };
+                await idHolderRepository.CreateAsync(entity);
+
+                return Result.Success();
             }
             else
             {
-                //is this best way ? maybe some result ?
-                throw new Exception(idHolderCreateResult.Error);
+                return Result.Fail(idHolderCreateResult.Error);
             }
 
         }
 
-        public Task<bool> ExistsAsync(string name)
+        public async Task<Result<long>> NextAsync(string name)
         {
-            throw new NotImplementedException();
-        }
+            if (await idHolderRepository.ExistsAsync(name))
+            {
+                var entity = await idHolderRepository.GetAsync(name);
+                var idHolder = IdHolder.Create(entity.Name, entity.CurrentId).Value;
+                long nextId = idHolder.Next();
+                entity.CurrentId = nextId;
+                await idHolderRepository.UpdateAsync(entity);
 
-        public Task<long> NextAsync(string name)
-        {
-            throw new NotImplementedException();
+                return Result.Success(nextId);
+            }
+            else
+            {
+                // create new holder with default id value
+                throw new NotImplementedException();
+            }
         }
     }
 }

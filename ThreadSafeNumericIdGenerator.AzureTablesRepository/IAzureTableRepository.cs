@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace ThreadSafeNumericIdGenerator.Repository.Base
+namespace ThreadSafeNumericIdGenerator.AzureTablesRepository
 {
     public interface IAzureTableRepository<T>
     {

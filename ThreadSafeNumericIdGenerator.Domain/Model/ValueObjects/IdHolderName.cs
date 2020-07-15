@@ -1,4 +1,5 @@
 ﻿using System;
+using ThreadSafeNumericIdGenerator.Common;
 using ThreadSafeNumericIdGenerator.Domain.Base;
 
 namespace ThreadSafeNumericIdGenerator.Domain.Model.ValueObjects

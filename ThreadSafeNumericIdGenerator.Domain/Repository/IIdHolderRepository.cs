@@ -1,12 +1,13 @@
 ﻿using System.Threading.Tasks;
-using ThreadSafeNumericIdGenerator.Domain.Model.Entities;
+using ThreadSafeNumericIdGenerator.Repository.DataContract;
 
 namespace ThreadSafeNumericIdGenerator.Domain.Repository
 {
     public interface IIdHolderRepository
     {
-        // shoud here be entity not domain model
-        Task CreateAsync(IdHolder idHolder);
+        Task CreateAsync(IdHolderTableEntity idHolder);
         Task<bool> ExistsAsync(string name);
+        Task<IdHolderTableEntity> GetAsync(string name);
+        Task UpdateAsync(IdHolderTableEntity idHolder);
     }
 }
