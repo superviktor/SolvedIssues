@@ -1,5 +1,4 @@
-﻿using ThreadSafeNumericIdGenerator.Common;
-using ThreadSafeNumericIdGenerator.Domain.Model.ValueObjects;
+﻿using ThreadSafeNumericIdGenerator.Domain.Model.ValueObjects;
 
 namespace ThreadSafeNumericIdGenerator.Domain.Model.Entities
 {
