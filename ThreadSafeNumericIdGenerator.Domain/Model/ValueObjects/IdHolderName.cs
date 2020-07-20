@@ -13,7 +13,7 @@ namespace ThreadSafeNumericIdGenerator.Domain.Model.ValueObjects
 
         public static Result<IdHolderName> Create(string name)
         {
-            if (string.IsNullOrEmpty(name))
+            if (string.IsNullOrEmpty(name) || string.IsNullOrWhiteSpace(name))
                 return Result.Fail<IdHolderName>("Name can't be null or empty");
 
             return Result.Success(new IdHolderName(name));

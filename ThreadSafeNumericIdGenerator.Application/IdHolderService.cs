@@ -4,6 +4,7 @@ using ThreadSafeNumericIdGenerator.Application.Base;
 using ThreadSafeNumericIdGenerator.Common;
 using ThreadSafeNumericIdGenerator.DataContract;
 using ThreadSafeNumericIdGenerator.Domain.Model.Entities;
+using ThreadSafeNumericIdGenerator.Domain.Model.ValueObjects;
 using ThreadSafeNumericIdGenerator.Domain.Repository;
 using ThreadSafeNumericIdGenerator.Repository.DataContract;
 
@@ -30,14 +31,17 @@ namespace ThreadSafeNumericIdGenerator.Application
             if (exists)
                 throw new ArgumentException($"IdHolder Name { createIdHolderDto.Name } is in use");
 
-            var idHolderCreateResult = IdHolder.Create(createIdHolderDto.Name, createIdHolderDto.StartFrom);
-            if (idHolderCreateResult.IsSuccess)
+            var idHolderName = IdHolderName.Create(createIdHolderDto.Name);
+            var idHolderCurrentId = IdHolderCurrentId.Create(createIdHolderDto.StartFrom);
+            var result = Result.Combine(idHolderName, idHolderCurrentId);
+            if (result.IsSuccess)
             {
-                await CreateIdHolderTableEntityAsync(idHolderCreateResult);
+                var idHolder = new IdHolder(idHolderName.Value, idHolderCurrentId.Value);
+                await CreateIdHolderTableEntityAsync(idHolder);
             }
             else
             {
-                throw new Exception(idHolderCreateResult.Error);
+                throw new Exception(result.Error);
             }
         }
 
@@ -46,36 +50,41 @@ namespace ThreadSafeNumericIdGenerator.Application
             if (await idHolderRepository.ExistsAsync(name))
             {
                 var entity = await idHolderRepository.GetAsync(name);
-                var idHolder = IdHolder.Create(entity.Name, entity.CurrentId).Value;
-                long nextId = idHolder.Next();
-                entity.CurrentId = nextId;
+                var idHolderName = IdHolderName.Create(entity.Name);
+                var idHolderCurrentId = IdHolderCurrentId.Create(entity.CurrentId);
+                var idHolder = new IdHolder(idHolderName.Value, idHolderCurrentId.Value);
+                entity.CurrentId = idHolder.Next();
                 await idHolderRepository.UpdateAsync(entity);
 
-                return nextId;
+                return idHolder.CurrentId.Value;
             }
             else
             {
-                var idHolderCreateResult = IdHolder.Create(name, StartFromDefault);
-                if (idHolderCreateResult.IsSuccess)
+                var idHolderName = IdHolderName.Create(name);
+                var idHolderCurrentId = IdHolderCurrentId.Create(StartFromDefault);
+                var result = Result.Combine(idHolderName, idHolderCurrentId);
+                if (result.IsSuccess)
                 {
-                    await CreateIdHolderTableEntityAsync(idHolderCreateResult);
+                    var idHolder = new IdHolder(idHolderName.Value, idHolderCurrentId.Value);
+                    await CreateIdHolderTableEntityAsync(idHolder);
 
                     return StartFromDefault;
                 }
                 else
                 {
-                    throw new Exception(idHolderCreateResult.Error);
-                }
+                    throw new Exception(result.Error);
+                }           
             }
         }
 
-        private async Task CreateIdHolderTableEntityAsync(Result<IdHolder> idHolderCreateResult)
+        private async Task CreateIdHolderTableEntityAsync(IdHolder idHolder)
         {
             var entity = new IdHolderTableEntity
             {
-                Name = idHolderCreateResult.Value.Name,
-                CurrentId = idHolderCreateResult.Value.CurrentId
+                Name = idHolder.Name,
+                CurrentId = idHolder.CurrentId
             };
+
             await idHolderRepository.CreateAsync(entity);
         }
     }
