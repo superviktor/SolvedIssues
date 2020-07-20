@@ -1,7 +1,6 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using ThreadSafeNumericIdGenerator.Application.Base;
-using ThreadSafeNumericIdGenerator.Common;
 using ThreadSafeNumericIdGenerator.DataContract;
 
 namespace ThreadSafeNumericIdGenerator.Api.Tests.Fakes
@@ -10,7 +9,7 @@ namespace ThreadSafeNumericIdGenerator.Api.Tests.Fakes
     {
         private static long currentId = 0;
 
-        public Task<Result> CreateAsync(CreateIdHolderDto createIdHolderDto)
+        public Task CreateAsync(CreateIdHolderDto createIdHolderDto)
         {
             throw new System.NotImplementedException();
         }
@@ -20,10 +19,10 @@ namespace ThreadSafeNumericIdGenerator.Api.Tests.Fakes
             throw new System.NotImplementedException();
         }
 
-        public Task<Result<long>> NextAsync(string name)
+        public Task<long> NextAsync(string name)
         {
             Interlocked.Increment(ref currentId);
-            return Task.FromResult(Result.Success<long>(currentId));
+            return Task.FromResult(currentId);
         }
     }
 }

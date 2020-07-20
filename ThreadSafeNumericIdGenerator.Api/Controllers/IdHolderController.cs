@@ -22,8 +22,8 @@ namespace ThreadSafeNumericIdGenerator.Api.Controllers
         public async Task<IActionResult> Next([FromRoute] string name)
         {
             var result = await idHolderService.NextAsync(name);
-           
-            return result.IsSuccess ? Ok(Envelope.Ok(result.Value)) : StatusCode(500, Envelope.Error(result.Error));
+
+            return Ok(Envelope.Ok(result));
         }
 
         [HttpPost]
@@ -33,13 +33,9 @@ namespace ThreadSafeNumericIdGenerator.Api.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var exists = await idHolderService.ExistsAsync(createIdHolderDto.Name);
-            if (exists)
-                return BadRequest(Envelope.Error($"IdHolder Name { createIdHolderDto.Name } is in use"));
+            await idHolderService.CreateAsync(createIdHolderDto);
 
-            var result = await idHolderService.CreateAsync(createIdHolderDto);
-
-            return result.IsSuccess ? Created("", Envelope.Ok(createIdHolderDto)) : StatusCode(500, Envelope.Error(result.Error));
+            return Created("", Envelope.Ok(createIdHolderDto));
         }
     }
 }

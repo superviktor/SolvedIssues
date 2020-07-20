@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using ThreadSafeNumericIdGenerator.Application.Base;
 using ThreadSafeNumericIdGenerator.Common;
 using ThreadSafeNumericIdGenerator.DataContract;
@@ -23,26 +24,24 @@ namespace ThreadSafeNumericIdGenerator.Application
             return await idHolderRepository.ExistsAsync(name);
         }
 
-        public async Task<Result> CreateAsync(CreateIdHolderDto createIdHolderDto)
+        public async Task CreateAsync(CreateIdHolderDto createIdHolderDto)
         {
             var exists = await ExistsAsync(createIdHolderDto.Name);
             if (exists)
-                return Result.Fail($"IdHolder Name { createIdHolderDto.Name } is in use");
+                throw new ArgumentException($"IdHolder Name { createIdHolderDto.Name } is in use");
 
             var idHolderCreateResult = IdHolder.Create(createIdHolderDto.Name, createIdHolderDto.StartFrom);
             if (idHolderCreateResult.IsSuccess)
             {
                 await CreateIdHolderTableEntityAsync(idHolderCreateResult);
-
-                return Result.Success();
             }
             else
             {
-                return Result.Fail(idHolderCreateResult.Error);
+                throw new Exception(idHolderCreateResult.Error);
             }
         }
 
-        public async Task<Result<long>> NextAsync(string name)
+        public async Task<long> NextAsync(string name)
         {
             if (await idHolderRepository.ExistsAsync(name))
             {
@@ -52,7 +51,7 @@ namespace ThreadSafeNumericIdGenerator.Application
                 entity.CurrentId = nextId;
                 await idHolderRepository.UpdateAsync(entity);
 
-                return Result.Success(nextId);
+                return nextId;
             }
             else
             {
@@ -61,11 +60,11 @@ namespace ThreadSafeNumericIdGenerator.Application
                 {
                     await CreateIdHolderTableEntityAsync(idHolderCreateResult);
 
-                    return Result.Success<long>(1);
+                    return StartFromDefault;
                 }
                 else
                 {
-                    return Result.Fail<long>(idHolderCreateResult.Error);
+                    throw new Exception(idHolderCreateResult.Error);
                 }
             }
         }
