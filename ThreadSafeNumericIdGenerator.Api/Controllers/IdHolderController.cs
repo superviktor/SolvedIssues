@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
+using ThreadSafeNumericIdGenerator.Api.Common;
 using ThreadSafeNumericIdGenerator.Application.Base;
 using ThreadSafeNumericIdGenerator.DataContract;
 
@@ -22,7 +23,7 @@ namespace ThreadSafeNumericIdGenerator.Api.Controllers
         {
             var result = await idHolderService.NextAsync(name);
            
-            return result.IsSuccess ? Ok(result.Value) : StatusCode(500, result.Error);
+            return result.IsSuccess ? Ok(Envelope.Ok(result.Value)) : StatusCode(500, Envelope.Error(result.Error));
         }
 
         [HttpPost]
@@ -32,9 +33,13 @@ namespace ThreadSafeNumericIdGenerator.Api.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
+            var exists = await idHolderService.ExistsAsync(createIdHolderDto.Name);
+            if (exists)
+                return BadRequest(Envelope.Error($"IdHolder Name { createIdHolderDto.Name } is in use"));
+
             var result = await idHolderService.CreateAsync(createIdHolderDto);
 
-            return result.IsSuccess ? Created("", createIdHolderDto) : StatusCode(500, result.Error);
+            return result.IsSuccess ? Created("", Envelope.Ok(createIdHolderDto)) : StatusCode(500, Envelope.Error(result.Error));
         }
     }
 }

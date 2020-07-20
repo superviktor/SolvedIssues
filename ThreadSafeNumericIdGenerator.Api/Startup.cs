@@ -1,8 +1,7 @@
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
+using ThreadSafeNumericIdGenerator.Api.Common;
 using ThreadSafeNumericIdGenerator.Application;
 using ThreadSafeNumericIdGenerator.Application.Base;
 using ThreadSafeNumericIdGenerator.AzureTablesRepository;
@@ -32,7 +31,7 @@ namespace ThreadSafeNumericIdGenerator.Api
             services.AddSwaggerGen();
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app)
         {
             app.UseSwagger();
             app.UseSwaggerUI(c =>
@@ -40,10 +39,7 @@ namespace ThreadSafeNumericIdGenerator.Api
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Numeric Id Generator Api V1");
             });
             
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
+            app.UseMiddleware<ExceptionHandler>();
 
             app.UseHttpsRedirection();
 

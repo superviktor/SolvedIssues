@@ -21,11 +21,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ThreadSafeNumericIdGenerato
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ThreadSafeNumericIdGenerator.Domain.Base", "ThreadSafeNumericIdGenerator.Domain.Base\ThreadSafeNumericIdGenerator.Domain.Base.csproj", "{BBA8CCC5-ECD0-43EB-9DD6-387470001EA3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ThreadSafeNumericIdGenerator.Common", "ThreadSafeNumericIdGenerator.Common\ThreadSafeNumericIdGenerator.Common.csproj", "{6C41570C-6BE1-4CE8-9311-3A8488B4DF94}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ThreadSafeNumericIdGenerator.Common", "ThreadSafeNumericIdGenerator.Common\ThreadSafeNumericIdGenerator.Common.csproj", "{6C41570C-6BE1-4CE8-9311-3A8488B4DF94}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ThreadSafeNumericIdGenerator.Repository.DataContract", "ThreadSafeNumericIdGenerator.Repository.DataContract\ThreadSafeNumericIdGenerator.Repository.DataContract.csproj", "{51A51910-89C6-40B8-A27F-A1DBE2743E24}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ThreadSafeNumericIdGenerator.Repository.DataContract", "ThreadSafeNumericIdGenerator.Repository.DataContract\ThreadSafeNumericIdGenerator.Repository.DataContract.csproj", "{51A51910-89C6-40B8-A27F-A1DBE2743E24}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ThreadSafeNumericIdGenerator.AzureTablesRepository", "ThreadSafeNumericIdGenerator.AzureTablesRepository\ThreadSafeNumericIdGenerator.AzureTablesRepository.csproj", "{30D98211-A0A3-46FF-98E8-1C4DCD94FE06}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ThreadSafeNumericIdGenerator.AzureTablesRepository", "ThreadSafeNumericIdGenerator.AzureTablesRepository\ThreadSafeNumericIdGenerator.AzureTablesRepository.csproj", "{30D98211-A0A3-46FF-98E8-1C4DCD94FE06}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ThreadSafeNumericIdGenerator.Api.Common", "ThreadSafeNumericIdGenerator.Api.Common\ThreadSafeNumericIdGenerator.Api.Common.csproj", "{93D67279-F51D-48F9-8287-5BF02EBF4BAF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -77,6 +79,10 @@ Global
 		{30D98211-A0A3-46FF-98E8-1C4DCD94FE06}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{30D98211-A0A3-46FF-98E8-1C4DCD94FE06}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{30D98211-A0A3-46FF-98E8-1C4DCD94FE06}.Release|Any CPU.Build.0 = Release|Any CPU
+		{93D67279-F51D-48F9-8287-5BF02EBF4BAF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{93D67279-F51D-48F9-8287-5BF02EBF4BAF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{93D67279-F51D-48F9-8287-5BF02EBF4BAF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{93D67279-F51D-48F9-8287-5BF02EBF4BAF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -93,6 +99,7 @@ Global
 		{6C41570C-6BE1-4CE8-9311-3A8488B4DF94} = {DC64140F-6AAC-43CE-AB8D-08AA1370208E}
 		{51A51910-89C6-40B8-A27F-A1DBE2743E24} = {DC64140F-6AAC-43CE-AB8D-08AA1370208E}
 		{30D98211-A0A3-46FF-98E8-1C4DCD94FE06} = {DC64140F-6AAC-43CE-AB8D-08AA1370208E}
+		{93D67279-F51D-48F9-8287-5BF02EBF4BAF} = {DC64140F-6AAC-43CE-AB8D-08AA1370208E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E96BC937-8A79-47ED-9E9A-7BF856BD0C27}

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using ThreadSafeNumericIdGenerator.Application.Base;
 using ThreadSafeNumericIdGenerator.Common;
 using ThreadSafeNumericIdGenerator.DataContract;
@@ -11,6 +10,7 @@ namespace ThreadSafeNumericIdGenerator.Application
 {
     public class IdHolderService : IIdHolderService
     {
+        private const int StartFromDefault = 1;
         private readonly IIdHolderRepository idHolderRepository;
 
         public IdHolderService(IIdHolderRepository idHolderRepository)
@@ -18,20 +18,21 @@ namespace ThreadSafeNumericIdGenerator.Application
             this.idHolderRepository = idHolderRepository;
         }
 
+        public async Task<bool> ExistsAsync(string name)
+        {
+            return await idHolderRepository.ExistsAsync(name);
+        }
+
         public async Task<Result> CreateAsync(CreateIdHolderDto createIdHolderDto)
         {
-            if (await idHolderRepository.ExistsAsync(createIdHolderDto.Name))
+            var exists = await ExistsAsync(createIdHolderDto.Name);
+            if (exists)
                 return Result.Fail($"IdHolder Name { createIdHolderDto.Name } is in use");
 
             var idHolderCreateResult = IdHolder.Create(createIdHolderDto.Name, createIdHolderDto.StartFrom);
             if (idHolderCreateResult.IsSuccess)
             {
-                var entity = new IdHolderTableEntity
-                {
-                    Name = idHolderCreateResult.Value.Name,
-                    CurrentId = idHolderCreateResult.Value.CurrentId
-                };
-                await idHolderRepository.CreateAsync(entity);
+                await CreateIdHolderTableEntityAsync(idHolderCreateResult);
 
                 return Result.Success();
             }
@@ -39,7 +40,6 @@ namespace ThreadSafeNumericIdGenerator.Application
             {
                 return Result.Fail(idHolderCreateResult.Error);
             }
-
         }
 
         public async Task<Result<long>> NextAsync(string name)
@@ -56,9 +56,28 @@ namespace ThreadSafeNumericIdGenerator.Application
             }
             else
             {
-                // create new holder with default id value
-                throw new NotImplementedException();
+                var idHolderCreateResult = IdHolder.Create(name, StartFromDefault);
+                if (idHolderCreateResult.IsSuccess)
+                {
+                    await CreateIdHolderTableEntityAsync(idHolderCreateResult);
+
+                    return Result.Success<long>(1);
+                }
+                else
+                {
+                    return Result.Fail<long>(idHolderCreateResult.Error);
+                }
             }
+        }
+
+        private async Task CreateIdHolderTableEntityAsync(Result<IdHolder> idHolderCreateResult)
+        {
+            var entity = new IdHolderTableEntity
+            {
+                Name = idHolderCreateResult.Value.Name,
+                CurrentId = idHolderCreateResult.Value.CurrentId
+            };
+            await idHolderRepository.CreateAsync(entity);
         }
     }
 }

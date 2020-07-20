@@ -15,6 +15,11 @@ namespace ThreadSafeNumericIdGenerator.Api.Tests.Fakes
             throw new System.NotImplementedException();
         }
 
+        public Task<bool> ExistsAsync(string name)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public Task<Result<long>> NextAsync(string name)
         {
             Interlocked.Increment(ref currentId);
