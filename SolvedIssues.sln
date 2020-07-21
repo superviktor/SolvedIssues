@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CqrsTemplate.Application", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CqrsTemplate.Application.Common", "CqrsTemplate.Application.Common\CqrsTemplate.Application.Common.csproj", "{C28AB281-B219-487A-89BF-2AEBE621EDE0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CqrsTemplate.Repository", "CqrsTemplate.Repository\CqrsTemplate.Repository.csproj", "{76838589-ED7C-4427-9ADF-0FB67FC302D4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,6 +49,10 @@ Global
 		{C28AB281-B219-487A-89BF-2AEBE621EDE0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C28AB281-B219-487A-89BF-2AEBE621EDE0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C28AB281-B219-487A-89BF-2AEBE621EDE0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{76838589-ED7C-4427-9ADF-0FB67FC302D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{76838589-ED7C-4427-9ADF-0FB67FC302D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{76838589-ED7C-4427-9ADF-0FB67FC302D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{76838589-ED7C-4427-9ADF-0FB67FC302D4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -58,6 +64,7 @@ Global
 		{38BBDF98-0D4F-4398-9C8C-097365246FB6} = {B644B4F0-9FFD-4E41-B140-FDFD2872C753}
 		{93F89CEC-5815-4B1C-8009-E48432D13A17} = {B644B4F0-9FFD-4E41-B140-FDFD2872C753}
 		{C28AB281-B219-487A-89BF-2AEBE621EDE0} = {B644B4F0-9FFD-4E41-B140-FDFD2872C753}
+		{76838589-ED7C-4427-9ADF-0FB67FC302D4} = {B644B4F0-9FFD-4E41-B140-FDFD2872C753}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E96BC937-8A79-47ED-9E9A-7BF856BD0C27}

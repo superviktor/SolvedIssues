@@ -1,7 +1,6 @@
-﻿using CqrsTemplate.DataContracts;
-using CqrsTemplate.Domain.CommandHandlers;
+﻿using CqrsTemplate.Application;
+using CqrsTemplate.DataContracts;
 using CqrsTemplate.Domain.Commands;
-using CqrsTemplate.Domain.Repository;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
@@ -12,11 +11,10 @@ namespace CqrsTemplate.Api.Controllers
     [Route("[controller]")]
     public class ModelController : ControllerBase
     {
-        private readonly IModelRepository repository;
-
-        public ModelController(IModelRepository repository)
+        private readonly MessagesDispatcher messagesDispatcher;
+        public ModelController( MessagesDispatcher messagesDispatcher)
         {
-            this.repository = repository;
+            this.messagesDispatcher = messagesDispatcher;
         }
 
         [HttpPut("{id}")]
@@ -27,9 +25,14 @@ namespace CqrsTemplate.Api.Controllers
                 Id = id,
                 Name = updateModelDto.Name
             };
-
-            var handler = new UpdateModelCommandHandler(repository);
-            await handler.HandleAsync(command);
+            try
+            {
+                await messagesDispatcher.DispatchAsync(command);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
 
             return Ok();
         }
