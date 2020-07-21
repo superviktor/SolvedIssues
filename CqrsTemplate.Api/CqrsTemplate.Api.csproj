@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CqrsTemplate.Application\CqrsTemplate.Application.csproj" />
+    <ProjectReference Include="..\CqrsTemplate.DataContracts\CqrsTemplate.DataContracts.csproj" />
+    <ProjectReference Include="..\CqrsTemplate.Domain\CqrsTemplate.Domain.csproj" />
+  </ItemGroup>
+
+
+</Project>
