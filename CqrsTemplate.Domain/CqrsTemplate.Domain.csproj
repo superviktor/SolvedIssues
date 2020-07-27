@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\CqrsTemplate.DataContracts\CqrsTemplate.DataContracts.csproj" />
     <ProjectReference Include="..\CqrsTemplate.Domain.Common\CqrsTemplate.Domain.Common.csproj" />
   </ItemGroup>
 

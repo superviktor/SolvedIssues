@@ -1,8 +1,10 @@
 ﻿using CqrsTemplate.Application;
 using CqrsTemplate.DataContracts;
 using CqrsTemplate.Domain.Commands;
+using CqrsTemplate.Domain.Queries;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace CqrsTemplate.Api.Controllers
@@ -15,6 +17,22 @@ namespace CqrsTemplate.Api.Controllers
         public ModelController( MessagesDispatcher messagesDispatcher)
         {
             this.messagesDispatcher = messagesDispatcher;
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAll()
+        {
+            IEnumerable<ModelDto> models;
+            try
+            {
+                models = await messagesDispatcher.DispatchAsync(new GetAllModelsQuery());
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+            return Ok(models);
         }
 
         [HttpPut("{id}")]

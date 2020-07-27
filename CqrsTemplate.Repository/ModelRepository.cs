@@ -8,14 +8,18 @@ namespace CqrsTemplate.Repository
 {
     public class ModelRepository : IModelRepository
     {
-        public Task<IEnumerable<Model>> GetAllAsync()
+        public async Task<IEnumerable<Model>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            return await Task.FromResult(new List<Model>
+            {
+                Model.Create("name1"),
+                Model.Create("name2")
+            });
         }
 
         public Task<Model> GetByIdAsync(Guid id)
         {
-            return Task.FromResult(new Model());
+            return Task.FromResult(Model.Create("name"));
         }
 
         public Task UpdateAsync(Model model)
