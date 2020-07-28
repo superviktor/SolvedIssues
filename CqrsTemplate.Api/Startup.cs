@@ -1,17 +1,9 @@
 using CqrsTemplate.Application;
-using CqrsTemplate.Application.Common;
-using CqrsTemplate.Application.QueryHandlers;
-using CqrsTemplate.DataContracts;
-using CqrsTemplate.Domain.CommandHandlers;
-using CqrsTemplate.Domain.Commands;
-using CqrsTemplate.Domain.Common;
-using CqrsTemplate.Domain.Queries;
 using CqrsTemplate.Domain.Repository;
 using CqrsTemplate.Repository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using System.Collections.Generic;
 
 namespace CqrsTemplate.Api
 {
@@ -27,9 +19,8 @@ namespace CqrsTemplate.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddTransient<IModelRepository, ModelRepository>();
-            services.AddTransient<ICommandHandler<UpdateModelCommand>, UpdateModelCommandHandler>(); 
-            services.AddTransient<IQueryHandler<GetAllModelsQuery, IEnumerable<ModelDto>>, GetAllModelsQueryHandler>();
             services.AddSingleton<MessagesDispatcher>();
+            services.AddHandlers();
             services.AddControllers();
             services.AddSwaggerGen();
         }

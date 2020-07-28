@@ -1,6 +1,7 @@
-﻿using System.Threading.Tasks;
+﻿using CqrsTemplate.Domain.Common;
+using System.Threading.Tasks;
 
-namespace CqrsTemplate.Domain.Common
+namespace CqrsTemplate.Application.Common
 {
     public interface ICommandHandler<T> where T : ICommand
     {

@@ -1,11 +1,13 @@
-﻿using CqrsTemplate.Domain.Commands;
-using CqrsTemplate.Domain.Common;
+﻿using CqrsTemplate.Application.Attributes;
+using CqrsTemplate.Application.Common;
+using CqrsTemplate.Domain.Commands;
 using CqrsTemplate.Domain.Repository;
 using System;
 using System.Threading.Tasks;
 
 namespace CqrsTemplate.Domain.CommandHandlers
 {
+    [DataStoreRetry]
     public class UpdateModelCommandHandler : ICommandHandler<UpdateModelCommand>
     {
         private readonly IModelRepository repository;
