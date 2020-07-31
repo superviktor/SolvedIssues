@@ -5,19 +5,25 @@ VisualStudioVersion = 16.0.30225.117
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CqrsTemplate", "CqrsTemplate", "{B644B4F0-9FFD-4E41-B140-FDFD2872C753}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CqrsTemplate.Domain", "CqrsTemplate.Domain\CqrsTemplate.Domain.csproj", "{6EB00AB9-9C7A-4F85-A777-45261E783242}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CqrsTemplate.Domain", "CqrsTemplate.Domain\CqrsTemplate.Domain.csproj", "{6EB00AB9-9C7A-4F85-A777-45261E783242}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CqrsTemplate.Api", "CqrsTemplate.Api\CqrsTemplate.Api.csproj", "{3669B47B-2D31-4437-8F29-F46E09DED955}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CqrsTemplate.Api", "CqrsTemplate.Api\CqrsTemplate.Api.csproj", "{3669B47B-2D31-4437-8F29-F46E09DED955}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CqrsTemplate.DataContracts", "CqrsTemplate.DataContracts\CqrsTemplate.DataContracts.csproj", "{A32ED2AE-FB1C-4834-8967-F38E17FAB012}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CqrsTemplate.DataContracts", "CqrsTemplate.DataContracts\CqrsTemplate.DataContracts.csproj", "{A32ED2AE-FB1C-4834-8967-F38E17FAB012}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CqrsTemplate.Domain.Common", "CqrsTemplate.Domain.Common\CqrsTemplate.Domain.Common.csproj", "{38BBDF98-0D4F-4398-9C8C-097365246FB6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CqrsTemplate.Domain.Common", "CqrsTemplate.Domain.Common\CqrsTemplate.Domain.Common.csproj", "{38BBDF98-0D4F-4398-9C8C-097365246FB6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CqrsTemplate.Application", "CqrsTemplate.Application\CqrsTemplate.Application.csproj", "{93F89CEC-5815-4B1C-8009-E48432D13A17}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CqrsTemplate.Application", "CqrsTemplate.Application\CqrsTemplate.Application.csproj", "{93F89CEC-5815-4B1C-8009-E48432D13A17}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CqrsTemplate.Application.Common", "CqrsTemplate.Application.Common\CqrsTemplate.Application.Common.csproj", "{C28AB281-B219-487A-89BF-2AEBE621EDE0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CqrsTemplate.Application.Common", "CqrsTemplate.Application.Common\CqrsTemplate.Application.Common.csproj", "{C28AB281-B219-487A-89BF-2AEBE621EDE0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CqrsTemplate.Repository", "CqrsTemplate.Repository\CqrsTemplate.Repository.csproj", "{76838589-ED7C-4427-9ADF-0FB67FC302D4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CqrsTemplate.Repository", "CqrsTemplate.Repository\CqrsTemplate.Repository.csproj", "{76838589-ED7C-4427-9ADF-0FB67FC302D4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TextParsingWithRegex", "TextParsingWithRegex", "{7C8DB52A-053D-456C-AAD3-9688CB4CFD5D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextParsingWithRegex.Domain", "TextParsingWithRegex.Domain\TextParsingWithRegex.Domain.csproj", "{14FA09A7-F70D-4A6C-B39F-572560627752}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextParsingWithRegex.Tests", "TextParsingWithRegex.Tests\TextParsingWithRegex.Tests.csproj", "{FC0AF849-E5F8-470E-9B8C-0BE89BD650A0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -53,6 +59,14 @@ Global
 		{76838589-ED7C-4427-9ADF-0FB67FC302D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{76838589-ED7C-4427-9ADF-0FB67FC302D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{76838589-ED7C-4427-9ADF-0FB67FC302D4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{14FA09A7-F70D-4A6C-B39F-572560627752}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{14FA09A7-F70D-4A6C-B39F-572560627752}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{14FA09A7-F70D-4A6C-B39F-572560627752}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{14FA09A7-F70D-4A6C-B39F-572560627752}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FC0AF849-E5F8-470E-9B8C-0BE89BD650A0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FC0AF849-E5F8-470E-9B8C-0BE89BD650A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FC0AF849-E5F8-470E-9B8C-0BE89BD650A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FC0AF849-E5F8-470E-9B8C-0BE89BD650A0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -65,6 +79,8 @@ Global
 		{93F89CEC-5815-4B1C-8009-E48432D13A17} = {B644B4F0-9FFD-4E41-B140-FDFD2872C753}
 		{C28AB281-B219-487A-89BF-2AEBE621EDE0} = {B644B4F0-9FFD-4E41-B140-FDFD2872C753}
 		{76838589-ED7C-4427-9ADF-0FB67FC302D4} = {B644B4F0-9FFD-4E41-B140-FDFD2872C753}
+		{14FA09A7-F70D-4A6C-B39F-572560627752} = {7C8DB52A-053D-456C-AAD3-9688CB4CFD5D}
+		{FC0AF849-E5F8-470E-9B8C-0BE89BD650A0} = {7C8DB52A-053D-456C-AAD3-9688CB4CFD5D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E96BC937-8A79-47ED-9E9A-7BF856BD0C27}
