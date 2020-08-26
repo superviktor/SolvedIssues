@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Azure.Cosmos.Table" Version="1.0.7" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ThreadSafeNumericIdGenerator.AzureTablesRepository\ThreadSafeNumericIdGenerator.AzureTablesRepository.csproj" />
+    <ProjectReference Include="..\ThreadSafeNumericIdGenerator.Domain\ThreadSafeNumericIdGenerator.Domain.csproj" />
+    <ProjectReference Include="..\ThreadSafeNumericIdGenerator.Repository.DataContract\ThreadSafeNumericIdGenerator.Repository.DataContract.csproj" />
+  </ItemGroup>
+
+</Project>
