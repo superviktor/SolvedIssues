@@ -47,11 +47,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CqrsTemplate.Repository", "
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "RailwayOrientedProgramming", "RailwayOrientedProgramming", "{3740A2E7-C247-4B5D-98B0-E5DF70F7B129}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RailwayOrientedProgramming.Application", "RailwayOrientedProgramming.Application\RailwayOrientedProgramming.Application.csproj", "{6F91817A-6045-475A-A492-103E49583C67}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RailwayOrientedProgramming.Application", "RailwayOrientedProgramming.Application\RailwayOrientedProgramming.Application.csproj", "{6F91817A-6045-475A-A492-103E49583C67}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RailwayOrientedProgramming.Domain", "RailwayOrientedProgramming.Domain\RailwayOrientedProgramming.Domain.csproj", "{404D95C3-01AB-490A-89C1-03AB6C381DC2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RailwayOrientedProgramming.Domain", "RailwayOrientedProgramming.Domain\RailwayOrientedProgramming.Domain.csproj", "{404D95C3-01AB-490A-89C1-03AB6C381DC2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RailwayOrientedProgramming.Common", "RailwayOrientedProgramming.Common\RailwayOrientedProgramming.Common.csproj", "{2D3D84E7-E6EE-4A06-A5CA-6F965913DACE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RailwayOrientedProgramming.Common", "RailwayOrientedProgramming.Common\RailwayOrientedProgramming.Common.csproj", "{2D3D84E7-E6EE-4A06-A5CA-6F965913DACE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SpecificationPattern", "SpecificationPattern", "{15E97771-4E0D-4621-BD80-61492852D4C2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpecificationPattern.Domain", "SpecificationPattern.Domain\SpecificationPattern.Domain.csproj", "{B08EC90B-4498-42A6-8287-E4B09D53E5A8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpecificationPattern.Application", "SpecificationPattern.Application\SpecificationPattern.Application.csproj", "{A5CC92D6-4C97-44AD-8C7D-8FC4B6370CBB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -123,6 +129,14 @@ Global
 		{2D3D84E7-E6EE-4A06-A5CA-6F965913DACE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2D3D84E7-E6EE-4A06-A5CA-6F965913DACE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2D3D84E7-E6EE-4A06-A5CA-6F965913DACE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B08EC90B-4498-42A6-8287-E4B09D53E5A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B08EC90B-4498-42A6-8287-E4B09D53E5A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B08EC90B-4498-42A6-8287-E4B09D53E5A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B08EC90B-4498-42A6-8287-E4B09D53E5A8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A5CC92D6-4C97-44AD-8C7D-8FC4B6370CBB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A5CC92D6-4C97-44AD-8C7D-8FC4B6370CBB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A5CC92D6-4C97-44AD-8C7D-8FC4B6370CBB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A5CC92D6-4C97-44AD-8C7D-8FC4B6370CBB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -150,6 +164,8 @@ Global
 		{6F91817A-6045-475A-A492-103E49583C67} = {3740A2E7-C247-4B5D-98B0-E5DF70F7B129}
 		{404D95C3-01AB-490A-89C1-03AB6C381DC2} = {3740A2E7-C247-4B5D-98B0-E5DF70F7B129}
 		{2D3D84E7-E6EE-4A06-A5CA-6F965913DACE} = {3740A2E7-C247-4B5D-98B0-E5DF70F7B129}
+		{B08EC90B-4498-42A6-8287-E4B09D53E5A8} = {15E97771-4E0D-4621-BD80-61492852D4C2}
+		{A5CC92D6-4C97-44AD-8C7D-8FC4B6370CBB} = {15E97771-4E0D-4621-BD80-61492852D4C2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E96BC937-8A79-47ED-9E9A-7BF856BD0C27}
