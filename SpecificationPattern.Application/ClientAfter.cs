@@ -14,7 +14,7 @@ namespace SpecificationPattern.Application
             this.repository = repository;
         }
 
-        public IReadOnlyList<MovieDto> GetAllMovies(bool onlyForChildren, decimal minimumRating, bool availableOnCd)
+        public IReadOnlyList<MovieDto> GetAllMovies(bool onlyForChildren, decimal minimumRating, bool availableOnCd, string? directedBy)
         {
             var spec = Specification<MovieAfter>.NoFilter;
             if (onlyForChildren)
@@ -22,6 +22,9 @@ namespace SpecificationPattern.Application
 
             if (availableOnCd)
                 spec = spec.And(new MovieAvailableOnCdSpecification());
+
+            if (!string.IsNullOrEmpty(directedBy))
+                spec = spec.And(new MovieDirectedBySpecification(directedBy));
 
             return (IReadOnlyList<MovieDto>)repository.GetAllMovies(spec).Select(m => new MovieDto());
         }
