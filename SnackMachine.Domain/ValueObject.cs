@@ -1,4 +1,4 @@
-﻿namespace RailwayOrientedProgramming.Domain
+﻿namespace SnackMachine.Domain
 {
     public abstract class ValueObject<T> where T : ValueObject<T>
     {
