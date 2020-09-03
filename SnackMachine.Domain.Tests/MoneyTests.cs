@@ -1,7 +1,6 @@
+using System;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.ComponentModel;
 
 namespace SnackMachine.Domain.Tests
 {
@@ -23,7 +22,6 @@ namespace SnackMachine.Domain.Tests
             sum.OneDollarCount.Should().Be(1);
             sum.FiveDollarsCount.Should().Be(0);
             sum.TwentyDollarsCount.Should().Be(0);
-
         }
 
         [TestMethod]
@@ -52,6 +50,38 @@ namespace SnackMachine.Domain.Tests
             Action action = () => new Money(-1, 0, 0, 0, 0, 0);
 
             action.Should().Throw<InvalidOperationException>();
+        }
+
+        [TestMethod]
+        public void Amount_ReturnsCorrectValue()
+        {
+            var money = new Money(1, 2, 3, 4, 5, 6);
+
+            var amount = money.Amount;
+
+            amount.Should().Be(149.96m);
+        }
+
+        [TestMethod]
+        public void Subtract_ReturnsCorrectValue()
+        {
+            var money1 = new Money(8, 7, 6, 5, 4, 3);
+            var money2 = new Money(1, 2, 3, 4, 4, 1);
+
+            var result = money1 - money2;
+
+            result.Should().Be(new Money(7, 5, 3, 1, 0, 2));
+        }
+
+        [TestMethod]
+        public void Subtract_SubtractOneDollarFromOneCent_ThrowsException()
+        {
+            var money1 = new Money(1, 0, 0, 0, 0, 0);
+            var money2 = new Money(0, 0, 1, 0, 0, 0);
+
+            Func<Money> result = () => money1 - money2;
+
+            result.Should().Throw<InvalidOperationException>();
         }
     }
 }
