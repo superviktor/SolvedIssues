@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -18,7 +19,7 @@ namespace SnackMachine.Domain.Tests
         [TestMethod]
         public void ReturnMoney_MoneyInTransactionZero()
         {
-            snackMachine.InsertMoney(new Money(0, 1, 0, 1, 0, 0));
+            snackMachine.InsertMoney(new Money(0, 0, 0, 1, 0, 0));
             snackMachine.ReturnMoney();
 
             snackMachine.MoneyInTransaction.Amount.Should().Be(0m);
@@ -38,7 +39,7 @@ namespace SnackMachine.Domain.Tests
         {
             var money = Money.Cent + Money.Cent;
 
-            Action result = ()=> snackMachine.InsertMoney(money);
+            Action result = () => snackMachine.InsertMoney(money);
 
             result.Should().Throw<InvalidOperationException>();
         }
@@ -49,9 +50,22 @@ namespace SnackMachine.Domain.Tests
             snackMachine.InsertMoney(Money.Dollar);
             snackMachine.InsertMoney(Money.Dollar);
 
-            snackMachine.BuySnack();
+            snackMachine.BuySnack(1);
 
             snackMachine.MoneyInside.Amount.Should().Be(2);
+        }
+
+        [TestMethod]
+        public void BuySnack_EnoughMoneyAndSlotIsNotEmpty_DecreaseSlotQuantityAndMoneyInside()
+        {
+            snackMachine.LoadSnacks(1, new Snack("Snikers"), 1, 10);
+            snackMachine.InsertMoney(Money.Dollar);
+
+            snackMachine.BuySnack(1);
+
+            snackMachine.MoneyInTransaction.Should().Be(Money.None);
+            snackMachine.MoneyInside.Should().Be(Money.Dollar);
+            snackMachine.Slots.Single(s => s.Position == 1).Quantity.Should().Be(9);
         }
     }
 }
