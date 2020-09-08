@@ -2,19 +2,18 @@
 {
     public class Slot : Entity
     {
-        public Slot(Snack snack, int quantity, decimal price, int position, SnackMachine snackMachine)
+        public Slot(int position, SnackMachine snackMachine) : this()
         {
-            Snack = snack;
-            Quantity = quantity;
-            Price = price;
             Position = position;
             SnackMachine = snackMachine;
         }
 
-        public Snack Snack { get; set; }
-        public int Quantity { get; set; }
-        public decimal Price { get; set; }
+        protected Slot()
+        {
+        }
+
         public int Position { get; }
         public SnackMachine SnackMachine { get; }
+        public SnackPile SnackPile { get; set; }
     }
 }

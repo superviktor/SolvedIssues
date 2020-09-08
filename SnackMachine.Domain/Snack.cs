@@ -1,8 +1,8 @@
 ﻿namespace SnackMachine.Domain
 {
-    public class Snack : Entity
+    public class Snack : AggregateRoot
     {
-        public Snack(string name) : base()
+        public Snack(string name)
         {
             Name = name;
         }

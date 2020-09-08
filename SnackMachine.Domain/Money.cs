@@ -64,6 +64,17 @@ namespace SnackMachine.Domain
                 money1.TwentyDollarsCount - money2.TwentyDollarsCount);
         }
 
+        public static Money operator *(Money money1, int multiplier)
+        {
+            return new Money(
+                money1.OneCentCount * multiplier,
+                money1.TenCentCount * multiplier,
+                money1.QuarterCount * multiplier,
+                money1.OneDollarCount * multiplier,
+                money1.FiveDollarsCount * multiplier,
+                money1.TwentyDollarsCount * multiplier);
+        }
+
         protected override bool EqualsCore(Money other)
         {
             return OneCentCount == other.OneCentCount &&
@@ -84,6 +95,34 @@ namespace SnackMachine.Domain
             hashCode = (hashCode * 397) ^ TwentyDollarsCount;
 
             return hashCode;
+        }
+
+        public Money Allocate(decimal amount)
+        {
+            var twentyDollarCount = Math.Min((int)(amount / 20), TwentyDollarsCount);
+            amount = amount - twentyDollarCount * 20;
+
+            var fiveDollarCount = Math.Min((int)(amount / 5), FiveDollarsCount);
+            amount = amount - fiveDollarCount * 5;
+
+            var oneDollarCount = Math.Min((int)amount, OneDollarCount);
+            amount = amount - oneDollarCount;
+
+            var quarterCount = Math.Min((int)(amount / 0.25m), QuarterCount);
+            amount = amount - quarterCount * 0.25m;
+
+            var tenCentCount = Math.Min((int)(amount / 0.1m), TenCentCount);
+            amount = amount - tenCentCount * 0.1m;
+
+            var oneCentCount = Math.Min((int)(amount / 0.01m), OneCentCount);
+
+            return new Money(
+                oneCentCount,
+                tenCentCount,
+                quarterCount,
+                oneDollarCount,
+                fiveDollarCount,
+                twentyDollarCount);
         }
     }
 }

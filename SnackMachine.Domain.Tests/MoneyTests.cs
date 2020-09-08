@@ -8,7 +8,7 @@ namespace SnackMachine.Domain.Tests
     public class MoneyTests
     {
         [TestMethod]
-        public void Sum_FirstIsOneDollarSecondIsOneCent_ReturnsOneDolladOneCent()
+        public void Sum_FirstIsOneDollarSecondIsOneCent_ReturnsOneDollarOneCent()
         {
             var oneDollad = new Money(0, 0, 0, 1, 0, 0);
             var oneCent = new Money(1, 0, 0, 0, 0, 0);
@@ -82,6 +82,35 @@ namespace SnackMachine.Domain.Tests
             Func<Money> result = () => money1 - money2;
 
             result.Should().Throw<InvalidOperationException>();
+        }
+        
+        [TestMethod]
+        public void Allocate_SixDollars_ReturnsFiveDollarNoteAndOneDollarNote()
+        {
+            var money = new Money(10, 10, 10, 10, 10, 10);
+
+           var result = money.Allocate(6);
+
+            result.FiveDollarsCount.Should().Be(1);
+            result.OneDollarCount.Should().Be(1);
+            result.QuarterCount.Should().Be(0);
+            result.TenCentCount.Should().Be(0);
+            result.OneCentCount.Should().Be(0);
+        }
+
+        [TestMethod]
+        public void Multiply_x5_ReturnsAllCountsMultipliedByFive()
+        {
+            var money = new Money(1,2,3,4,5,6);
+            var result = money * 5;
+
+
+            result.OneCentCount.Should().Be(5);
+            result.TenCentCount.Should().Be(10);
+            result.QuarterCount.Should().Be(15);
+            result.OneDollarCount.Should().Be(20);
+            result.FiveDollarsCount.Should().Be(25);
+            result.TwentyDollarsCount.Should().Be(30);
         }
     }
 }
