@@ -6,6 +6,7 @@
         {
             Position = position;
             SnackMachine = snackMachine;
+            SnackPile = SnackPile.Empty;
         }
 
         protected Slot()

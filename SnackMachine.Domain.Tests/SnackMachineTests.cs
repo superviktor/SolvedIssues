@@ -46,7 +46,7 @@ namespace SnackMachine.Domain.Tests
         [TestMethod]
         public void BuySnack_MoneyFromTransactionMovesToMoneyInside()
         {
-            snackMachine.LoadSnacks(1, new SnackPile(new Snack("Snikers"), 10, 1));
+            snackMachine.LoadSnacks(1, new SnackPile(Snack.Chocolate, 10, 1));
             snackMachine.InsertMoney(Money.Dollar);
 
             snackMachine.BuySnack(1);
@@ -57,7 +57,7 @@ namespace SnackMachine.Domain.Tests
         [TestMethod]
         public void BuySnack_EnoughMoneyAndSlotIsNotEmpty_DecreaseSlotQuantityAndIncreaseMoneyInside()
         {
-            snackMachine.LoadSnacks(1, new SnackPile(new Snack("Snikers"), 10, 1));
+            snackMachine.LoadSnacks(1, new SnackPile(Snack.Chocolate, 10, 1));
             snackMachine.InsertMoney(Money.Dollar);
 
             snackMachine.BuySnack(1);
@@ -70,7 +70,7 @@ namespace SnackMachine.Domain.Tests
         [TestMethod]
         public void BySnack_SlotIsEmpty_ThrowsException()
         {
-            snackMachine.LoadSnacks(1, new SnackPile(new Snack("Snikers"), 1, 1));
+            snackMachine.LoadSnacks(1, new SnackPile(Snack.Chocolate, 1, 1));
             snackMachine.InsertMoney(Money.Dollar);
             snackMachine.BuySnack(1);
             snackMachine.InsertMoney(Money.Dollar);
@@ -83,7 +83,7 @@ namespace SnackMachine.Domain.Tests
         [TestMethod]
         public void BySnackCostsTwoDollars_InsertOneDollar_ThrowsException()
         {
-            snackMachine.LoadSnacks(1, new SnackPile(new Snack("Snikers"), 1, 2));
+            snackMachine.LoadSnacks(1, new SnackPile(Snack.Chocolate, 1, 2));
 
             Action result2 = () => snackMachine.BuySnack(1);
 
@@ -108,7 +108,7 @@ namespace SnackMachine.Domain.Tests
         [TestMethod]
         public void BuySnackOfHalfDollarPrice_InsertOneDollar_ReturnChange()
         {
-            snackMachine.LoadSnacks(1, new SnackPile(new Snack("Snikers"), 10, 0.5m));
+            snackMachine.LoadSnacks(1, new SnackPile(Snack.Chocolate, 10, 0.5m));
             snackMachine.LoadMoney(Money.Dollar);
             for (var i = 0; i < 10; i++)
             {
@@ -124,7 +124,7 @@ namespace SnackMachine.Domain.Tests
         [TestMethod]
         public void BuySnack_MachineHasNoChange_ThrowsException()
         {
-            snackMachine.LoadSnacks(1, new SnackPile(new Snack("Snikers"), 10, 0.5m));
+            snackMachine.LoadSnacks(1, new SnackPile(Snack.Chocolate, 10, 0.5m));
             snackMachine.InsertMoney(Money.Dollar);
 
             Action result = () => snackMachine.BuySnack(1);

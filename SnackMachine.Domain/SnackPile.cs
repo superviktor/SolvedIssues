@@ -4,6 +4,7 @@ namespace SnackMachine.Domain
 {
     public sealed class SnackPile : ValueObject<SnackPile>
     {
+        public static readonly SnackPile Empty = new SnackPile(Snack.None, 0,0);
         private SnackPile()
         {
         }
@@ -14,7 +15,7 @@ namespace SnackMachine.Domain
                 throw new InvalidOperationException();
             if (quantity < 0)
                 throw new InvalidOperationException();
-            if(price <= 0)
+            if(price < 0)
                 throw new InvalidOperationException();
             if(price % 0.01m > 0)
                 throw new InvalidOperationException();
