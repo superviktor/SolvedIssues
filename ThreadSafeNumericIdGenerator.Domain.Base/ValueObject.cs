@@ -26,7 +26,7 @@
         public static bool operator ==(ValueObject<T> a, ValueObject<T> b)
         {
             if (a is null && b is null)
-                return false;
+                return true;
             if (a is null || b is null)
                 return false;
 
