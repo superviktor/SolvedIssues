@@ -1,4 +1,6 @@
-﻿namespace SnackMachine.Domain
+﻿using SnackMachine.Domain.Base;
+
+namespace SnackMachine.Domain.SnackMachineBoundedContext
 {
     public class Slot : Entity
     {

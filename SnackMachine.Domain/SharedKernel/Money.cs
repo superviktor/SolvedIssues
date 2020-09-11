@@ -1,18 +1,19 @@
 ﻿using System;
+using SnackMachine.Domain.Base;
 
-namespace SnackMachine.Domain
+namespace SnackMachine.Domain.SharedKernel
 {
     public sealed class Money : ValueObject<Money>
     {
         public Money(
-            int oneCentCount, 
-            int tenCentCount, 
-            int quarterCount, 
-            int oneDollarCount, 
-            int fiveDollarsCount, 
+            int oneCentCount,
+            int tenCentCount,
+            int quarterCount,
+            int oneDollarCount,
+            int fiveDollarsCount,
             int twentyDollarsCount)
         {
-            if(oneCentCount < 0 || tenCentCount < 0 || quarterCount < 0 || oneDollarCount < 0 || fiveDollarsCount < 0 || twentyDollarsCount < 0)
+            if (oneCentCount < 0 || tenCentCount < 0 || quarterCount < 0 || oneDollarCount < 0 || fiveDollarsCount < 0 || twentyDollarsCount < 0)
                 throw new InvalidOperationException();
 
             OneCentCount = oneCentCount;
@@ -88,11 +89,11 @@ namespace SnackMachine.Domain
         protected override int GetHashCodeCore()
         {
             var hashCode = OneCentCount;
-            hashCode = (hashCode * 397) ^ TenCentCount;
-            hashCode = (hashCode * 397) ^ QuarterCount;
-            hashCode = (hashCode * 397) ^ OneDollarCount;
-            hashCode = (hashCode * 397) ^ FiveDollarsCount;
-            hashCode = (hashCode * 397) ^ TwentyDollarsCount;
+            hashCode = hashCode * 397 ^ TenCentCount;
+            hashCode = hashCode * 397 ^ QuarterCount;
+            hashCode = hashCode * 397 ^ OneDollarCount;
+            hashCode = hashCode * 397 ^ FiveDollarsCount;
+            hashCode = hashCode * 397 ^ TwentyDollarsCount;
 
             return hashCode;
         }

@@ -1,4 +1,4 @@
-﻿namespace SnackMachine.Domain
+﻿namespace SnackMachine.Domain.Base
 {
     public abstract class ValueObject<T> where T : ValueObject<T>
     {

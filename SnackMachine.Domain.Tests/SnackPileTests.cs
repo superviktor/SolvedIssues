@@ -1,6 +1,7 @@
 ﻿using System;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using SnackMachine.Domain.SnackMachineBoundedContext;
 
 namespace SnackMachine.Domain.Tests
 {

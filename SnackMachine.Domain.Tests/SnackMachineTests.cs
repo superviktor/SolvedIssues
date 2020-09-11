@@ -1,18 +1,21 @@
 ﻿using System;
+using System.Linq;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using SnackMachine.Domain.SharedKernel;
+using SnackMachine.Domain.SnackMachineBoundedContext;
 
 namespace SnackMachine.Domain.Tests
 {
     [TestClass]
     public class SnackMachineTests
     {
-        private SnackMachine snackMachine;
+        private SnackMachineBoundedContext.SnackMachine snackMachine;
 
         [TestInitialize]
         public void Init()
         {
-            snackMachine = new SnackMachine();
+            snackMachine = new SnackMachineBoundedContext.SnackMachine();
         }
 
         [TestMethod]
@@ -130,6 +133,21 @@ namespace SnackMachine.Domain.Tests
             Action result = () => snackMachine.BuySnack(1);
 
             result.Should().Throw<InvalidOperationException>();
+        }
+
+        [TestMethod]
+        public void BuySnack_SnackBoughtEventHappened()
+        {
+            snackMachine.LoadSnacks(1, new SnackPile(Snack.Chocolate, 10, 1));
+            snackMachine.InsertMoney(Money.Dollar);
+
+            snackMachine.BuySnack(1);
+
+            var snackBought = snackMachine.DomainEvents.First() as SnackBought;
+            snackBought.Should().NotBeNull();
+            snackBought.SnackName.Should().Be(Snack.Chocolate.Name);
+            snackBought.SlotPosition.Should().Be(1);
+            snackBought.SnackPileQuantityLeft.Should().Be(9);
         }
     }
 }

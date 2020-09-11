@@ -1,6 +1,7 @@
 ﻿using System;
+using SnackMachine.Domain.Base;
 
-namespace SnackMachine.Domain
+namespace SnackMachine.Domain.SnackMachineBoundedContext
 {
     public sealed class SnackPile : ValueObject<SnackPile>
     {

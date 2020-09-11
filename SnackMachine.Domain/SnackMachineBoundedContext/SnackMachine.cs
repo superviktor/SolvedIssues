@@ -1,8 +1,10 @@
-﻿using System;
+﻿using SnackMachine.Domain.SharedKernel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using SnackMachine.Domain.Base;
 
-namespace SnackMachine.Domain
+namespace SnackMachine.Domain.SnackMachineBoundedContext
 {
     public sealed class SnackMachine : AggregateRoot
     {
@@ -58,6 +60,8 @@ namespace SnackMachine.Domain
             MoneyInside -= change;
 
             MoneyInTransaction = 0;
+
+            AddDomainEvent(new SnackBought(slot.Position, slot.SnackPile.Quantity, slot.SnackPile.Snack.Name));
         }
 
         public Slot GetSlot(int position)
