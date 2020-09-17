@@ -5,6 +5,6 @@ namespace AdvancedRestfulConcerns.Api.Persistence
 {
     public interface IResourceRepository
     {
-        PagedList<Resource> Get(int pageNumber, int pageSize);
+        PagedList<Resource> Get(int pageNumber, int pageSize, string orderBy);
     }
 }

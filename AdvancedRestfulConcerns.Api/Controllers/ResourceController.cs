@@ -1,6 +1,9 @@
-﻿using System.Text.Json;
+﻿using System;
+using System.Linq;
+using System.Text.Json;
 using AdvancedRestfulConcerns.Api.Contract;
 using AdvancedRestfulConcerns.Api.Helpers;
+using AdvancedRestfulConcerns.Api.Model;
 using AdvancedRestfulConcerns.Api.Persistence;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,16 +14,25 @@ namespace AdvancedRestfulConcerns.Api.Controllers
     public class ResourceController : ControllerBase
     {
         private readonly IResourceRepository _repository;
-
-        public ResourceController(IResourceRepository repository)
+        private readonly IPropertyMappingService _propertyMappingService;
+        public ResourceController(IResourceRepository repository, IPropertyMappingService propertyMappingService)
         {
             this._repository = repository;
+            _propertyMappingService = propertyMappingService;
         }
 
         [HttpGet(Name = "GetResources")]
         public IActionResult GetAll([FromQuery] GetResources getResources)
         {
-            var resources = _repository.Get(getResources.PageNumber, getResources.PageSize);
+            if (!_propertyMappingService.ValidMappingExistsFor<Resource, ResourceDto>(getResources.OrderBy))
+                return BadRequest();
+
+            var resources = _repository.Get(getResources.PageNumber, getResources.PageSize, getResources.OrderBy);
+            var dtos = resources.Select(r => new ResourceDto
+            {
+                Name = $"{r.FirstName} {r.LastName}",
+                Age = DateTime.Now.Year - r.DateOfBirth.Year
+            });
 
             var previousPageLink = resources.HasPrevious ? CreateUri(getResources, ResourceUriType.PreviousPage) : null;
 
@@ -38,7 +50,7 @@ namespace AdvancedRestfulConcerns.Api.Controllers
 
             Response.Headers.Add("X-Pagination", JsonSerializer.Serialize(paginationMetadata));
 
-            return Ok(resources);
+            return Ok(dtos);
         }
 
         private string CreateUri(GetResources getResources, ResourceUriType type)
@@ -46,11 +58,11 @@ namespace AdvancedRestfulConcerns.Api.Controllers
             return type switch
             {
                 ResourceUriType.PreviousPage => Url.Link("GetResources",
-                    new {pageNumber = getResources.PageNumber - 1, pageSize = getResources.PageSize,}),
+                    new { pageNumber = getResources.PageNumber - 1, pageSize = getResources.PageSize, orderBy = getResources.OrderBy }),
                 ResourceUriType.NextPage => Url.Link("GetResources",
-                    new {pageNumber = getResources.PageNumber + 1, pageSize = getResources.PageSize,}),
+                    new { pageNumber = getResources.PageNumber + 1, pageSize = getResources.PageSize, getResources.OrderBy }),
                 _ => Url.Link("GetResources",
-                    new {pageNumber = getResources.PageNumber, pageSize = getResources.PageSize,})
+                    new { pageNumber = getResources.PageNumber, pageSize = getResources.PageSize, getResources.OrderBy })
             };
         }
     }
