@@ -13,5 +13,6 @@
         }
 
         public string OrderBy { get; set; } = null;
+        public string Fields { get; set; }
     }
 }

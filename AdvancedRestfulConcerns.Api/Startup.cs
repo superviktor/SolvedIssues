@@ -24,6 +24,7 @@ namespace AdvancedRestfulConcerns.Api
 
             services.AddTransient<IResourceRepository, ResourcesRepository>();
             services.AddTransient<IPropertyMappingService, PropertyMappingService>();
+            services.AddTransient<IPropertyCheckerService, PropertyCheckerService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

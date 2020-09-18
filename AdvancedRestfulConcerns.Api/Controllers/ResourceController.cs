@@ -15,10 +15,15 @@ namespace AdvancedRestfulConcerns.Api.Controllers
     {
         private readonly IResourceRepository _repository;
         private readonly IPropertyMappingService _propertyMappingService;
-        public ResourceController(IResourceRepository repository, IPropertyMappingService propertyMappingService)
+        private readonly IPropertyCheckerService _propertyCheckerService;
+        public ResourceController(
+            IResourceRepository repository, 
+            IPropertyMappingService propertyMappingService, 
+            IPropertyCheckerService propertyCheckerService)
         {
-            this._repository = repository;
-            _propertyMappingService = propertyMappingService;
+            _repository = repository ?? throw new ArgumentNullException(nameof(repository));
+            _propertyMappingService = propertyMappingService ?? throw new ArgumentNullException(nameof(propertyMappingService));
+            _propertyCheckerService = propertyCheckerService ?? throw new ArgumentNullException(nameof(propertyCheckerService));
         }
 
         [HttpGet(Name = "GetResources")]
@@ -27,7 +32,10 @@ namespace AdvancedRestfulConcerns.Api.Controllers
             if (!_propertyMappingService.ValidMappingExistsFor<Resource, ResourceDto>(getResources.OrderBy))
                 return BadRequest();
 
-            var resources = _repository.Get(getResources.PageNumber, getResources.PageSize, getResources.OrderBy);
+            if (!_propertyCheckerService.TypeHasProperties<ResourceDto>(getResources.Fields))
+                return BadRequest();
+
+            var resources = _repository.GetAll(getResources.PageNumber, getResources.PageSize, getResources.OrderBy);
             var dtos = resources.Select(r => new ResourceDto
             {
                 Name = $"{r.FirstName} {r.LastName}",
@@ -50,7 +58,27 @@ namespace AdvancedRestfulConcerns.Api.Controllers
 
             Response.Headers.Add("X-Pagination", JsonSerializer.Serialize(paginationMetadata));
 
-            return Ok(dtos);
+            return Ok(dtos.ShapeData(getResources.Fields));
+        }
+
+        [HttpGet("{resourceId}", Name = "GetResource")]
+        public IActionResult GetResource(Guid resourceId, string fields)
+        {
+            if (!_propertyCheckerService.TypeHasProperties<ResourceDto>(fields))
+                return BadRequest();
+
+            var resource = _repository.GetAll(resourceId);
+
+            if (resource == null)
+                return NotFound();
+
+            var dto = new ResourceDto
+            {
+                Name = $"{resource.FirstName} {resource.LastName}",
+                Age = DateTime.Now.Year - resource.DateOfBirth.Year
+            };
+
+            return Ok(dto.ShapeData(fields));
         }
 
         private string CreateUri(GetResources getResources, ResourceUriType type)
@@ -58,11 +86,11 @@ namespace AdvancedRestfulConcerns.Api.Controllers
             return type switch
             {
                 ResourceUriType.PreviousPage => Url.Link("GetResources",
-                    new { pageNumber = getResources.PageNumber - 1, pageSize = getResources.PageSize, orderBy = getResources.OrderBy }),
+                    new { pageNumber = getResources.PageNumber - 1, pageSize = getResources.PageSize, orderBy = getResources.OrderBy, fields = getResources.Fields }),
                 ResourceUriType.NextPage => Url.Link("GetResources",
-                    new { pageNumber = getResources.PageNumber + 1, pageSize = getResources.PageSize, getResources.OrderBy }),
+                    new { pageNumber = getResources.PageNumber + 1, pageSize = getResources.PageSize, getResources.OrderBy, fields = getResources.Fields }),
                 _ => Url.Link("GetResources",
-                    new { pageNumber = getResources.PageNumber, pageSize = getResources.PageSize, getResources.OrderBy })
+                    new { pageNumber = getResources.PageNumber, pageSize = getResources.PageSize, getResources.OrderBy, fields = getResources.Fields })
             };
         }
     }
