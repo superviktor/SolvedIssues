@@ -11,6 +11,7 @@ namespace AdvancedRestfulConcerns.Api.Helpers
         private readonly Dictionary<string, PropertyMappingValue> resourcePropertyMapping =
             new Dictionary<string, PropertyMappingValue>(StringComparer.OrdinalIgnoreCase)
             {
+                {"Id", new PropertyMappingValue(new List<string> {"Id"})},
                 {"Name", new PropertyMappingValue(new List<string> {"FirstName", "LastName"})},
                 {"Age", new PropertyMappingValue(new List<string> {"DateOfBirth"}, true)}
             };

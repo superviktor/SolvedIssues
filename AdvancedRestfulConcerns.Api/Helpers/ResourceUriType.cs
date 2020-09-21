@@ -3,6 +3,7 @@
     public enum ResourceUriType
     {
         NextPage,
-        PreviousPage
+        PreviousPage,
+        Current
     }
 }
