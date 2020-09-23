@@ -8,5 +8,6 @@ namespace AdvancedRestfulConcerns.Api.Persistence
     {
         PagedList<Resource> GetAll(int pageNumber, int pageSize, string orderBy);
         Resource GetAll(Guid id);
+        void Create(Resource resource);
     }
 }
