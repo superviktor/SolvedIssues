@@ -1,7 +1,9 @@
 using AdvancedRestfulConcerns.Api.Helpers;
 using AdvancedRestfulConcerns.Api.Persistence;
+using Marvin.Cache.Headers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -19,7 +21,22 @@ namespace AdvancedRestfulConcerns.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddHttpCacheHeaders(
+                expiration =>
+            {
+                expiration.MaxAge = 60;
+                expiration.CacheLocation = CacheLocation.Private;
+            }, validation =>
+                {
+                    validation.MustRevalidate = true;
+                }
+            );
+            //services.AddResponseCaching();
+            services.AddControllers(s =>
+            {
+                s.ReturnHttpNotAcceptable = true;
+                s.CacheProfiles.Add("240SecsCacheProfile", new CacheProfile { Duration = 240 });
+            });
             services.AddSwaggerGen();
 
             services.AddTransient<IResourceRepository, ResourcesRepository>();
@@ -35,6 +52,9 @@ namespace AdvancedRestfulConcerns.Api
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Advanced RESTful concerns Api V1");
             });
+
+            app.UseHttpCacheHeaders();
+            app.UseResponseCaching();
 
             app.UseHttpsRedirection();
 

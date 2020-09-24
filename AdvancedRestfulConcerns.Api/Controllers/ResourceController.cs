@@ -7,6 +7,7 @@ using AdvancedRestfulConcerns.Api.Contract;
 using AdvancedRestfulConcerns.Api.Helpers;
 using AdvancedRestfulConcerns.Api.Model;
 using AdvancedRestfulConcerns.Api.Persistence;
+using Marvin.Cache.Headers;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Net.Http.Headers;
 
@@ -14,6 +15,9 @@ namespace AdvancedRestfulConcerns.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    //[ResponseCache(CacheProfileName = "240SecsCacheProfile")]
+    [HttpCacheExpiration(CacheLocation = CacheLocation.Public)]
+    [HttpCacheValidation(MustRevalidate = false)]
     public class ResourceController : ControllerBase
     {
         private readonly IPropertyCheckerService _propertyCheckerService;
@@ -33,6 +37,9 @@ namespace AdvancedRestfulConcerns.Api.Controllers
         }
 
         [HttpGet(Name = "GetResources")]
+        //[ResponseCache(Duration = 120)]
+        [HttpCacheExpiration(CacheLocation = CacheLocation.Public, MaxAge = 60)]
+        [HttpCacheValidation(MustRevalidate = false)]
         public IActionResult GetAll([FromQuery] GetResources getResources)
         {
             if (!_propertyMappingService.ValidMappingExistsFor<Resource, ResourceDto>(getResources.OrderBy))
