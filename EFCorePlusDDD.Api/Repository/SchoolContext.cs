@@ -1,19 +1,38 @@
 ﻿using EFCorePlusDDD.Api.Domain.Models;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 
 namespace EFCorePlusDDD.Api.Repository
 {
     public class SchoolContext : DbContext
     {
+        private readonly string _connectionString;
+        private readonly bool _useLogger;
+
         public DbSet<Student> Students { get; set; }
         public DbSet<Course> Courses { get; set; }
 
-        public SchoolContext(DbContextOptions<SchoolContext> options) : base(options)
+        public SchoolContext(string connectionString, bool useLogger)
         {
+            _connectionString = connectionString;
+            _useLogger = useLogger;
+        }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseSqlServer(_connectionString);
+
+            if (_useLogger)
+            {
+                var loggerFactory = LoggerFactory.Create(builder =>
+                 {
+                     builder.AddFilter((category, level) => category == DbLoggerCategory.Database.Command.Name && level == LogLevel.Information)
+                     .AddConsole();
+                 });
+
+                optionsBuilder.UseLoggerFactory(loggerFactory)
+                    .EnableSensitiveDataLogging();
+            }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
