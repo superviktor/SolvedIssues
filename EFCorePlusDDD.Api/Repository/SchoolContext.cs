@@ -43,7 +43,7 @@ namespace EFCorePlusDDD.Api.Repository
                 entity.Property(x => x.Id);
                 entity.Property(x => x.Email);
                 entity.Property(x => x.Name);
-                entity.Property(x => x.FavouriteCourseId);
+                entity.HasOne(x => x.FavouriteCourse).WithMany();
             });
 
             modelBuilder.Entity<Course>(entity =>

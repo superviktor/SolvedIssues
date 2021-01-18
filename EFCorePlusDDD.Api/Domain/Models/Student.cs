@@ -2,16 +2,20 @@
 {
     public class Student
     {
-        public Student(string name, string email, long favouriteCourseId)
+        private Student()
+        {
+        }
+
+        public Student(string name, string email, Course favouriteCourse):this()
         {
             Name = name;
             Email = email;
-            FavouriteCourseId = favouriteCourseId;
+            FavouriteCourse = favouriteCourse;
         }
 
         public long Id { get; private set; }
         public string Name { get; private set; }
         public string Email { get; private set; }
-        public long FavouriteCourseId { get; private set; }
+        public Course FavouriteCourse { get; private set; }
     }
 }
