@@ -2,7 +2,7 @@
 {
     public class Student
     {
-        private Student()
+        protected Student()
         {
         }
 
@@ -16,6 +16,6 @@
         public long Id { get; private set; }
         public string Name { get; private set; }
         public string Email { get; private set; }
-        public Course FavouriteCourse { get; private set; }
+        public virtual Course FavouriteCourse { get; private set; }
     }
 }

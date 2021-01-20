@@ -12,7 +12,7 @@ namespace EFCorePlusDDD.Api.Controllers
             using (var context = new SchoolContext("connectionString", true))
             {
                 var student = context.Students
-                    .Include(s => s.FavouriteCourse)
+                    //.Include(s => s.FavouriteCourse) //Eager loading
                     .SingleOrDefault(s => s.Id == 1);
             }
 
