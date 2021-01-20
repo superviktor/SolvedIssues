@@ -1,6 +1,6 @@
 ﻿namespace EFCorePlusDDD.Api.Domain.Models
 {
-    public class Student
+    public class Student : Entity
     {
         protected Student()
         {
@@ -13,7 +13,6 @@
             FavouriteCourse = favouriteCourse;
         }
 
-        public long Id { get; private set; }
         public string Name { get; private set; }
         public string Email { get; private set; }
         public virtual Course FavouriteCourse { get; private set; }
