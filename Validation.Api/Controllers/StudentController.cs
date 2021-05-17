@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
+using Validation.Api.Validator;
 using Validation.Domain;
 
 namespace Validation.Api.Controllers
@@ -20,7 +21,15 @@ namespace Validation.Api.Controllers
         [HttpPost]
         public IActionResult Register([FromBody] RegisterRequest request)
         {
-            var student = new Student(request.Email, request.Name, request.Address);
+            var validator = new RegisterRequestValidator();
+            var validationResult = validator.Validate(request);
+            if (!validationResult.IsValid)
+                return BadRequest(validationResult.Errors);
+            var address = new Address(
+                request.Address.Street, 
+                request.Address.City, 
+                request.Address.PostalCode);
+            var student = new Student(request.Email, request.Name, address);
             _studentRepository.Save(student);
 
             var response = new RegisterResponse
@@ -34,8 +43,11 @@ namespace Validation.Api.Controllers
         public IActionResult EditPersonalInfo(long id, [FromBody] EditPersonalInfoRequest request)
         {
             Student student = _studentRepository.GetById(id);
-
-            student.EditPersonalInfo(request.Name, request.Address);
+            var address = new Address(
+                request.Address.Street,
+                request.Address.City,
+                request.Address.PostalCode);
+            student.EditPersonalInfo(request.Name, address);
             _studentRepository.Save(student);
 
             return Ok();
@@ -61,10 +73,15 @@ namespace Validation.Api.Controllers
         public IActionResult Get(long id)
         {
             Student student = _studentRepository.GetById(id);
-
+            var addressDto = new AddressDto
+            {
+                Street = student.Address.Street,
+                City = student.Address.City,
+                PostalCode = student.Address.PostalCode
+            };
             var resonse = new GetResonse
             {
-                Address = student.Address,
+                Address = addressDto,
                 Email = student.Email,
                 Name = student.Name,
                 Enrollments = student.Enrollments.Select(x => new CourseEnrollmentDto
