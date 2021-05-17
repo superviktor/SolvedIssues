@@ -93,11 +93,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mediator.After.Api", "Media
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "EmitHandleDomainEvents", "EmitHandleDomainEvents", "{9A8F3A68-E50E-4073-A240-B39F2D4D708A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmitHandleDomainEvents.Domain", "EmitHandleDomainEvents.Domain\EmitHandleDomainEvents.Domain.csproj", "{8C508E81-8B5A-4342-9B4E-C13A0416B808}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EmitHandleDomainEvents.Domain", "EmitHandleDomainEvents.Domain\EmitHandleDomainEvents.Domain.csproj", "{8C508E81-8B5A-4342-9B4E-C13A0416B808}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmitHandleDomainEvents.Application", "EmitHandleDomainEvents.Application\EmitHandleDomainEvents.Application.csproj", "{23022FFC-1A07-4D0C-ADA6-E45E349BEE7F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EmitHandleDomainEvents.Application", "EmitHandleDomainEvents.Application\EmitHandleDomainEvents.Application.csproj", "{23022FFC-1A07-4D0C-ADA6-E45E349BEE7F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmitHandleDomainEvents.Persistence", "EmitHandleDomainEvents.Persistence\EmitHandleDomainEvents.Persistence.csproj", "{D8DF2E2D-99D9-45F7-A7F7-485AAFE53376}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EmitHandleDomainEvents.Persistence", "EmitHandleDomainEvents.Persistence\EmitHandleDomainEvents.Persistence.csproj", "{D8DF2E2D-99D9-45F7-A7F7-485AAFE53376}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Validation", "Validation", "{2791A5C0-A8A9-45F0-9AA6-3E0E18E916D9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Validation.Domain", "Validation.Domain\Validation.Domain.csproj", "{0656530C-C66C-47E2-A60A-1668CF273A90}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Validation.Api", "Validation.Api\Validation.Api.csproj", "{D4186CDC-D21A-4B4B-8E94-8FA3512C8A4C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -225,6 +231,14 @@ Global
 		{D8DF2E2D-99D9-45F7-A7F7-485AAFE53376}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D8DF2E2D-99D9-45F7-A7F7-485AAFE53376}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D8DF2E2D-99D9-45F7-A7F7-485AAFE53376}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0656530C-C66C-47E2-A60A-1668CF273A90}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0656530C-C66C-47E2-A60A-1668CF273A90}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0656530C-C66C-47E2-A60A-1668CF273A90}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0656530C-C66C-47E2-A60A-1668CF273A90}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D4186CDC-D21A-4B4B-8E94-8FA3512C8A4C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D4186CDC-D21A-4B4B-8E94-8FA3512C8A4C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D4186CDC-D21A-4B4B-8E94-8FA3512C8A4C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D4186CDC-D21A-4B4B-8E94-8FA3512C8A4C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -268,6 +282,8 @@ Global
 		{8C508E81-8B5A-4342-9B4E-C13A0416B808} = {9A8F3A68-E50E-4073-A240-B39F2D4D708A}
 		{23022FFC-1A07-4D0C-ADA6-E45E349BEE7F} = {9A8F3A68-E50E-4073-A240-B39F2D4D708A}
 		{D8DF2E2D-99D9-45F7-A7F7-485AAFE53376} = {9A8F3A68-E50E-4073-A240-B39F2D4D708A}
+		{0656530C-C66C-47E2-A60A-1668CF273A90} = {2791A5C0-A8A9-45F0-9AA6-3E0E18E916D9}
+		{D4186CDC-D21A-4B4B-8E94-8FA3512C8A4C} = {2791A5C0-A8A9-45F0-9AA6-3E0E18E916D9}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E96BC937-8A79-47ED-9E9A-7BF856BD0C27}
