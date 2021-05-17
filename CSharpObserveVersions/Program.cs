@@ -27,10 +27,55 @@ namespace CSharpObserveVersions
             Console.WriteLine(lastName);
             //standalone discard
             LookInside(new object());
-            _ = Task.Run(() =>{});
+            _ = Task.Run(() => { });
 
             //1.2 Pattern matching
+            //is
+            int? input = null;
+            if (input is int intInput)
+                //can access intInput
+                Console.WriteLine(intInput);
+            else
+                //cant
+                //Console.WriteLine(intInput);
+                Console.WriteLine("oops");
+
+            var reference = new object();
+            if (reference is not null && reference is IDisposable disposable)
+                disposable.Dispose();
+
+            var state = PerformOperation(Operation.Start);
+
+            var waterState = WaterState(11);
+            Console.WriteLine(waterState);
+
         }
+        private static string WaterState(int tempInFahrenheit) =>
+            tempInFahrenheit switch
+            {
+                (> 32) and (< 212) => "liquid",
+                < 32 => "solid",
+                > 212 => "gas",
+                _ => "transition"
+            };
+        private enum Operation
+        {
+            Start,
+            Stop
+        }
+
+        private enum State
+        {
+            Running,
+            Stopped
+        }
+        private static State PerformOperation(Operation command) =>
+        command switch
+        {
+            Operation.Start => State.Running,
+            Operation.Stop => State.Stopped,
+            _ => throw new ArgumentException(nameof(command), "Invalid enum value for command"),
+        };
 
         private static void LookInside(object arg)
         {
