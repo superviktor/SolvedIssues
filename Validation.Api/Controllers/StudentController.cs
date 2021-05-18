@@ -3,6 +3,7 @@ using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Validation.Api.Validator;
 using Validation.Domain;
+using FluentValidation;
 
 namespace Validation.Api.Controllers
 {
@@ -22,6 +23,10 @@ namespace Validation.Api.Controllers
         public IActionResult Register([FromBody] RegisterRequest request)
         {
             var validator = new RegisterRequestValidator();
+            //bad practice
+            //var validationResult = validator.Validate(request, opt => opt
+            //.IncludeRuleSets("CustomeRuleSets")
+            //.ThrowOnFailures());
             var validationResult = validator.Validate(request);
             if (!validationResult.IsValid)
                 return BadRequest(validationResult.Errors);
