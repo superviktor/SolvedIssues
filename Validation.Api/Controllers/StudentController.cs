@@ -25,11 +25,10 @@ namespace Validation.Api.Controllers
             var validationResult = validator.Validate(request);
             if (!validationResult.IsValid)
                 return BadRequest(validationResult.Errors);
-            var address = new Address(
-                request.Address.Street, 
-                request.Address.City, 
-                request.Address.PostalCode);
-            var student = new Student(request.Email, request.Name, address);
+            var addresses = request.Addresses
+                .Select(a => new Address(a.Street, a.City, a.PostalCode))
+                .ToArray();
+            var student = new Student(request.Email, request.Name, addresses);
             _studentRepository.Save(student);
 
             var response = new RegisterResponse
@@ -43,11 +42,10 @@ namespace Validation.Api.Controllers
         public IActionResult EditPersonalInfo(long id, [FromBody] EditPersonalInfoRequest request)
         {
             Student student = _studentRepository.GetById(id);
-            var address = new Address(
-                request.Address.Street,
-                request.Address.City,
-                request.Address.PostalCode);
-            student.EditPersonalInfo(request.Name, address);
+            var addresses = request.Addresses
+               .Select(a => new Address(a.Street, a.City, a.PostalCode))
+               .ToArray();
+            student.EditPersonalInfo(request.Name, addresses);
             _studentRepository.Save(student);
 
             return Ok();
@@ -73,15 +71,14 @@ namespace Validation.Api.Controllers
         public IActionResult Get(long id)
         {
             Student student = _studentRepository.GetById(id);
-            var addressDto = new AddressDto
-            {
-                Street = student.Address.Street,
-                City = student.Address.City,
-                PostalCode = student.Address.PostalCode
-            };
             var resonse = new GetResonse
             {
-                Address = addressDto,
+                Addresses = student.Addresses.Select(x => new AddressDto
+                {
+                    Street = x.Street,
+                    City = x.City,
+                    PostalCode = x.PostalCode
+                }).ToArray(),
                 Email = student.Email,
                 Name = student.Name,
                 Enrollments = student.Enrollments.Select(x => new CourseEnrollmentDto

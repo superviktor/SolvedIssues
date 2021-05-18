@@ -4,7 +4,7 @@
     {
         public string Name { get; set; }
         public string Email { get; set; }
-        public AddressDto Address { get; set; }
+        public AddressDto[] Addresses { get; set; }
     }
 
     public class RegisterResponse
@@ -15,7 +15,7 @@
     public class EditPersonalInfoRequest
     {
         public string Name { get; set; }
-        public AddressDto Address { get; set; }
+        public AddressDto[] Addresses { get; set; }
     }
 
     public class EnrollRequest
@@ -33,7 +33,7 @@
     {
         public string Name { get; set; }
         public string Email { get; set; }
-        public AddressDto Address { get; set; }
+        public AddressDto[] Addresses { get; set; }
         public CourseEnrollmentDto[] Enrollments { get; set; }
     }
 
