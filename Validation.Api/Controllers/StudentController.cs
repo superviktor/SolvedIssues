@@ -8,7 +8,7 @@ using FluentValidation;
 namespace Validation.Api.Controllers
 {
     [Route("api/students")]
-    public class StudentController : Controller
+    public class StudentController : ApplicationController
     {
         private readonly StudentRepository _studentRepository;
         private readonly CourseRepository _courseRepository;
@@ -22,14 +22,28 @@ namespace Validation.Api.Controllers
         [HttpPost]
         public IActionResult Register([FromBody] RegisterRequest request)
         {
-            var validator = new RegisterRequestValidator();
+            //obsolete->use ApiController attribute
+            //if (!ModelState.IsValid)
+            //{
+            //    var errors = ModelState
+            //        .Where(x => x.Value.Errors.Any())
+            //        .Select(x => x.Value.Errors.First().ErrorMessage)
+            //        .ToArray();
+
+            //    return BadRequest(string.Join(',', errors));
+            //}
+
             //bad practice
             //var validationResult = validator.Validate(request, opt => opt
             //.IncludeRuleSets("CustomeRuleSets")
             //.ThrowOnFailures());
-            var validationResult = validator.Validate(request);
-            if (!validationResult.IsValid)
-                return BadRequest(validationResult.Errors);
+
+            //obsolete 
+            //var validator = new RegisterRequestValidator();
+            //var validationResult = validator.Validate(request);
+            //if (!validationResult.IsValid)
+            //    return BadRequest(validationResult.Errors);
+
             var addresses = request.Addresses
                 .Select(a => new Address(a.Street, a.City, a.PostalCode))
                 .ToArray();

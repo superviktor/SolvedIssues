@@ -5,6 +5,7 @@
         public string Name { get; set; }
         public string Email { get; set; }
         public AddressDto[] Addresses { get; set; }
+        public string PhoneNumber { get; set; }
         //public PhoneNumberDto PhoneNumber { get; set; }
     }
 

@@ -1,8 +1,4 @@
 ﻿using FluentValidation;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Validation.Api.Validator
 {
@@ -12,7 +8,7 @@ namespace Validation.Api.Validator
         {
             RuleFor(x => x)
                 .NotNull()
-                .Must(x => x?.Length >= 1 && x.Length < 2)
+                .ListMustContainsNumberOfElements(1,2)
                 .ForEach(a => 
                 {
                     a.NotNull();

@@ -11,6 +11,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using FluentValidation.AspNetCore;
+using Validation.Api.Validator;
 
 namespace Validation.Api
 {
@@ -27,7 +29,10 @@ namespace Validation.Api
         public void ConfigureServices(IServiceCollection services)
         {
 
-            services.AddControllers();
+            services
+                .AddControllers()
+                .AddFluentValidation(opt => opt.RegisterValidatorsFromAssemblyContaining<RegisterRequestValidator>());
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Validation.Api", Version = "v1" });
