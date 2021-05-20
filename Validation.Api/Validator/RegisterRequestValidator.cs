@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using Validation.Domain;
 
 namespace Validation.Api.Validator
 {
@@ -6,9 +7,19 @@ namespace Validation.Api.Validator
     {
         public RegisterRequestValidator()
         {
-            RuleFor(x => x.Name).NotEmpty().Length(0, 200);
-            RuleFor(x => x.Email).NotEmpty().Length(0, 150).EmailAddress();
-            RuleFor(x => x.Addresses).NotNull().SetValidator(new AddressesValidator());
+            RuleFor(x => x.Name)
+                .NotEmpty()
+                .MustBeValueObject(StudentName.Create)
+                .When(x => x.Name != null);
+
+            RuleFor(x => x.Email)
+                .NotEmpty()
+                .MustBeValueObject(Email.Create)
+                .When(x=>x.Email != null);
+
+            RuleFor(x => x.Addresses)
+                .NotNull()
+                .SetValidator(new AddressesValidator());
         }
     }
 }

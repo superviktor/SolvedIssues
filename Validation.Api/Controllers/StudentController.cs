@@ -25,13 +25,7 @@ namespace Validation.Api.Controllers
                 .ToArray();
 
             var email = Email.Create(request.Email);
-            if (email.IsFailure)
-                return BadRequest(email.Error);
-
-            var studentName = StudentName.Create(request.Name); 
-            if (studentName.IsFailure)
-                return BadRequest(studentName.Error);
-
+            var studentName = StudentName.Create(request.Name);
             var student = new Student(email.Value, studentName.Value, addresses);
             _studentRepository.Save(student);
 
