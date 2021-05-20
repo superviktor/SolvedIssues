@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
-using Validation.Api.Validator;
 using Validation.Domain;
-using FluentValidation;
 
 namespace Validation.Api.Controllers
 {
@@ -22,32 +20,19 @@ namespace Validation.Api.Controllers
         [HttpPost]
         public IActionResult Register([FromBody] RegisterRequest request)
         {
-            //obsolete->use ApiController attribute
-            //if (!ModelState.IsValid)
-            //{
-            //    var errors = ModelState
-            //        .Where(x => x.Value.Errors.Any())
-            //        .Select(x => x.Value.Errors.First().ErrorMessage)
-            //        .ToArray();
-
-            //    return BadRequest(string.Join(',', errors));
-            //}
-
-            //bad practice
-            //var validationResult = validator.Validate(request, opt => opt
-            //.IncludeRuleSets("CustomeRuleSets")
-            //.ThrowOnFailures());
-
-            //obsolete 
-            //var validator = new RegisterRequestValidator();
-            //var validationResult = validator.Validate(request);
-            //if (!validationResult.IsValid)
-            //    return BadRequest(validationResult.Errors);
-
             var addresses = request.Addresses
                 .Select(a => new Address(a.Street, a.City, a.PostalCode))
                 .ToArray();
-            var student = new Student(request.Email, request.Name, addresses);
+
+            var email = Email.Create(request.Email);
+            if (email.IsFailure)
+                return BadRequest(email.Error);
+
+            var studentName = StudentName.Create(request.Name); 
+            if (studentName.IsFailure)
+                return BadRequest(studentName.Error);
+
+            var student = new Student(email.Value, studentName.Value, addresses);
             _studentRepository.Save(student);
 
             var response = new RegisterResponse
@@ -64,7 +49,7 @@ namespace Validation.Api.Controllers
             var addresses = request.Addresses
                .Select(a => new Address(a.Street, a.City, a.PostalCode))
                .ToArray();
-            student.EditPersonalInfo(request.Name, addresses);
+            //student.EditPersonalInfo(request.Name, addresses);
             _studentRepository.Save(student);
 
             return Ok();
@@ -98,8 +83,8 @@ namespace Validation.Api.Controllers
                     City = x.City,
                     PostalCode = x.PostalCode
                 }).ToArray(),
-                Email = student.Email,
-                Name = student.Name,
+                Email = student.Email.Value,
+                Name = student.Name.Value,
                 Enrollments = student.Enrollments.Select(x => new CourseEnrollmentDto
                 {
                     Course = x.Course.Name,

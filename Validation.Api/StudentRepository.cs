@@ -41,7 +41,7 @@ namespace Validation.Api
 
         private static Student Alice()
         {
-            var alice = new Student("alice@gmail.com", "Alice Alison", new[] { new Address("5 Avenue", "New York", "123") });
+            var alice = new Student(Email.Create("alice@gmail.com").Value, StudentName.Create("Alice Alison").Value, new[] { new Address("5 Avenue", "New York", "123") });
             SetId(alice, 1);
             alice.Enroll(new Course(1, "Calculus", 5), Grade.A);
 
@@ -50,7 +50,7 @@ namespace Validation.Api
 
         private static Student Bob()
         {
-            var bob = new Student("bob@gmail.com", "Bob Bobson", new[] { new Address("B.Hmyri", "Kiev", "03056") });
+            var bob = new Student(Email.Create("bob@gmail.com").Value, StudentName.Create("Bob Bobson").Value, new[] { new Address("B.Hmyri", "Kiev", "03056") });
             SetId(bob, 2);
             bob.Enroll(new Course(2, "History", 4), Grade.B);
 
