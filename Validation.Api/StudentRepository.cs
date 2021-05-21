@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using CSharpFunctionalExtensions;
 using Validation.Domain;
 
 namespace Validation.Api
@@ -41,7 +42,7 @@ namespace Validation.Api
 
         private static Student Alice()
         {
-            var alice = new Student(Email.Create("alice@gmail.com").Value, StudentName.Create("Alice Alison").Value, new[] { new Address("5 Avenue", "New York", "123") });
+            var alice = new Student(Email.Create("alice@gmail.com").Value, "Alice Alison", new[] { Address.Create("5 Avenue", "New York", "123","DC", new []{"VA","DC"}).Value });
             SetId(alice, 1);
             alice.Enroll(new Course(1, "Calculus", 5), Grade.A);
 
@@ -50,7 +51,7 @@ namespace Validation.Api
 
         private static Student Bob()
         {
-            var bob = new Student(Email.Create("bob@gmail.com").Value, StudentName.Create("Bob Bobson").Value, new[] { new Address("B.Hmyri", "Kiev", "03056") });
+            var bob = new Student(Email.Create("bob@gmail.com").Value, "Bob Bobson", new[] { Address.Create("B.Hmyri", "Kiev", "03056","VA", new[]{ "VA", "DC" }).Value });
             SetId(bob, 2);
             bob.Enroll(new Course(2, "History", 4), Grade.B);
 

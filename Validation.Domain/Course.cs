@@ -1,4 +1,6 @@
-﻿namespace Validation.Domain
+﻿using CSharpFunctionalExtensions;
+
+namespace Validation.Domain
 {
     public class Course : Entity
     {

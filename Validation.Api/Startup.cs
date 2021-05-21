@@ -39,6 +39,7 @@ namespace Validation.Api
             });
             services.AddTransient<StudentRepository>();
             services.AddTransient<CourseRepository>();
+            services.AddTransient<StateRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -17,11 +17,11 @@ namespace Validation.Domain
         {
             if (string.IsNullOrWhiteSpace(input))
                 return Result.Failure<Email>("Value is required");
-
-            if (Regex.IsMatch(input, @"^(.+)@(.+)$") == false)
+            var email = input.Trim();
+            if (Regex.IsMatch(email, @"^(.+)@(.+)$") == false)
                 return Result.Failure<Email>("Value is invalid email");
 
-            return Result.Success(new Email(input));
+            return Result.Success(new Email(email));
         }
 
         protected override IEnumerable<object> GetEqualityComponents()

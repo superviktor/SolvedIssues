@@ -5,21 +5,19 @@ namespace Validation.Api.Validator
 {
     public class RegisterRequestValidator : AbstractValidator<RegisterRequest>
     {
-        public RegisterRequestValidator()
+        public RegisterRequestValidator(StateRepository stateRepository)
         {
-            RuleFor(x => x.Name)
+            Transform(x => x.Name, x => (x ?? string.Empty).Trim())
                 .NotEmpty()
-                .MustBeValueObject(StudentName.Create)
-                .When(x => x.Name != null);
+                .Length(0, 200);
 
             RuleFor(x => x.Email)
-                .NotEmpty()
                 .MustBeValueObject(Email.Create)
-                .When(x=>x.Email != null);
+                .When(x => x.Email != null);
 
             RuleFor(x => x.Addresses)
                 .NotNull()
-                .SetValidator(new AddressesValidator());
+                .SetValidator(new AddressesValidator(stateRepository));
         }
     }
 }

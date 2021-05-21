@@ -7,8 +7,21 @@ namespace Validation.Api.Validator
 {
     public static class CustomValidators
     {
+        public static IRuleBuilderOptions<T, TElement> MustBeEntity<T, TElement, TEntity>(
+            this IRuleBuilder<T, TElement> ruleBuilder, 
+            Func<TElement, Result<TEntity>> factoryMethod)
+            where TEntity : Entity
+        {
+            return (IRuleBuilderOptions<T, TElement>)ruleBuilder.Custom((value, context) =>
+            {
+                var result = factoryMethod(value);
+                if (result.IsFailure)
+                    context.AddFailure(result.Error);
+            });
+        }
         public static IRuleBuilderOptions<T, string> MustBeValueObject<T, TValueObject>(
-            this IRuleBuilder<T, string> ruleBuilder, Func<string, Result<TValueObject>> factoryMethod)
+            this IRuleBuilder<T, string> ruleBuilder, 
+            Func<string, Result<TValueObject>> factoryMethod)
             where TValueObject : ValueObject
         {
             return (IRuleBuilderOptions<T, string>) ruleBuilder.Custom((value, context) =>
