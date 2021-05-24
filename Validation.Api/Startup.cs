@@ -10,9 +10,12 @@ using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Validation.Api.Validator;
+using Validation.Domain;
 
 namespace Validation.Api
 {
@@ -31,6 +34,10 @@ namespace Validation.Api
 
             services
                 .AddControllers()
+                .ConfigureApiBehaviorOptions(opt =>
+                {
+                    opt.InvalidModelStateResponseFactory = ModelStateValidator.ValidateModelState;
+                })
                 .AddFluentValidation(opt => opt.RegisterValidatorsFromAssemblyContaining<RegisterRequestValidator>());
 
             services.AddSwaggerGen(c =>
@@ -48,7 +55,7 @@ namespace Validation.Api
             app.UseMiddleware<ExceptionHandler>();
             if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();
+                //app.UseDeveloperExceptionPage();
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Validation.Api v1"));
             }
@@ -63,6 +70,19 @@ namespace Validation.Api
             {
                 endpoints.MapControllers();
             });
+        }
+    }
+
+    public class ModelStateValidator
+    {
+        public static IActionResult ValidateModelState(ActionContext context)
+        {
+            (string fieldName, ModelStateEntry entry) = context.ModelState.First(x => x.Value.Errors.Count > 0);
+            var errorSerialized = entry.Errors.First().ErrorMessage;
+
+            var error = Error.Deserialize(errorSerialized);
+            var envelope = Envelope.Error(error, fieldName);
+            return new EnvelopeResult(envelope, HttpStatusCode.BadRequest);
         }
     }
 }

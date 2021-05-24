@@ -13,19 +13,19 @@ namespace Validation.Domain
 
         public string Value { get; }
 
-        public static Result<State> Create(string input, string[] allStates)
+        public static Result<State, Error> Create(string input, string[] allStates)
         {
             if (string.IsNullOrWhiteSpace(input))
-                return Result.Failure<State>("Value is required");
+                return Errors.General.ValueIsRequired();
 
             var state = input.Trim().ToUpper();
             if(state.Length != 2)
-                return Result.Failure<State>("Value length is invalid");
+                return Errors.General.InvalidLength(state);
 
-            if(allStates.Any(x=>x == state) == false)
-                return Result.Failure<State>("State is invalid");
+            if (allStates.Any(x => x == state) == false)
+                return Errors.General.ValueIsInvalid();
 
-            return Result.Success(new State(state));
+            return new State(state);
 
         }
         protected override IEnumerable<object> GetEqualityComponents()

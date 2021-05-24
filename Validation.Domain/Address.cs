@@ -17,7 +17,7 @@ namespace Validation.Domain
         public string PostalCode { get; init; }
         public State State { get; init; }
 
-        public static Result<Address> Create(string street, string city, string postalCode, string state, string[] allStates)
+        public static Result<Address, Error> Create(string street, string city, string postalCode, string state, string[] allStates)
         {
             street = (street ?? string.Empty).Trim();
             city = (city ?? string.Empty).Trim();
@@ -26,13 +26,13 @@ namespace Validation.Domain
             var stateObj = State.Create(state, allStates).Value;
 
             if (street.Length < 1 || street.Length > 100)
-                return Result.Failure<Address>("Invalid street length");
+                return Errors.General.InvalidLength(nameof(street));
             if (city.Length < 1 || city.Length > 40)
-                return Result.Failure<Address>("Invalid city length");
+                return Errors.General.InvalidLength(nameof(city));
             if (postalCode.Length < 1 || postalCode.Length > 5)
-                return Result.Failure<Address>("Invalid postal code length");
+                return Errors.General.InvalidLength(nameof(postalCode));
 
-            return Result.Success(new Address(street, city, postalCode, stateObj));
+            return new Address(street, city, postalCode, stateObj);
         }
     }
 }

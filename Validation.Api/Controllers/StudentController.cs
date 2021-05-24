@@ -28,6 +28,12 @@ namespace Validation.Api.Controllers
 
             var email = Email.Create(request.Email);
             var studentName = request.Name.Trim();
+
+            //DDD trilema: encapsulation, purity, performance
+            var existingStudent = _studentRepository.GetByEmail(email.Value);
+            if (existingStudent != null)
+                return Error(Errors.Student.EmailIsTaken());
+
             var student = new Student(email.Value, studentName, addresses);
             _studentRepository.Save(student);
 
@@ -41,11 +47,18 @@ namespace Validation.Api.Controllers
         [HttpPut("{id}")]
         public IActionResult EditPersonalInfo(long id, [FromBody] EditPersonalInfoRequest request)
         {
-            Student student = _studentRepository.GetById(id);
-            //var addresses = request.Addresses
-            //   .Select(a => new Address(a.Street, a.City, a.PostalCode))
-            //   .ToArray();
-            //student.EditPersonalInfo(request.Name, addresses);
+            var student = _studentRepository.GetById(id);
+            if (student == null)
+                return Error(Errors.General.NotFound(id), nameof(id));
+
+            var addresses = request.Addresses
+                .Select(a => Address.Create(a.Street, a.City, a.PostalCode, a.State, _stateRepository.GetAll()).Value)
+                .ToArray();
+
+            var studentName = request.Name.Trim();
+
+            student.EditPersonalInfo(studentName, addresses);
+
             _studentRepository.Save(student);
 
             return Ok();
@@ -54,12 +67,21 @@ namespace Validation.Api.Controllers
         [HttpPost("{id}/enrollments")]
         public IActionResult Enroll(long id, [FromBody] EnrollRequest request)
         {
-            Student student = _studentRepository.GetById(id);
+            var student = _studentRepository.GetById(id);
+            if (student == null)
+                return Error(Errors.General.NotFound(id), nameof(id));
 
-            foreach (CourseEnrollmentDto enrollmentDto in request.Enrollments)
+            for (var index = 0; index < request.Enrollments.Length; index++)
             {
-                Course course = _courseRepository.GetByName(enrollmentDto.Course);
-                var grade = Enum.Parse<Grade>(enrollmentDto.Grade);
+                var enrollmentDto = request.Enrollments[index];
+
+                var grade = Grade.Create(enrollmentDto.Grade).Value;
+
+                var courseName = (enrollmentDto.Course ?? string.Empty).Trim();
+                var course = _courseRepository.GetByName(courseName);
+                if (course == null)
+                    return Error(Errors.General.ValueIsInvalid(),
+                        $"{nameof(request.Enrollments)}[{index}].{nameof(enrollmentDto.Course)}");
 
                 student.Enroll(course, grade);
             }

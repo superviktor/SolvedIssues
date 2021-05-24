@@ -57,5 +57,10 @@ namespace Validation.Api
 
             return bob;
         }
+
+        public Student GetByEmail(Email email)
+        {
+            return _existingStudents.SingleOrDefault(x => x.Email == email);
+        }
     }
 }

@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Net;
+using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Hosting;
+using Validation.Domain;
 
 namespace Validation.Api
 {
@@ -32,10 +34,13 @@ namespace Validation.Api
 
         private Task HandleException(HttpContext context, Exception exception)
         {
-            string errorMessage = _env.IsProduction() ? "Internal server error" : "Exception: " + exception.Message;
+            var errorMessage = _env.IsProduction() ? "Internal server error" : "Exception: " + exception.Message;
+            var error = Errors.General.InternalServerError(errorMessage);
+            var envelope = Envelope.Error(error, null);
+            var result = JsonSerializer.Serialize(envelope);
             context.Response.ContentType = "application/json";
             context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
-            return context.Response.WriteAsync(errorMessage);
+            return context.Response.WriteAsync(result);
         }
     }
 }
