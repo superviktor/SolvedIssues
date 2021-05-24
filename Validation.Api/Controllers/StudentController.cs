@@ -83,7 +83,9 @@ namespace Validation.Api.Controllers
                     return Error(Errors.General.ValueIsInvalid(),
                         $"{nameof(request.Enrollments)}[{index}].{nameof(enrollmentDto.Course)}");
 
-                student.Enroll(course, grade);
+                var result = student.Enroll(course, grade);
+                if (result.IsFailure)
+                    return Error(result.Error);
             }
 
             return Ok();
