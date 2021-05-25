@@ -41,16 +41,18 @@ namespace EFCorePlusDDD.Api.Repository
         {
             modelBuilder.Entity<Student>(entity =>
             {
-                entity.ToTable("Student").HasKey(k => k.Id);
+                entity.ToTable("Student")
+                    .HasKey(k => k.Id);
                 entity.Property(x => x.Id);
                 entity.Property(x => x.Email);
                 entity.Property(x => x.Name);
-                entity.HasOne(x => x.FavouriteCourse).WithMany();
+                entity.HasOne(x => x.FavoriteCourse).WithMany();
             });
 
             modelBuilder.Entity<Course>(entity =>
             {
-                entity.ToTable("Course").HasKey(k => k.Id);
+                entity.ToTable("Course")
+                    .HasKey(k => k.Id);
                 entity.Property(x => x.Id);
                 entity.Property(x => x.Name);
             });

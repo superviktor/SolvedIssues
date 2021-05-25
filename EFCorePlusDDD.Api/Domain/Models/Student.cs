@@ -6,15 +6,15 @@
         {
         }
 
-        public Student(string name, string email, Course favouriteCourse):this()
+        public Student(string name, string email, Course favoriteCourse):this()
         {
             Name = name;
             Email = email;
-            FavouriteCourse = favouriteCourse;
+            FavoriteCourse = favoriteCourse;
         }
 
-        public string Name { get; private set; }
-        public string Email { get; private set; }
-        public virtual Course FavouriteCourse { get; private set; }
+        public string Name { get; }
+        public string Email { get; }
+        public virtual Course FavoriteCourse { get; }
     }
 }
