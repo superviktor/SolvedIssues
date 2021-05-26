@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
-namespace EFCorePlusDDD.Api.Repository
+namespace EFCorePlusDDD.Api
 {
     public class SchoolContext : DbContext
     {
@@ -47,6 +47,10 @@ namespace EFCorePlusDDD.Api.Repository
                 entity.Property(x => x.Email);
                 entity.Property(x => x.Name);
                 entity.HasOne(x => x.FavoriteCourse).WithMany();
+                entity.HasMany(x => x.Enrollments)
+                    .WithOne(e => e.Student)
+                    .OnDelete(DeleteBehavior.Cascade)
+                    .Metadata.PrincipalToDependent.SetPropertyAccessMode(PropertyAccessMode.Field);
             });
 
             modelBuilder.Entity<Course>(entity =>
@@ -55,6 +59,16 @@ namespace EFCorePlusDDD.Api.Repository
                     .HasKey(k => k.Id);
                 entity.Property(x => x.Id);
                 entity.Property(x => x.Name);
+            });
+
+            modelBuilder.Entity<Enrollment>(entity =>
+            {
+                entity.ToTable("Enrollment")
+                    .HasKey(x => x.Id);
+                entity.HasOne(x => x.Student)
+                    .WithMany(s => s.Enrollments);
+                entity.HasOne(x => x.Course).WithMany();
+                entity.Property(x => x.Grade);
             });
         }
     }
