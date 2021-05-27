@@ -1,5 +1,7 @@
 ﻿using EFCorePlusDDD.Api.Domain.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.Extensions.Logging;
 
 namespace EFCorePlusDDD.Api
@@ -58,7 +60,8 @@ namespace EFCorePlusDDD.Api
                 entity.ToTable("Course")
                     .HasKey(k => k.Id);
                 entity.Property(x => x.Id);
-                entity.Property(x => x.Name);
+                entity.Property(x => x.Name)
+                    .Metadata.SetAfterSaveBehavior(PropertySaveBehavior.Ignore);
             });
 
             modelBuilder.Entity<Enrollment>(entity =>
@@ -71,5 +74,14 @@ namespace EFCorePlusDDD.Api
                 entity.Property(x => x.Grade);
             });
         }
+
+        //public override int SaveChanges()
+        //{
+        //    foreach (var course in ChangeTracker.Entries<Course>())
+        //    {
+        //        course.State = EntityState.Unchanged;
+        //    }
+        //    return base.SaveChanges();
+        //}
     }
 }

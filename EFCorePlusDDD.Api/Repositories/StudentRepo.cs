@@ -22,5 +22,10 @@ namespace EFCorePlusDDD.Api.Repositories
             _schoolContext.Entry(student).Collection(x=>x.Enrollments).Load();
             return student;
         }
+
+        public void Save(Student student)
+        {
+            _schoolContext.Students.Attach(student);
+        }
     }
 }
