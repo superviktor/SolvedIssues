@@ -2,6 +2,7 @@
 
 namespace EFCorePlusDDD.Api.Domain.Models
 {
+    //Enumeration entity
     public class Course : Entity
     {
         public static readonly Course Calculus = new Course(1, "Calculus");

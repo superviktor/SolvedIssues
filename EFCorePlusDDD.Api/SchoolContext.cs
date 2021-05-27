@@ -1,13 +1,15 @@
-﻿using EFCorePlusDDD.Api.Domain.Models;
+﻿using System;
+using System.Linq;
+using EFCorePlusDDD.Api.Domain.Models;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.Extensions.Logging;
 
 namespace EFCorePlusDDD.Api
 {
     public class SchoolContext : DbContext
     {
+        private static readonly Type[] EnumerationTypes = {typeof(Course), typeof(Suffix)};
+
         private readonly string _connectionString;
         private readonly bool _useLogger;
 
@@ -46,8 +48,15 @@ namespace EFCorePlusDDD.Api
                 entity.ToTable("Student")
                     .HasKey(k => k.Id);
                 entity.Property(x => x.Id);
-                entity.Property(x => x.Email);
-                entity.Property(x => x.Name);
+                entity.Property(x => x.Email)
+                    .HasConversion(p => p.Value, p => Email.Create(p).Value);
+                entity.OwnsOne(p=> p.Name, p =>
+                {
+                    p.Property<long?>("NameSuffixId").HasColumnName("NameSuffixId");
+                    p.Property(pp => pp.First).HasColumnName("FirstName");
+                    p.Property(pp => pp.Last).HasColumnName("LastName");
+                    p.HasOne(pp => pp.Suffix).WithMany().HasForeignKey("NameSuffixId").IsRequired(false);
+                });
                 entity.HasOne(x => x.FavoriteCourse).WithMany();
                 entity.HasMany(x => x.Enrollments)
                     .WithOne(e => e.Student)
@@ -60,8 +69,16 @@ namespace EFCorePlusDDD.Api
                 entity.ToTable("Course")
                     .HasKey(k => k.Id);
                 entity.Property(x => x.Id);
-                entity.Property(x => x.Name)
-                    .Metadata.SetAfterSaveBehavior(PropertySaveBehavior.Ignore);
+                entity.Property(x => x.Name);
+                //.Metadata.SetAfterSaveBehavior(PropertySaveBehavior.Ignore);
+            });
+
+            modelBuilder.Entity<Suffix>(entity =>
+            {
+                entity.ToTable("Suffix")
+                    .HasKey(k => k.Id);
+                entity.Property(x => x.Id);
+                entity.Property(x => x.Name);
             });
 
             modelBuilder.Entity<Enrollment>(entity =>
@@ -75,13 +92,15 @@ namespace EFCorePlusDDD.Api
             });
         }
 
-        //public override int SaveChanges()
-        //{
-        //    foreach (var course in ChangeTracker.Entries<Course>())
-        //    {
-        //        course.State = EntityState.Unchanged;
-        //    }
-        //    return base.SaveChanges();
-        //}
+        public override int SaveChanges()
+        {
+            var enumerationEntities = ChangeTracker.Entries()
+                .Where(x => EnumerationTypes.Contains(x.Entity.GetType()));
+
+            foreach (var enumerationEntity in enumerationEntities)
+                enumerationEntity.State = EntityState.Unchanged;
+
+            return base.SaveChanges();
+        }
     }
 }

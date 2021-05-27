@@ -35,6 +35,7 @@ namespace EFCorePlusDDD.Api.Controllers
             //violate encapsulation
             //student.Enrollments.Add(new Enrollment(dto.Grade, course, student));
             var result = student.EnrollIn(course, dto.Grade);
+
             _schoolContext.SaveChanges();
 
             return Ok(result);
@@ -47,6 +48,7 @@ namespace EFCorePlusDDD.Api.Controllers
             var course = Course.FromId(dto.CourseId);
 
             student.Disenroll(course);
+
             _schoolContext.SaveChanges();
 
             return Ok();
@@ -56,6 +58,7 @@ namespace EFCorePlusDDD.Api.Controllers
         public IActionResult RegisterStudent(RegisterStudent dto)
         {
             var course = Course.FromId(dto.FavoriteCourseId);
+            var suffix = Suffix.FromId(dto.NameSuffixId);
             //course is not from db context so state is detached if we do
             //_schoolContext.Students.Add(student);
             //here course state is added and 
@@ -64,7 +67,16 @@ namespace EFCorePlusDDD.Api.Controllers
             //old way to fix
             //_schoolContext.Entry(course).State == EntityState.Unchanged;
 
-            var student = new Student(dto.Name, dto.Email, course, dto.FavoriteCourseGrade);
+            var emailResult = Email.Create(dto.Email);
+            if (emailResult.IsFailure)
+                return BadRequest(emailResult.Error);
+
+            var nameResult = Name.Create(dto.FirstName, dto.LastName, suffix);
+            if (nameResult.IsFailure)
+                return BadRequest(nameResult.Error);
+
+            var student = new Student(nameResult.Value, emailResult.Value, course, dto.FavoriteCourseGrade);
+
             _studentRepo.Save(student);
             _schoolContext.SaveChanges();
             
@@ -76,11 +88,18 @@ namespace EFCorePlusDDD.Api.Controllers
         public IActionResult EditPersonalInfo(EditPersonalInfo dto)
         {
             var student = _studentRepo.GetById(dto.StudentId);
-            var course = Course.FromId(dto.FavoriteCourseId);
+            var favoriteCourse = Course.FromId(dto.FavoriteCourseId);
+            var suffix = Suffix.FromId(dto.NameSuffixId);
 
-            student.Name = dto.Name;
-            student.Email = dto.Email;
-            student.FavoriteCourse = course;
+            var emailResult = Email.Create(dto.Email);
+            if (emailResult.IsFailure)
+                return BadRequest(emailResult.Error);
+
+            var nameResult = Name.Create(dto.FirstName, dto.LastName, suffix);
+            if (nameResult.IsFailure)
+                return BadRequest(nameResult.Error);
+
+            student.EditPersonalInfo(nameResult.Value, emailResult.Value, favoriteCourse);
 
             _schoolContext.SaveChanges();
 
