@@ -1,9 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
+using EFCorePlusDDD.Api.Domain.Events;
 
 namespace EFCorePlusDDD.Api.Domain.Models
 {
     public abstract class Entity
     {
+        private readonly List<IDomainEvent> _domainEvents = new List<IDomainEvent>();
+        public IReadOnlyList<IDomainEvent> DomainEvents => _domainEvents;
         protected Entity()
         {
         }
@@ -44,10 +48,10 @@ namespace EFCorePlusDDD.Api.Domain.Models
 
         public static bool operator ==(Entity a, Entity b)
         {
-            if (ReferenceEquals(a, null) && ReferenceEquals(b, null))
+            if (a is null && b is null)
                 return true;
 
-            if (ReferenceEquals(a, null) || ReferenceEquals(b, null))
+            if (a is null || b is null)
                 return false;
 
             return a.Equals(b);
@@ -61,6 +65,16 @@ namespace EFCorePlusDDD.Api.Domain.Models
         public override int GetHashCode()
         {
             return (GetRealType().ToString() + Id).GetHashCode();
+        }
+
+        protected void RaiseDomainEvent(IDomainEvent domainEvent)
+        {
+            _domainEvents.Add(domainEvent);
+        }
+
+        public void ClearDomainEvents()
+        {
+            _domainEvents.Clear();
         }
 
     }

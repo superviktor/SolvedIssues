@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using EFCorePlusDDD.Api.Domain.Events;
 
 namespace EFCorePlusDDD.Api.Domain.Models
 {
@@ -41,12 +42,15 @@ namespace EFCorePlusDDD.Api.Domain.Models
 
         public void EditPersonalInfo(Name name, Email email, Course favoriteCourse)
         {
-            if (name == null)
+            if (name is null)
                 throw new ArgumentNullException(nameof(name));
-            if (email == null)
+            if (email is null)
                 throw new ArgumentNullException(nameof(email));
-            if (favoriteCourse == null)
+            if (favoriteCourse is null)
                 throw new ArgumentNullException(nameof(favoriteCourse));
+
+            if(Email != email)
+                RaiseDomainEvent(new StudentEmailChangedEvent(Id, email));
 
             Name = name;
             Email = email;

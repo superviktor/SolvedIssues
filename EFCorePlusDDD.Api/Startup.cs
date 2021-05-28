@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using EFCorePlusDDD.Api.Domain.Events;
 
 namespace EFCorePlusDDD.Api
 {
@@ -25,7 +26,10 @@ namespace EFCorePlusDDD.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddScoped(_ => new SchoolContext("connectionString", true));
+            var bus = new Bus();
+            var messageBus = new MessageBus(bus);
+            var eventDispatcher = new EventDispatcher(messageBus);
+            services.AddScoped(_ => new SchoolContext("connectionString", true, eventDispatcher));
             services.AddControllers();
         }
 

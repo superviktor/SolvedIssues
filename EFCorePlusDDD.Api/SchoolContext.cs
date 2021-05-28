@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using EFCorePlusDDD.Api.Domain.Events;
 using EFCorePlusDDD.Api.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -12,14 +13,16 @@ namespace EFCorePlusDDD.Api
 
         private readonly string _connectionString;
         private readonly bool _useLogger;
+        private readonly EventDispatcher _eventDispatcher;
 
         public DbSet<Student> Students { get; set; }
         public DbSet<Course> Courses { get; set; }
 
-        public SchoolContext(string connectionString, bool useLogger)
+        public SchoolContext(string connectionString, bool useLogger, EventDispatcher eventDispatcher)
         {
             _connectionString = connectionString;
             _useLogger = useLogger;
+            _eventDispatcher = eventDispatcher;
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -99,8 +102,21 @@ namespace EFCorePlusDDD.Api
 
             foreach (var enumerationEntity in enumerationEntities)
                 enumerationEntity.State = EntityState.Unchanged;
+            var result = base.SaveChanges();
 
-            return base.SaveChanges();
+            var entities = ChangeTracker.Entries()
+                .Where(x => x.Entity is Entity)
+                .Select(x => (Entity) x.Entity)
+                .ToList();
+
+            foreach (var entity in entities)
+            {
+                _eventDispatcher.Dispatch(entity.DomainEvents);
+                entity.ClearDomainEvents(); 
+            }
+
+            return result;
+
         }
     }
 }
