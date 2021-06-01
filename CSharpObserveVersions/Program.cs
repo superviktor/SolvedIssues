@@ -1,12 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace CSharpObserveVersions
 {
-    class Program
+    static class Program
     {
-        static void Main(string[] args)
+        static async Task Main(string[] args)
         {
             //1 C# 7.0 - 7.3
             //1.1 Tuples and discards
@@ -49,7 +50,49 @@ namespace CSharpObserveVersions
             var waterState = WaterState(11);
             Console.WriteLine(waterState);
 
+            //1.3 Local functions, two use cases with deferred execution 
+            Enumerable.Range(0, 10).CustomWhere(i => i > 2);
+
+            await PerformLongRunningWork("address", 1);
         }
+
+        public static IEnumerable<T> CustomWhere<T>(this IEnumerable<T> source, Func<T, bool> predicate)
+        {
+            if (source is null)
+                throw new ArgumentNullException(nameof(source));
+            if (predicate is null)
+                throw new ArgumentNullException(nameof(predicate));
+
+            return CustomerWhereImplementation();
+
+            IEnumerable<T> CustomerWhereImplementation()
+            {
+                foreach (var item in source)
+                {
+                    if (predicate(item))
+                        yield return item;
+                }
+            }
+        }
+
+        public static Task<string> PerformLongRunningWork(string address, int index)
+        {
+            if (string.IsNullOrWhiteSpace(address))
+                throw new ArgumentException($"{address} is required");
+            if(index < 0)
+                throw new ArgumentException($"{index} should be positive");
+
+            return LongRunningWorkImplementation();
+
+            async Task<string> LongRunningWorkImplementation()
+            {
+                var result1 = await Task.FromResult("123");
+                var result2 = await Task.FromResult(1);
+
+                return $"{result1}-{result2}";
+            }
+        }
+
         private static string WaterState(int tempInFahrenheit) =>
             tempInFahrenheit switch
             {
@@ -58,6 +101,7 @@ namespace CSharpObserveVersions
                 > 212 => "gas",
                 _ => "transition"
             };
+
         private enum Operation
         {
             Start,
