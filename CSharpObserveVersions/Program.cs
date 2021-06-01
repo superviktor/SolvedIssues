@@ -54,6 +54,13 @@ namespace CSharpObserveVersions
             Enumerable.Range(0, 10).CustomWhere(i => i > 2);
 
             await PerformLongRunningWork("address", 1);
+
+            //2 C# 8.0
+            //2.1 Readonly members
+            _= new PointStruct();
+
+            //2.2 Default interface methods
+
         }
 
         public static IEnumerable<T> CustomWhere<T>(this IEnumerable<T> source, Func<T, bool> predicate)
@@ -145,6 +152,24 @@ namespace CSharpObserveVersions
             {
                 (x, y) = (X, Y);
             }
+        }
+
+        public struct PointStruct
+        {
+            public double X { get; set; }
+            public double Y { get; set; }
+
+            public readonly double Distance => Math.Sqrt(X * X + Y * Y);
+
+            public override readonly string ToString() =>
+                $"X: {X}, Y: {Y}, Distance: {Distance}";
+
+            //Not compiled
+            //public readonly void Translate(int xOffset, int yOffset)
+            //{
+            //    X += xOffset;
+            //    Y += yOffset;
+            //}
         }
     }
 }
