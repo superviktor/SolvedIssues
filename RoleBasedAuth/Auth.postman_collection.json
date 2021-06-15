@@ -1,0 +1,98 @@
+{
+	"info": {
+		"_postman_id": "ceac314f-1591-487f-8f5c-07e1fa7d736e",
+		"name": "Auth",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GET with Authorization token",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEiLCJyb2xlIjoiQWRtaW4iLCJuYmYiOjE2MjM3NDU2NDUsImV4cCI6MTYyMzgzMjA0NSwiaWF0IjoxNjIzNzQ1NjQ1fQ.z2ff6NnhJze9zyKn65a56CcJYkJlxwNKh5_19fNVNqo",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:5001/WeatherForecast",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"WeatherForecast"
+					]
+				},
+				"description": "Use valid token value"
+			},
+			"response": []
+		},
+		{
+			"name": "GET and to observe User.Identity",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IjIiLCJyb2xlIjoiVXNlciIsIm5iZiI6MTYyMzc0NTg4MywiZXhwIjoxNjIzODMyMjgzLCJpYXQiOjE2MjM3NDU4ODN9.fbp1YkkoKCU_1w4TyU0AvdQtzHef6A9FQmbGP3g59VM",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:5001/users/1",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"users",
+						"1"
+					]
+				},
+				"description": "Use valid token value"
+			},
+			"response": []
+		},
+		{
+			"name": "POST get token",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"userName\":\"vasyl\",\r\n    \"password\":\"pwd\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:5001/authenticate",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"authenticate"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
