@@ -34,7 +34,7 @@ namespace Logging.Api
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Logging.Api", Version = "v1" });
             });
 
-            services.AddTransient<IWeatherRepo, WeatherRepo>();
+            services.AddTransient<IWeatherService, WeatherService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

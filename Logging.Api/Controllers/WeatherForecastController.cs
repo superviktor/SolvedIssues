@@ -8,19 +8,28 @@ namespace Logging.Api.Controllers
     [Route("[controller]")]
     public class WeatherForecastController : ControllerBase
     {
-        private readonly IWeatherRepo _repo;
+        private readonly IWeatherService _service;
         private readonly ILogger<WeatherForecastController> _logger;
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger, IWeatherRepo repo)
+        public WeatherForecastController(ILogger<WeatherForecastController> logger, IWeatherService service)
         {
             _logger = logger;
-            _repo = repo;
+            _service = service;
         }
 
         [HttpGet]
-        public IActionResult Get()
+        public IActionResult Get([FromQuery] string city, [FromQuery] int days)
         {
-            return Ok(_repo.Get());
+            var scopeInfo = $" city={city}, days={days}";
+            using var scope = _logger.BeginScope("WeatherForecast Get {scopeInfo}", scopeInfo);
+            var weatherForecasts = _service.Get(city, days);
+            return Ok(weatherForecasts);
+        }
+
+        [HttpPost]
+        public IActionResult Create()
+        {
+            return Ok();
         }
     }
 }

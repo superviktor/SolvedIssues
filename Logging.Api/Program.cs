@@ -12,10 +12,13 @@ namespace Logging.Api
         public static void Main(string[] args)
         {
             Log.Logger = new LoggerConfiguration()
+                //possible to use appsettings
                 .MinimumLevel.Debug()
-                .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
-                .MinimumLevel.Override("System", LogEventLevel.Information)
+                .MinimumLevel.Override("Microsoft", LogEventLevel.Warning)
+                .MinimumLevel.Override("System", LogEventLevel.Warning)
+                .MinimumLevel.Override("Weather Service", LogEventLevel.Debug)
                 .Enrich.FromLogContext()
+                //.WriteTo.Console()
                 .WriteTo.Console(new CompactJsonFormatter())
                 .WriteTo.File(
                     $@"{AppDomain.CurrentDomain.BaseDirectory}/logs",
