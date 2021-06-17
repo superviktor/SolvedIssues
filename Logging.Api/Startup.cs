@@ -11,7 +11,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Logging.Api.Attributes;
 using Logging.Api.DataAccess;
+using Logging.Api.ExceptionHandlingMiddleware;
+using Microsoft.AspNetCore.Http;
 
 namespace Logging.Api
 {
@@ -27,7 +30,6 @@ namespace Logging.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -40,12 +42,9 @@ namespace Logging.Api
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Logging.Api v1"));
-            }
+            app.UseApiExceptionHandler(o => o.AddResponseDetails = UpdateApiErrorResponse);
+            app.UseSwagger();
+            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Logging.Api v1"));
 
             app.UseHttpsRedirection();
 
@@ -57,6 +56,12 @@ namespace Logging.Api
             {
                 endpoints.MapControllers();
             });
+        }
+
+        private void UpdateApiErrorResponse(HttpContext context, Exception exception, ApiError apiError)
+        {
+            if (exception is IndexOutOfRangeException)
+                apiError.Details = "Bla bla bla";
         }
     }
 }

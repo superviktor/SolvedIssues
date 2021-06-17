@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Logging.Api.Attributes;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Logging.Api.DataAccess;
 
@@ -18,6 +19,7 @@ namespace Logging.Api.Controllers
         }
 
         [HttpGet]
+        [TypeFilter(typeof(TrackPerformance))]
         public IActionResult Get([FromQuery] string city, [FromQuery] int days)
         {
             var scopeInfo = $" city={city}, days={days}";
@@ -26,10 +28,12 @@ namespace Logging.Api.Controllers
             return Ok(weatherForecasts);
         }
 
-        [HttpPost]
-        public IActionResult Create()
+        [HttpGet]
+        [Route("error")]
+        public IActionResult Error()
         {
-            return Ok();
+            string str = null;
+            return Ok(str.Length);
         }
     }
 }
