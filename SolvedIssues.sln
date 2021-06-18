@@ -122,11 +122,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RoleBasedAuth", "RoleBasedA
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MassTransitRabbitMq", "MassTransitRabbitMq", "{32EEE1E9-8248-4F1A-AA9F-8AACFD4C51C3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsumerApp", "ConsumerApp\ConsumerApp.csproj", "{A8DCCAB6-41F7-488D-BEB1-795A13A3C0D7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsumerApp", "ConsumerApp\ConsumerApp.csproj", "{A8DCCAB6-41F7-488D-BEB1-795A13A3C0D7}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MassTransitRabbitMq", "MassTransitRabbitMq\MassTransitRabbitMq.csproj", "{3CEED4E8-90F8-4FEA-9BF5-2AA1E8EDACE2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MassTransitRabbitMqShared", "MassTransitRabbitMqShared\MassTransitRabbitMqShared.csproj", "{E65AFC63-C081-477F-BA7B-AFB00183061E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MassTransitRabbitMqShared", "MassTransitRabbitMqShared\MassTransitRabbitMqShared.csproj", "{E65AFC63-C081-477F-BA7B-AFB00183061E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Logging", "Logging", "{A9ABC367-21B0-4126-87FE-1698EEFFA356}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logging.Api", "Logging.Api\Logging.Api.csproj", "{FB47C35E-D5C9-413A-BD58-33DAAB606F82}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -286,6 +290,10 @@ Global
 		{E65AFC63-C081-477F-BA7B-AFB00183061E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E65AFC63-C081-477F-BA7B-AFB00183061E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E65AFC63-C081-477F-BA7B-AFB00183061E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FB47C35E-D5C9-413A-BD58-33DAAB606F82}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FB47C35E-D5C9-413A-BD58-33DAAB606F82}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FB47C35E-D5C9-413A-BD58-33DAAB606F82}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FB47C35E-D5C9-413A-BD58-33DAAB606F82}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -337,6 +345,7 @@ Global
 		{A8DCCAB6-41F7-488D-BEB1-795A13A3C0D7} = {32EEE1E9-8248-4F1A-AA9F-8AACFD4C51C3}
 		{3CEED4E8-90F8-4FEA-9BF5-2AA1E8EDACE2} = {32EEE1E9-8248-4F1A-AA9F-8AACFD4C51C3}
 		{E65AFC63-C081-477F-BA7B-AFB00183061E} = {32EEE1E9-8248-4F1A-AA9F-8AACFD4C51C3}
+		{FB47C35E-D5C9-413A-BD58-33DAAB606F82} = {A9ABC367-21B0-4126-87FE-1698EEFFA356}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E96BC937-8A79-47ED-9E9A-7BF856BD0C27}
