@@ -26,6 +26,7 @@ namespace Logging.Api
                     rollOnFileSizeLimit: true,
                     shared: true,
                     flushToDiskInterval: TimeSpan.FromSeconds(1))
+                .WriteTo.Seq("http://localhost:5341")
                 .CreateLogger();
             try
             {
