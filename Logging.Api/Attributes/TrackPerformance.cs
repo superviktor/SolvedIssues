@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using Logging.Api.Logging;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Logging;
 

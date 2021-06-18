@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Reflection;
 
-namespace Logging.Api
+namespace Logging.Api.Logging
 {
     public interface IScopeInfo
     {

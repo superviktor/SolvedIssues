@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Logging.Api.Logging;
 using Microsoft.Extensions.Logging;
 
-namespace Logging.Api.DataAccess
+namespace Logging.Api.Services
 {
     public class WeatherService : IWeatherService
     {

@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 
-namespace Logging.Api
+namespace Logging.Api.Logging
 {
     public class WeatherServiceEvents
     {

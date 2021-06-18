@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Logging.Api.DataAccess
+namespace Logging.Api.Services
 {
     public interface IWeatherService
     {

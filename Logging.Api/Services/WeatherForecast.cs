@@ -1,6 +1,6 @@
 using System;
 
-namespace Logging.Api
+namespace Logging.Api.Services
 {
     public class WeatherForecast
     {

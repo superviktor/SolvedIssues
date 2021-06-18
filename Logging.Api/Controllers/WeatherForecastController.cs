@@ -2,7 +2,7 @@
 using Logging.Api.Attributes;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Logging.Api.DataAccess;
+using Logging.Api.Services;
 
 namespace Logging.Api.Controllers
 {

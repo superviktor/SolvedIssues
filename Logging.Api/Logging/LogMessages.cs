@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.Extensions.Logging;
 
-namespace Logging.Api
+namespace Logging.Api.Logging
 {
     public static class LogMessages
     {

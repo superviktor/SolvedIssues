@@ -4,8 +4,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 using System;
-using Logging.Api.DataAccess;
 using Logging.Api.ExceptionHandlingMiddleware;
+using Logging.Api.Logging;
+using Logging.Api.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 
