@@ -45,7 +45,8 @@ namespace Logging.Api.ExceptionHandlingMiddleware
 
             var innerMessage = GetInnerMostExceptionMessage(exception);
 
-            _logger.LogError(exception, $"{innerMessage} -- {apiError.Id}");
+            var logLevel = _options.DeterminateLogLevel?.Invoke(exception) ?? LogLevel.Error;
+            _logger.Log(logLevel, exception, $"{innerMessage} -- {apiError.Id}");
 
             var result = JsonSerializer.Serialize(apiError);
             context.Response.ContentType = "application/json";

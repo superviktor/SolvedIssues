@@ -1,4 +1,5 @@
-﻿using Logging.Api.Attributes;
+﻿using System;
+using Logging.Api.Attributes;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Logging.Api.DataAccess;
@@ -22,8 +23,7 @@ namespace Logging.Api.Controllers
         [TypeFilter(typeof(TrackPerformance))]
         public IActionResult Get([FromQuery] string city, [FromQuery] int days)
         {
-            var scopeInfo = $" city={city}, days={days}";
-            using var scope = _logger.BeginScope("WeatherForecast Get {scopeInfo}", scopeInfo);
+            using var scope = _logger.BeginScope("WeatherForecast Get {scopeInfo}", $"city={city}, days={days}");
             var weatherForecasts = _service.Get(city, days);
             return Ok(weatherForecasts);
         }
@@ -32,8 +32,7 @@ namespace Logging.Api.Controllers
         [Route("error")]
         public IActionResult Error()
         {
-            string str = null;
-            return Ok(str.Length);
+            throw new Exception("Something with database");
         }
     }
 }
