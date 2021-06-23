@@ -136,6 +136,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SignalRTest", "SignalRTest"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SignalRTest.WebApp", "SignalRTest.WebApp\SignalRTest.WebApp.csproj", "{340E5432-9746-4C29-88FC-D04F77DE9294}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SignalRTest.Client", "SignalRTest.Client\SignalRTest.Client.csproj", "{92698E8D-9660-4D1D-BBB1-C408666558AF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -302,6 +304,10 @@ Global
 		{340E5432-9746-4C29-88FC-D04F77DE9294}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{340E5432-9746-4C29-88FC-D04F77DE9294}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{340E5432-9746-4C29-88FC-D04F77DE9294}.Release|Any CPU.Build.0 = Release|Any CPU
+		{92698E8D-9660-4D1D-BBB1-C408666558AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{92698E8D-9660-4D1D-BBB1-C408666558AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{92698E8D-9660-4D1D-BBB1-C408666558AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{92698E8D-9660-4D1D-BBB1-C408666558AF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -355,6 +361,7 @@ Global
 		{E65AFC63-C081-477F-BA7B-AFB00183061E} = {32EEE1E9-8248-4F1A-AA9F-8AACFD4C51C3}
 		{FB47C35E-D5C9-413A-BD58-33DAAB606F82} = {A9ABC367-21B0-4126-87FE-1698EEFFA356}
 		{340E5432-9746-4C29-88FC-D04F77DE9294} = {6AC7C47B-25BD-4928-B421-4CE3BC4D7A8D}
+		{92698E8D-9660-4D1D-BBB1-C408666558AF} = {6AC7C47B-25BD-4928-B421-4CE3BC4D7A8D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E96BC937-8A79-47ED-9E9A-7BF856BD0C27}

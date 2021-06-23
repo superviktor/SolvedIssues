@@ -28,3 +28,9 @@ document.getElementById("sendButton").addEventListener("click", function (event)
     });
     event.preventDefault();
 });
+
+connection.on("SystemMessage", function (message) {
+    var li = document.createElement("li");
+    document.getElementById("systemInfo").appendChild(li);
+    li.textContent = `${message}`;
+});
