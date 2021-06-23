@@ -52,6 +52,7 @@ namespace SignalRTest.WebApp
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapRazorPages();
+                endpoints.MapControllers();
                 endpoints.MapHub<ChatHub>("/chatHub");
             });
         }
