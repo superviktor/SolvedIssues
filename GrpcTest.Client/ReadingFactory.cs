@@ -13,7 +13,7 @@ namespace GrpcTest.Client
             {
                 CustomerId = customerId,
                 ReadingTime = Timestamp.FromDateTime(DateTime.UtcNow),
-                ReadingValue = new Random().Next(1000)
+                ReadingValue = new Random().Next(10000)
             };
 
             return Task.FromResult(reading);

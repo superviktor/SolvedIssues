@@ -28,16 +28,32 @@ namespace GrpcTest.Api.Service
             {
                 foreach (var reading in request.Readings)
                 {
+                    if (reading.ReadingValue < 1000)
+                    {
+                        _logger.LogDebug("Reading value is below acceptable value");
+                        var trailer = new Metadata
+                        {
+                            {"BadValue", reading.ReadingValue.ToString()},
+                            {"Field", nameof(reading.ReadingValue)},
+                            {"Message", "Reading is invalid"}
+                        };
+                        throw new RpcException(new Status(StatusCode.OutOfRange, "Value is too low"), trailer);
+                    }
+
                     //save to db
                     result.Status = ReadingStatus.Success;
                     _logger.LogInformation($"Reading saved {JsonSerializer.Serialize(reading)}");
 
                 }
             }
+            catch (RpcException)
+            {
+                throw;
+            }
             catch (Exception e)
             {
-                result.Message = $"Exception thrown during process: {e.Message}";
-                _logger.LogError(e.Message);
+                _logger.LogError($"Exception thrown during saving of readings: {e}");
+                throw new RpcException(Status.DefaultCancelled, e.Message);
             }
 
             return Task.FromResult(result);
