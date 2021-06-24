@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Text.Json;
 using System.Threading.Tasks;
+using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
 using GrpcTest.Api.Protos;
 using Microsoft.Extensions.Logging;
@@ -40,6 +41,21 @@ namespace GrpcTest.Api.Service
             }
 
             return Task.FromResult(result);
+        }
+
+        public override async Task<Empty> SendDiagnostics(IAsyncStreamReader<ReadingMessage> requestStream, ServerCallContext context)
+        {
+            var task = Task.Run(async () =>
+            {
+                await foreach (var reading in requestStream.ReadAllAsync())
+                {
+                    _logger.LogInformation($"Received diagnostic reading {JsonSerializer.Serialize(reading)}");
+                }
+            });
+
+            await task;
+
+            return new Empty();
         }
     }
 }

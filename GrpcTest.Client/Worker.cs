@@ -41,10 +41,24 @@ namespace GrpcTest.Client
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
+            var counter = 0;
+            var customerId = _configuration.GetValue<int>("Service:CustomerId");
+
             while (!stoppingToken.IsCancellationRequested)
             {
-                _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
-                var customerId = _configuration.GetValue<int>("Service:CustomerId");
+                counter++;
+                if (counter % 10 == 0)
+                {
+                    _logger.LogInformation("Sending diagnostics");
+                    var stream = Client.SendDiagnostics();
+                    for (var i = 0; i < 5; i++)
+                    {
+                        var reading = await _readingFactory.Generate(customerId);
+                        await stream.RequestStream.WriteAsync(reading);
+                    }
+
+                    await stream.RequestStream.CompleteAsync();
+                }
                 var readingPacket = new ReadingPacket
                 {
                     Status = ReadingStatus.Success,
