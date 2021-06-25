@@ -1,0 +1,9 @@
+syntax = "proto3";
+
+option csharp_namespace = "GrpcTest.Api.Protos";
+
+enum ReadingStatus{
+	Invalid = 0;
+	Success = 1;
+	Failure = 2;
+}
