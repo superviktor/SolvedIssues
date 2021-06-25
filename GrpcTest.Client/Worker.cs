@@ -1,4 +1,6 @@
 using System;
+using System.Net.Http;
+using System.Security.Cryptography.X509Certificates;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using System.Threading;
@@ -28,7 +30,16 @@ namespace GrpcTest.Client
             {
                 if (_client == null)
                 {
-                    var opt = new GrpcChannelOptions() { LoggerFactory = _loggerFactory };
+                    var cert = new X509Certificate2(_configuration["Service:CertificateFileName"],
+                        _configuration["Service:CertificatePassword"]);
+                    var handler = new HttpClientHandler();
+                    handler.ClientCertificates.Add(cert);
+                    var client = new HttpClient(handler);
+                    var opt = new GrpcChannelOptions
+                    {
+                        HttpClient = client,
+                        LoggerFactory = _loggerFactory
+                    };
                     var channel = GrpcChannel.ForAddress(_configuration.GetValue<string>("Service:ServerUrl"), opt);
                     _client = new MeterReadingService.MeterReadingServiceClient(channel);
                 }
@@ -77,15 +88,24 @@ namespace GrpcTest.Client
 
                 try
                 {
-                    if (!NeedsLogin || await GenerateToken())
-                    {
-                        var headers = new Metadata {{"Authorization", $"Bearer {_token}"}};
-                        var result = await Client.AddReadingAsync(readingPacket, headers);
+                    //for jwt
+                    //if (!NeedsLogin || await GenerateToken())
+                    //{
+                    //    var headers = new Metadata {{"Authorization", $"Bearer {_token}"}};
+                    //    var result = await Client.AddReadingAsync(readingPacket, headers);
 
-                        _logger.LogInformation(result.Status == ReadingStatus.Success
-                            ? "Successfully sent"
-                            : "Failed to send");
-                    }
+                    //    _logger.LogInformation(result.Status == ReadingStatus.Success
+                    //        ? "Successfully sent"
+                    //        : "Failed to send");
+                    //}
+
+
+                    var result = await Client.AddReadingAsync(readingPacket);
+
+                    _logger.LogInformation(result.Status == ReadingStatus.Success
+                        ? "Successfully sent"
+                        : "Failed to send");
+
                 }
                 catch (RpcException e)
                 {

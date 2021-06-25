@@ -1,4 +1,7 @@
+using System.Security.Cryptography.X509Certificates;
+using System.Threading.Tasks;
 using GrpcTest.Api.Service;
+using Microsoft.AspNetCore.Authentication.Certificate;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -31,6 +34,21 @@ namespace GrpcTest.Api
             {
                 opt.EnableDetailedErrors = true;
             });
+
+            services.AddAuthentication()
+                .AddCertificate(o =>
+                {
+                    o.AllowedCertificateTypes = CertificateTypes.SelfSigned;
+                    o.RevocationMode = X509RevocationMode.NoCheck;
+                    o.Events = new CertificateAuthenticationEvents
+                    {
+                        OnCertificateValidated = ctx =>
+                        {
+                            ctx.Success();
+                            return Task.CompletedTask;
+                        }
+                    };
+                });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

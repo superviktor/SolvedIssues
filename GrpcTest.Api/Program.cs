@@ -1,11 +1,9 @@
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Security.Cryptography.X509Certificates;
+using Microsoft.AspNetCore.Server.Kestrel.Https;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace GrpcTest.Api
 {
@@ -21,6 +19,17 @@ namespace GrpcTest.Api
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
+                    webBuilder.ConfigureKestrel(o =>
+                    {
+                        var config = o.ApplicationServices.GetService<IConfiguration>();
+                        var cert = new X509Certificate2(config["Certificate:File"], config["Certificate:Password"]);
+                        o.ConfigureHttpsDefaults(h =>
+                        {
+                            h.ClientCertificateMode = ClientCertificateMode.AllowCertificate;
+                            h.CheckCertificateRevocation = false;
+                            h.ServerCertificate = cert;
+                        });
+                    });
                 });
     }
 }

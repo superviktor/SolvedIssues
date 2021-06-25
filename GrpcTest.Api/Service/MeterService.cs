@@ -4,12 +4,13 @@ using System.Threading.Tasks;
 using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
 using GrpcTest.Api.Protos;
+using Microsoft.AspNetCore.Authentication.Certificate;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Logging;
 
 namespace GrpcTest.Api.Service
 {
-    //[Authorize]
+    [Authorize(AuthenticationSchemes = CertificateAuthenticationDefaults.AuthenticationScheme)]
     public class MeterService : MeterReadingService.MeterReadingServiceBase
     {
         private readonly ILogger<MeterService> _logger;
