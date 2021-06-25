@@ -113,11 +113,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AuthenticationAuthorithatio
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Authentiocation and Authorization", "Authentiocation and Authorization\Authentiocation and Authorization.csproj", "{43EB5C01-31BF-413D-BBA7-5ACCE83D1FEE}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{C93925CB-35AD-4F3C-B70D-916E056151CF}"
-	ProjectSection(SolutionItems) = preProject
-		.editorconfig = .editorconfig
-	EndProjectSection
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RoleBasedAuth", "RoleBasedAuth\RoleBasedAuth.csproj", "{4FF5608D-41D7-4163-9C60-8C62EE6FAF5F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MassTransitRabbitMq", "MassTransitRabbitMq", "{32EEE1E9-8248-4F1A-AA9F-8AACFD4C51C3}"
@@ -134,9 +129,21 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Logging.Api", "Logging.Api\
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SignalRTest", "SignalRTest", "{6AC7C47B-25BD-4928-B421-4CE3BC4D7A8D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SignalRTest.WebApp", "SignalRTest.WebApp\SignalRTest.WebApp.csproj", "{340E5432-9746-4C29-88FC-D04F77DE9294}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SignalRTest.WebApp", "SignalRTest.WebApp\SignalRTest.WebApp.csproj", "{340E5432-9746-4C29-88FC-D04F77DE9294}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SignalRTest.Client", "SignalRTest.Client\SignalRTest.Client.csproj", "{92698E8D-9660-4D1D-BBB1-C408666558AF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SignalRTest.Client", "SignalRTest.Client\SignalRTest.Client.csproj", "{92698E8D-9660-4D1D-BBB1-C408666558AF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GrpcTest", "GrpcTest", "{B9FDD9A2-DFF5-410A-B503-94DE37FDD2C5}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GrpcTest.Api", "GrpcTest.Api\GrpcTest.Api.csproj", "{4C621D1A-9795-49EC-B024-4DE477BF88C3}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GrpcTest.Client", "GrpcTest.Client\GrpcTest.Client.csproj", "{6BCE4F1A-58FD-4DF1-8F6A-EDF6C3B4DE06}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Certificate", "Certificate", "{461C880D-B24B-478F-A183-6113FD351686}"
+	ProjectSection(SolutionItems) = preProject
+		howtogeneratecertificate.txt = howtogeneratecertificate.txt
+		makecerts.ps1 = makecerts.ps1
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -308,6 +315,14 @@ Global
 		{92698E8D-9660-4D1D-BBB1-C408666558AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{92698E8D-9660-4D1D-BBB1-C408666558AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{92698E8D-9660-4D1D-BBB1-C408666558AF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4C621D1A-9795-49EC-B024-4DE477BF88C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4C621D1A-9795-49EC-B024-4DE477BF88C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4C621D1A-9795-49EC-B024-4DE477BF88C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4C621D1A-9795-49EC-B024-4DE477BF88C3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6BCE4F1A-58FD-4DF1-8F6A-EDF6C3B4DE06}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6BCE4F1A-58FD-4DF1-8F6A-EDF6C3B4DE06}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6BCE4F1A-58FD-4DF1-8F6A-EDF6C3B4DE06}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6BCE4F1A-58FD-4DF1-8F6A-EDF6C3B4DE06}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -362,6 +377,9 @@ Global
 		{FB47C35E-D5C9-413A-BD58-33DAAB606F82} = {A9ABC367-21B0-4126-87FE-1698EEFFA356}
 		{340E5432-9746-4C29-88FC-D04F77DE9294} = {6AC7C47B-25BD-4928-B421-4CE3BC4D7A8D}
 		{92698E8D-9660-4D1D-BBB1-C408666558AF} = {6AC7C47B-25BD-4928-B421-4CE3BC4D7A8D}
+		{4C621D1A-9795-49EC-B024-4DE477BF88C3} = {B9FDD9A2-DFF5-410A-B503-94DE37FDD2C5}
+		{6BCE4F1A-58FD-4DF1-8F6A-EDF6C3B4DE06} = {B9FDD9A2-DFF5-410A-B503-94DE37FDD2C5}
+		{461C880D-B24B-478F-A183-6113FD351686} = {B9FDD9A2-DFF5-410A-B503-94DE37FDD2C5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E96BC937-8A79-47ED-9E9A-7BF856BD0C27}

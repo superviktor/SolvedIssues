@@ -1,0 +1,7 @@
+#open powershell and get to correct folder
+Set-ExecutionPolicy ByPass -Scope Process
+.\makecerts.ps1
+#put meterSslCert.pfx to server folder
+#put meterSelfCert.pfx to client folder
+#Open certificate manager for user
+#Drag and drop MeterRootCert from Personal to Trusted certificates
