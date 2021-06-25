@@ -1,10 +1,8 @@
+using System;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
 using Grpc.Net.Client;
 using GrpcTest.Api.Protos;
@@ -19,6 +17,10 @@ namespace GrpcTest.Client
         private readonly ReadingFactory _readingFactory;
         private readonly ILoggerFactory _loggerFactory;
         private MeterReadingService.MeterReadingServiceClient _client;
+        private string _token;
+        private DateTime _expiration = DateTime.MinValue;
+
+        protected bool NeedsLogin => string.IsNullOrWhiteSpace(_token) || _expiration > DateTime.UtcNow;
 
         protected MeterReadingService.MeterReadingServiceClient Client
         {
@@ -75,12 +77,15 @@ namespace GrpcTest.Client
 
                 try
                 {
-                    var result = await Client.AddReadingAsync(readingPacket);
+                    if (!NeedsLogin || await GenerateToken())
+                    {
+                        var headers = new Metadata {{"Authorization", $"Bearer {_token}"}};
+                        var result = await Client.AddReadingAsync(readingPacket, headers);
 
-                    _logger.LogInformation(result.Status == ReadingStatus.Success
-                        ? "Successfully sent"
-                        : "Failed to send");
-
+                        _logger.LogInformation(result.Status == ReadingStatus.Success
+                            ? "Successfully sent"
+                            : "Failed to send");
+                    }
                 }
                 catch (RpcException e)
                 {
@@ -91,6 +96,26 @@ namespace GrpcTest.Client
 
                 await Task.Delay(_configuration.GetValue<int>("Service:DelayInterval"), stoppingToken);
             }
+        }
+
+        private async Task<bool> GenerateToken()
+        {
+            var request = new TokenRequest
+            {
+                Username = _configuration["Service:Username"],
+                Password = _configuration["Service:Password"]
+            };
+
+            var response = await Client.CreateTokenAsync(request);
+
+            if (response.Success)
+            {
+                _token = response.Token;
+                _expiration = response.Expiration.ToDateTime();
+                return true;
+            }
+
+            return false;
         }
     }
 }

@@ -4,10 +4,12 @@ using System.Threading.Tasks;
 using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
 using GrpcTest.Api.Protos;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Logging;
 
 namespace GrpcTest.Api.Service
 {
+    //[Authorize]
     public class MeterService : MeterReadingService.MeterReadingServiceBase
     {
         private readonly ILogger<MeterService> _logger;
@@ -72,6 +74,17 @@ namespace GrpcTest.Api.Service
             await task;
 
             return new Empty();
+        }
+
+        [AllowAnonymous]
+        public override Task<TokenResponse> CreateToken(TokenRequest request, ServerCallContext context)
+        {
+            return Task.FromResult(new TokenResponse
+            {
+                Token = "token",
+                Success = true,
+                Expiration = DateTime.UtcNow.AddHours(1).ToTimestamp()
+            });
         }
     }
 }
