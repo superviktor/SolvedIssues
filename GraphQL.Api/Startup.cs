@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using GraphQL.Api.GraphQL;
-using GraphQL.Api.GraphQL.Type;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -34,12 +33,13 @@ namespace GraphQL.Api
             });
 
             services.AddScoped<IProductRepo, ProductRepo>();
+            services.AddScoped<IReviewRepo, ReviewRepo>();
             services.AddScoped<ProductSchema>();
             services.AddGraphQL()
                 .AddSystemTextJson(o => o.PropertyNameCaseInsensitive = true)
                 .AddGraphTypes(ServiceLifetime.Scoped)
-                .AddUserContextBuilder(httpContext => new Dictionary<string, object> { { "User", httpContext.User } })
-                .AddDataLoader()
+                .AddUserContextBuilder(httpContext => new Dictionary<string, object> { { "User", httpContext.User } })//for auth
+                .AddDataLoader()//to cache data from db
                 .AddWebSockets();
 
             services.AddCors();

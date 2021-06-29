@@ -1,6 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 
-namespace GraphQL.Api.Models
+namespace GraphQL.Api.Entities
 {
     public class Product
     {
@@ -13,12 +14,6 @@ namespace GraphQL.Api.Models
         public int Rating { get; set; }
         public DateTimeOffset IntroducedAt { get; set; }
         public string PhotoFileName { get; set; }
-    }
-
-    public enum ProductType
-    {
-        Food,
-        Sport,
-        Entertainment
+        public ICollection<Review> Reviews { get; set; }
     }
 }

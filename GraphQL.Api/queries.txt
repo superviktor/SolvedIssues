@@ -1,0 +1,19 @@
+﻿#get products
+{
+  products
+  {
+    name,
+    price,
+    reviews{
+      title
+    }
+  }
+}
+
+#get product by id
+{
+  product (id: 1)
+  {
+    name
+  }
+}
