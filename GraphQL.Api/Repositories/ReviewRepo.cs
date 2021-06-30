@@ -35,5 +35,12 @@ namespace GraphQL.Api.Repositories
             var reviews = _reviews.Where(pr => ids.Contains(pr.ProductId));
             return Task.FromResult(reviews.ToLookup(r => r.ProductId));
         }
+
+        public Task<Review> AddAsync(Review review)
+        {
+            review.Id = _reviews.Last().Id++;
+            _reviews.Add(review);
+            return Task.FromResult(review);
+        }
     }
 }

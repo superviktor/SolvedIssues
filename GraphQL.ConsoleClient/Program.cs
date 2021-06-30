@@ -2,6 +2,7 @@
 using System.Text.Json;
 using System.Threading.Tasks;
 using GraphQL.ConsoleClient.Clients;
+using GraphQL.ConsoleClient.Models;
 
 namespace GraphQL.ConsoleClient
 {
@@ -18,6 +19,14 @@ namespace GraphQL.ConsoleClient
             var productGraphQlClient = new ProductGraphQlClient();
             var prod1 = await productGraphQlClient.GetProduct(1);
             Console.WriteLine(JsonSerializer.Serialize(prod1));
+
+            //mutation
+            var newReview = await productGraphQlClient.AddReview(new ProductReviewModelInput
+            {
+                ProductId = 1,
+                Title = "review"
+            });
+            Console.WriteLine(JsonSerializer.Serialize(newReview));
             Console.ReadKey();
         }
     }

@@ -32,12 +32,12 @@ namespace GraphQL.Api
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "GraphQL.Api", Version = "v1" });
             });
 
-            services.AddScoped<IProductRepo, ProductRepo>();
-            services.AddScoped<IReviewRepo, ReviewRepo>();
-            services.AddScoped<ProductSchema>();
+            services.AddSingleton<IProductRepo, ProductRepo>();
+            services.AddSingleton<IReviewRepo, ReviewRepo>();
+            services.AddSingleton<ProductSchema>();
             services.AddGraphQL()
                 .AddSystemTextJson(o => o.PropertyNameCaseInsensitive = true)
-                .AddGraphTypes(ServiceLifetime.Scoped)
+                .AddGraphTypes(ServiceLifetime.Singleton)
                 .AddUserContextBuilder(httpContext => new Dictionary<string, object> { { "User", httpContext.User } })//for auth
                 .AddDataLoader()//to cache data from db
                 .AddWebSockets();

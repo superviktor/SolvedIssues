@@ -9,5 +9,6 @@ namespace GraphQL.Api.Repositories
     {
         IEnumerable<Review> GetForProduct(int id);
         Task<ILookup<int, Review>> GetForProductsAsync(IEnumerable<int> ids);
+        Task<Review> AddAsync(Review review);
     }
 }

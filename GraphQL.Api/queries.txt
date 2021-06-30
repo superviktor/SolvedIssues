@@ -79,3 +79,10 @@ query all($skipid:Boolean = false, $showprice:Boolean = true)
     price @include(if:$showprice)
   }
 }
+
+#mutation
+mutation ($review: reviewInput!){
+  createReview(review:$review){
+    id title
+  }
+}
