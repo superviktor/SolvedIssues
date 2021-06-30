@@ -1,4 +1,5 @@
 ﻿using GraphQL.Api.Entities;
+using GraphQL.Api.GraphQL.Messaging;
 using GraphQL.Api.GraphQL.Types;
 using GraphQL.Api.Repositories;
 using GraphQL.Types;
@@ -7,7 +8,7 @@ namespace GraphQL.Api.GraphQL
 {
     public class ProductMutation : ObjectGraphType
     {
-        public ProductMutation(IReviewRepo reviewRepo)
+        public ProductMutation(IReviewRepo reviewRepo, ReviewMessageService messageService)
         {
             FieldAsync<ReviewGt>(
                 "createReview",
@@ -17,7 +18,7 @@ namespace GraphQL.Api.GraphQL
                 {
                     var review = context.GetArgument<Review>("review");
                     await reviewRepo.AddAsync(review);
-                    //messageService.AddReviewAddedMessage(review);
+                    messageService.AddReviewAddedMessage(review);
                     return review;
                 });
         }

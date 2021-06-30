@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using GraphQL.Api.GraphQL;
+using GraphQL.Api.GraphQL.Messaging;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -35,6 +36,7 @@ namespace GraphQL.Api
             services.AddSingleton<IProductRepo, ProductRepo>();
             services.AddSingleton<IReviewRepo, ReviewRepo>();
             services.AddSingleton<ProductSchema>();
+            services.AddSingleton<ReviewMessageService>();
             services.AddGraphQL()
                 .AddSystemTextJson(o => o.PropertyNameCaseInsensitive = true)
                 .AddGraphTypes(ServiceLifetime.Singleton)
@@ -65,7 +67,7 @@ namespace GraphQL.Api
             app.UseAuthorization();
 
             app.UseWebSockets();
-            app.UseGraphQLWebSockets<ProductSchema>("/graphql");
+            app.UseGraphQLWebSockets<ProductSchema>();
             app.UseGraphQL<ProductSchema>();
             app.UseGraphQLPlayground(new PlaygroundOptions()); 
 

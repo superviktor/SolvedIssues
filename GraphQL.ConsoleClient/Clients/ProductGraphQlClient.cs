@@ -44,5 +44,22 @@ namespace GraphQL.ConsoleClient.Clients
             var response = await client.SendMutationAsync<ProductReviewResponse>(query);
             return response.Data.CreateReview;
         }
+
+        public void SubscribeToUpdates()
+        {
+            var client = new GraphQLHttpClient(httpsLocalhostGraphql, new SystemTextJsonSerializer());
+
+            var query = new GraphQLHttpRequest
+            {
+                Query = @"subscription { reviewAdded { title productId } }"
+            };
+
+            var result = client.CreateSubscriptionStream<ProductReviewSubscriptionResponse>(query);
+
+            //result.Subscribe(response =>
+            //{
+            //    var review = response.Data;
+            //});
+        }
     }
 }

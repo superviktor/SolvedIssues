@@ -27,6 +27,8 @@ namespace GraphQL.ConsoleClient
                 Title = "review"
             });
             Console.WriteLine(JsonSerializer.Serialize(newReview));
+
+            productGraphQlClient.SubscribeToUpdates();
             Console.ReadKey();
         }
     }

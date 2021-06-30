@@ -10,6 +10,7 @@ namespace GraphQL.Api.GraphQL
         {
             Query = provider.GetRequiredService<ProductQuery>();
             Mutation = provider.GetRequiredService<ProductMutation>();
+            Subscription = provider.GetRequiredService<ProductSubscription>();
         }
     }
 }
