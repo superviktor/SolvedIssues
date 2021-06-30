@@ -1,0 +1,88 @@
+﻿#get products
+{
+  products
+  {
+    name,
+    price,
+    reviews{
+      title
+    }
+  }
+}
+
+#get product by id
+{
+  product (id: 1)
+  {
+    name
+  }
+}
+
+#alias
+{
+ results: products{
+  nm:name,
+  prc:price
+ }
+}
+
+#mutiple queries
+{
+  pr1:product(id:1){name, price}
+  pr2:product(id:2){name, price}
+}
+
+#fragments
+{
+	pr1:product(id:1){...comparisonFields}
+  pr2:product(id:2){...comparisonFields}
+}
+
+fragment comparisonFields on ProductGt{
+  name, price
+}
+
+
+#named queries
+query all
+{
+  products{
+  name, price
+	}
+}
+
+query pr1
+{
+  product(id:1){
+    name, price
+  }
+}
+
+#parametrized query
+query pr1($pid:ID!)
+{
+  product(id:$pid){
+    name, price
+  }
+}
+
+{
+  "pid": 1
+}
+
+#directives
+query all($skipid:Boolean = false, $showprice:Boolean = true)
+{
+	products{
+    id @skip(if:$skipid),
+    name,
+    price @include(if:$showprice)
+  }
+}
+
+#mutation
+mutation ($review: reviewInput!){
+  createReview(review:$review){
+    id title
+  }
+}
