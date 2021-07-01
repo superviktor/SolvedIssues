@@ -16,7 +16,7 @@ namespace Dapper.Data.Repos
         }
         public Contact Find(int id)
         {
-            throw new System.NotImplementedException();
+            return _db.Query<Contact>("SELECT * FROM Contacts WHERE Id = @Id", new {Id = id}).SingleOrDefault();
         }
 
         public List<Contact> GetAll()
@@ -36,12 +36,21 @@ namespace Dapper.Data.Repos
 
         public Contact Update(Contact contact)
         {
-            throw new System.NotImplementedException();
+            var sql =
+                "UPDATE Contacts " +
+                "SET FirstName = @FirstName, " +
+                "    LastName  = @LastName, " +
+                "    Email     = @Email, " +
+                "    Company   = @Company, " +
+                "    Title     = @Title " +
+                "WHERE Id = @Id";
+            _db.Execute(sql, contact);
+            return contact;
         }
 
         public void Remove(int id)
         {
-            throw new System.NotImplementedException();
+            _db.Execute("DELETE FROM Contacts WHERE Id = @Id", new {Id = id});
         }
     }
 }
