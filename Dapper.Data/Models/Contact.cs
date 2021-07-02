@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Dapper.Contrib.Extensions;
 
 namespace Dapper.Data.Models
 {
@@ -11,8 +12,9 @@ namespace Dapper.Data.Models
         public string Company { get; set; }
         public string Title { get; set; }
 
+        [Computed]
         public bool IsNew => this.Id == default(int);
-
+        [Write(false)]
         public List<Address> Addresses { get; } = new List<Address>();
     }
 }
