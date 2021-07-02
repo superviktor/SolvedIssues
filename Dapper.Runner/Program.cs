@@ -2,10 +2,10 @@
 using System;
 using System.Diagnostics;
 using System.IO;
-using System.Security.Cryptography;
-using System.Text.Json;
 using Dapper.Data.Models;
 using Dapper.Data.Repos;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Dapper.Runner
 {
@@ -17,18 +17,97 @@ namespace Dapper.Runner
             Console.WriteLine("Start");
 
             Init();
-            var repo = CreateRepo();
+            //var repo = CreateRepo();
             //var repo = CreateContribRepo();
-            GetAll(repo);
-            Insert(repo);
-            FindById(repo);
-            Update(repo);
-            Delete(repo);
+            //var repo = CreateRepoSP();
+            //GetAll(repo);
+            //Insert(repo);
+            //FindById(repo);
+            //Update(repo);
+            //Delete(repo);
+            //GetFullContact(repo);
 
-            GetFullContact(repo);
+            List_support_should_produce_correct_results();
+            Dynamic_support_should_produce_correct_results();
+            Bulk_insert_should_insert_4_rows();
+            GetIllinoisAddresses();
+            Get_all_should_return_6_results_with_addresses();
 
             Console.WriteLine("End");
             Console.ReadKey();
+        }
+
+        static void Get_all_should_return_6_results_with_addresses()
+        {
+            var repository = CreateRepoEx();
+
+            // act
+            var contacts = repository.GetAllContactsWithAddresses();
+
+            // assert
+            Console.WriteLine($"Count: {contacts.Count}");
+            Console.WriteLine(contacts.Serialize());
+            Debug.Assert(contacts.First().Addresses.Count == 2);
+        }
+
+        static void GetIllinoisAddresses()
+        {
+            // arrange
+            var repository = CreateRepoEx();
+
+            // act
+            var addresses = repository.GetAddressesByState(17);
+
+            // assert
+            Debug.Assert(addresses.Count == 2);
+            Console.WriteLine(addresses.Serialize());
+        }
+
+        static void Bulk_insert_should_insert_4_rows()
+        {
+            // arrange
+            var repository = CreateRepoEx();
+            var contacts = new List<Contact>
+            {
+                new Contact { FirstName = "Charles", LastName = "Barkley" },
+                new Contact { FirstName = "Scottie", LastName = "Pippen" },
+                new Contact { FirstName = "Tim", LastName = "Duncan" },
+                new Contact { FirstName = "Patrick", LastName = "Ewing" }
+            };
+
+            // act
+            var rowsAffected = repository.BulkInsertContacts(contacts);
+
+            // assert
+            Console.WriteLine($"Rows inserted: {rowsAffected}");
+            Debug.Assert(rowsAffected == 4);
+        }
+
+        static void Dynamic_support_should_produce_correct_results()
+        {
+            // arrange
+            var repository = CreateRepoEx();
+
+            // act
+            var contacts = repository.GetDynamicContactsById(1, 2, 4);
+
+            // assert
+            Debug.Assert(contacts.Count == 3);
+            Console.WriteLine($"First FirstName is: {contacts.First().FirstName}");
+            Console.WriteLine(contacts.Serialize());
+        }
+
+        static void List_support_should_produce_correct_results()
+        {
+            // arrange
+            var repository = CreateRepoEx();
+
+            // act
+            var contacts = repository.GetContactsById(1, 2, 4);
+
+            // assert
+            Debug.Assert(contacts.Count == 3);
+            Console.WriteLine(contacts.Serialize());
         }
 
         static void GetFullContact(IContactRepo repo)
@@ -124,6 +203,16 @@ namespace Dapper.Runner
         {
             var connectionString = _config.GetConnectionString("Default");
             return new ContactRepoContrib(connectionString);
+        }
+        private static IContactRepo CreateRepoSP()
+        {
+            var connectionString = _config.GetConnectionString("Default");
+            return new ContactRepoSP(connectionString);
+        }
+        private static ContactRepositoryEx CreateRepoEx()
+        {
+            var connectionString = _config.GetConnectionString("Default");
+            return new ContactRepositoryEx(connectionString);
         }
     }
 }
