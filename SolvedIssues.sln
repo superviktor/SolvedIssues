@@ -155,9 +155,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DapperTest", "DapperTest", 
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "Dapper.Db", "Dapper.Db\Dapper.Db.sqlproj", "{A583F2D9-A65D-4642-807D-44A7E478C66E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dapper.Data", "Dapper.Data\Dapper.Data.csproj", "{4DDC2D8F-552B-4FD1-BD7D-ACF49991F27F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dapper.Data", "Dapper.Data\Dapper.Data.csproj", "{4DDC2D8F-552B-4FD1-BD7D-ACF49991F27F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dapper.Runner", "Dapper.Runner\Dapper.Runner.csproj", "{0B71E4BF-3343-4AB4-98F0-CBE73CD6D73D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dapper.Runner", "Dapper.Runner\Dapper.Runner.csproj", "{0B71E4BF-3343-4AB4-98F0-CBE73CD6D73D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DurableFunctions", "DurableFunctions", "{9BC93F30-327F-4E9F-93F3-060BB7B94D96}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VideoProcessor", "VideoProcessor\VideoProcessor.csproj", "{23F62274-F965-4FDE-92AE-ADC3BAF87DC1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DataAccessPerformance", "DataAccessPerformance", "{48D7CE37-B8E4-43F1-9955-C602846A3CB8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DalPerformance.Api", "DalPerformance.Api\DalPerformance.Api.csproj", "{FC0B288B-3196-451C-83B5-88CE4C83D558}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -359,6 +367,14 @@ Global
 		{0B71E4BF-3343-4AB4-98F0-CBE73CD6D73D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0B71E4BF-3343-4AB4-98F0-CBE73CD6D73D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0B71E4BF-3343-4AB4-98F0-CBE73CD6D73D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{23F62274-F965-4FDE-92AE-ADC3BAF87DC1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{23F62274-F965-4FDE-92AE-ADC3BAF87DC1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{23F62274-F965-4FDE-92AE-ADC3BAF87DC1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{23F62274-F965-4FDE-92AE-ADC3BAF87DC1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FC0B288B-3196-451C-83B5-88CE4C83D558}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FC0B288B-3196-451C-83B5-88CE4C83D558}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FC0B288B-3196-451C-83B5-88CE4C83D558}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FC0B288B-3196-451C-83B5-88CE4C83D558}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -421,6 +437,8 @@ Global
 		{A583F2D9-A65D-4642-807D-44A7E478C66E} = {B0358ADE-D2B9-4BB8-97FB-787C8E676774}
 		{4DDC2D8F-552B-4FD1-BD7D-ACF49991F27F} = {B0358ADE-D2B9-4BB8-97FB-787C8E676774}
 		{0B71E4BF-3343-4AB4-98F0-CBE73CD6D73D} = {B0358ADE-D2B9-4BB8-97FB-787C8E676774}
+		{23F62274-F965-4FDE-92AE-ADC3BAF87DC1} = {9BC93F30-327F-4E9F-93F3-060BB7B94D96}
+		{FC0B288B-3196-451C-83B5-88CE4C83D558} = {48D7CE37-B8E4-43F1-9955-C602846A3CB8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E96BC937-8A79-47ED-9E9A-7BF856BD0C27}
