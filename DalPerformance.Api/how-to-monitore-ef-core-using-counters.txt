@@ -1,0 +1,18 @@
+﻿#install tool
+dotnet tool install --global dotnet-counters --version 5.0.227602
+#get application process id
+Debug.WriteLine($"PROCESS ID:{Process.GetCurrentProcess().Id}");
+#run counter in powershell
+dotnet counters monitor Microsoft.EntityFrameworkCore -p <PID>
+#observe
+Microsoft.EntityFrameworkCore]
+    Active DbContexts                                               0
+    Execution Strategy Operation Failures (Count / 1 sec)           0
+    Execution Strategy Operation Failures (Total)                   0
+    Optimistic Concurrency Failures (Count / 1 sec)                 0
+    Optimistic Concurrency Failures (Total)                         0
+    Queries (Count / 1 sec)                                         0
+    Queries (Total)                                                44
+    Query Cache Hit Rate (%)                                      NaN
+    SaveChanges (Count / 1 sec)                                     0
+    SaveChanges (Total)                                             0
