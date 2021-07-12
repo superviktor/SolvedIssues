@@ -25,16 +25,74 @@ namespace DalPerformance.Api.Controllers
             _context = context;
         }
 
+
         [HttpGet]
         public IActionResult GetAll()
         {
-            return Ok(_context.Entities.TagWith("GET ALL"));
+            //1 efficient querying rules
+            //1.1 wrong: load full entity
+            var fullEntity = _context.Entities.TagWith("GET ALL");
+            //1.2 right: use projection
+            var withProjection = _context.Entities.Select(e => e.Name);
+
+            //2 limit result set size
+            //2.2 wrong: load full data set 
+            var fullDataSet = _context.Entities;
+            //2.2 right: limited number of results
+            var limited = _context.Entities.Take(25);
+            
+            //3 avoid cartesian explosion when loading related entities
+            //3.1 wrong: use join
+            var joined = _context.Entities
+                .Include(e => e.SubEntities);
+            //3.2 better: split query
+            var splitted = _context.Entities
+                .Include(e => e.SubEntities)
+                .AsSplitQuery();
+
+            //4 prefer eager to lazy loading
+            //4.1 lazy
+            foreach (var entity in _context.Entities)
+            {
+                foreach (var subEntity in entity.SubEntities)
+                {
+                }
+            }
+            //4.2 eager
+            foreach (var entity in _context.Entities.Select(e=> new {e.Name, e.SubEntities}))
+            {
+                foreach (var subEntity in entity.SubEntities)
+                {
+                }
+            }
+
+            //5 buffering and streaming 
+            //5.1 buffering = load all to memory
+            var buffered = _context.Entities.ToList();
+            //5.2 streaming = one entity at a time
+            foreach (var entity in _context.Entities)
+            {
+            }
+
+            //6 ef tracking
+            //6.1 query with tracking state
+            var tracked = _context.Entities.ToList();
+            //6.2 without tracking
+            var asNoTracking = _context.Entities.AsNoTracking().ToList();
+
+            //7 raw sql, user defined functions, views
+            var rawSql = _context.Entities.FromSqlRaw("SELECT * FROM Entities");
+
+            //8 use async
+
+
+            return Ok(fullEntity);
         }
 
         [HttpGet("id/{id}")]
         public IActionResult GetById(Guid id)
         {
-            return Ok(_context.Entities.SingleOrDefault(x=>x.Id == id));
+            return Ok(_context.Entities.SingleOrDefault(x => x.Id == id));
         }
 
         [HttpGet("name/{name}")]

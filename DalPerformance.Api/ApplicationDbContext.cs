@@ -12,6 +12,14 @@ namespace DalPerformance.Api
         {
             modelBuilder.Entity<Entity>()
                 .HasKey(e => e.Id);
+
+            modelBuilder.Entity<SubEntity>()
+                .HasKey(se => se.Id);
+
+            modelBuilder.Entity<SubEntity>()
+                .HasOne(se => se.Entity)
+                .WithMany(e => e.SubEntities)
+                .HasForeignKey(se => se.EntityId);
         }
 
         public void SeedData()

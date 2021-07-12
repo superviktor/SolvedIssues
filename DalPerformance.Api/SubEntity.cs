@@ -1,12 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace DalPerformance.Api
 {
-    public class Entity
+    public class SubEntity
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
-        public ICollection<SubEntity> SubEntities { get; set; }
+        public Guid EntityId { get; set; }
+        public Entity Entity { get; set; }
     }
 }
