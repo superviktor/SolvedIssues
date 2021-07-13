@@ -29,17 +29,23 @@ namespace DalPerformance.Api
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "DalPerformance.Api", Version = "v1" });
             });
             services.AddEntityFrameworkSqlServer()
-                .AddDbContext<ApplicationDbContext>(options =>
-                    options.UseSqlServer(Configuration.GetConnectionString("MsSql"))
-                        .LogTo(Console.WriteLine, LogLevel.Information));
+                //context pooling
+                .AddDbContextPool<ApplicationDbContext>(options =>
+                {
+                    options.UseSqlServer(Configuration.GetConnectionString("MsSql"),
+                            //batch options
+                            o => o.MinBatchSize(2).MaxBatchSize(42))
+                        .LogTo(Console.WriteLine, LogLevel.Information);
+                });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ApplicationDbContext context)
         {
-            context.Database.EnsureDeleted();
-            context.Database.EnsureCreated();
-            context.SeedData();
+            //context.Database.EnsureDeleted();
+            //context.Database.EnsureCreated();
+            //context.SeedData();
+            context.Database.Migrate();
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

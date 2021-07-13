@@ -40,7 +40,7 @@ namespace DalPerformance.Api.Controllers
             var fullDataSet = _context.Entities;
             //2.2 right: limited number of results
             var limited = _context.Entities.Take(25);
-            
+
             //3 avoid cartesian explosion when loading related entities
             //3.1 wrong: use join
             var joined = _context.Entities
@@ -59,7 +59,7 @@ namespace DalPerformance.Api.Controllers
                 }
             }
             //4.2 eager
-            foreach (var entity in _context.Entities.Select(e=> new {e.Name, e.SubEntities}))
+            foreach (var entity in _context.Entities.Select(e => new { e.Name, e.SubEntities }))
             {
                 foreach (var subEntity in entity.SubEntities)
                 {
@@ -86,7 +86,34 @@ namespace DalPerformance.Api.Controllers
             //8 use async
 
 
+            //9 query caching and parametrization 
+            //9.1 different expression trees and query plans
+            var entity1 = _context.Entities.FirstOrDefault(e => e.Name == "name1");
+            var entity2 = _context.Entities.FirstOrDefault(e => e.Name == "name2");
+            //9.2 one expression tree and one parametrized execution plan
+            var name1 = "name1";
+            var name2 = "name2";
+            entity1 = _context.Entities.FirstOrDefault(e => e.Name == name1);
+            entity2 = _context.Entities.FirstOrDefault(e => e.Name == name2);
+
             return Ok(fullEntity);
+        }
+
+        [HttpPut]
+        public IActionResult AddSuffixToName(string suffix)
+        {
+            //batch update
+            foreach (var entity in _context.Entities)
+            {
+                entity.Name += suffix;
+            }
+
+            _context.SaveChanges();
+
+            //bulk update
+            _context.Database.ExecuteSqlRaw($"UPDATE [Entities] SET [Name] = [Name] +{suffix}");
+
+            return NoContent();
         }
 
         [HttpGet("id/{id}")]
@@ -113,5 +140,9 @@ namespace DalPerformance.Api.Controllers
             BenchmarkRunner.Run<AverageBlogRanking>(config);
             return Ok();
         }
+
+        //modeling for performance
+        //1 denormalization  
+        //2 table per hierarchy (not table per type)
     }
 }

@@ -13,6 +13,11 @@ namespace DalPerformance.Api
             modelBuilder.Entity<Entity>()
                 .HasKey(e => e.Id);
 
+            //computed column;
+            modelBuilder.Entity<Entity>()
+                .Property(e => e.Name)
+                .HasComputedColumnSql("[Name]+suffix");
+
             modelBuilder.Entity<SubEntity>()
                 .HasKey(se => se.Id);
 
