@@ -165,7 +165,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VideoProcessor", "VideoProc
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DataAccessPerformance", "DataAccessPerformance", "{48D7CE37-B8E4-43F1-9955-C602846A3CB8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DalPerformance.Api", "DalPerformance.Api\DalPerformance.Api.csproj", "{FC0B288B-3196-451C-83B5-88CE4C83D558}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DalPerformance.Api", "DalPerformance.Api\DalPerformance.Api.csproj", "{FC0B288B-3196-451C-83B5-88CE4C83D558}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
