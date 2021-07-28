@@ -177,6 +177,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DurableFanOutInt", "Durable
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Sql", "Sql", "{D47AF36A-C2D7-497B-8BD7-D66A3A77695D}"
 	ProjectSection(SolutionItems) = preProject
+		functions.sql = functions.sql
 		stored-procedures.sql = stored-procedures.sql
 	EndProjectSection
 EndProject
