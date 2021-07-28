@@ -175,6 +175,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DalPerformance.Api", "DalPe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DurableFanOutInt", "DurableFanOutInt\DurableFanOutInt.csproj", "{E62BFB33-2C8C-47D8-BD2F-03BFEA40D0E7}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Sql", "Sql", "{D47AF36A-C2D7-497B-8BD7-D66A3A77695D}"
+	ProjectSection(SolutionItems) = preProject
+		stored-procedures.sql = stored-procedures.sql
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
