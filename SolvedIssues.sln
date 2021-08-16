@@ -187,7 +187,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DurableHumanInteraction", "
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Cache", "Cache", "{9838D34F-0B8B-4625-BDD2-C06ADE789522}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cache.Api", "Cache.Api\Cache.Api.csproj", "{016D2A8B-537A-42B1-9B13-8C40872932D0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cache.Api", "Cache.Api\Cache.Api.csproj", "{016D2A8B-537A-42B1-9B13-8C40872932D0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RedisDistributedCache.Api", "RedisDistributedCache.Api\RedisDistributedCache.Api.csproj", "{AE818B90-DDA1-4F73-BF00-31990188DE62}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -421,6 +423,10 @@ Global
 		{016D2A8B-537A-42B1-9B13-8C40872932D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{016D2A8B-537A-42B1-9B13-8C40872932D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{016D2A8B-537A-42B1-9B13-8C40872932D0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AE818B90-DDA1-4F73-BF00-31990188DE62}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AE818B90-DDA1-4F73-BF00-31990188DE62}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AE818B90-DDA1-4F73-BF00-31990188DE62}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AE818B90-DDA1-4F73-BF00-31990188DE62}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -491,6 +497,7 @@ Global
 		{5E04FD63-05F1-4AFF-B9F7-00E38BD606C2} = {9BC93F30-327F-4E9F-93F3-060BB7B94D96}
 		{B00B0999-4E41-4A6D-B706-78B098D4BDEE} = {9BC93F30-327F-4E9F-93F3-060BB7B94D96}
 		{016D2A8B-537A-42B1-9B13-8C40872932D0} = {9838D34F-0B8B-4625-BDD2-C06ADE789522}
+		{AE818B90-DDA1-4F73-BF00-31990188DE62} = {9838D34F-0B8B-4625-BDD2-C06ADE789522}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E96BC937-8A79-47ED-9E9A-7BF856BD0C27}
