@@ -3,7 +3,6 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace ResponseCachingMiddleware.Api.Controllers
 {
@@ -23,6 +22,7 @@ namespace ResponseCachingMiddleware.Api.Controllers
             _logger = logger;
         }
 
+        [ResponseCache(Location = ResponseCacheLocation.Client, Duration = 10, NoStore = false)]
         [HttpGet]
         public IEnumerable<WeatherForecast> Get()
         {

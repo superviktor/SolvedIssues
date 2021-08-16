@@ -11,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 
 namespace ResponseCachingMiddleware.Api
 {
@@ -26,6 +27,11 @@ namespace ResponseCachingMiddleware.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddResponseCaching(opt =>
+            {
+                opt.MaximumBodySize = 1024;
+                opt.UseCaseSensitivePaths = true;
+            });
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -48,6 +54,22 @@ namespace ResponseCachingMiddleware.Api
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseResponseCaching();
+
+            app.Use(async (context, next) =>
+            {
+                context.Response.GetTypedHeaders().CacheControl =
+                    new Microsoft.Net.Http.Headers.CacheControlHeaderValue()
+                    {
+                        Public = true,
+                        MaxAge = TimeSpan.FromSeconds(10)
+                    };
+                context.Response.Headers[Microsoft.Net.Http.Headers.HeaderNames.Vary] =
+                    new string[] { "Accept-Encoding" };
+
+                await next();
+            });
 
             app.UseEndpoints(endpoints =>
             {
